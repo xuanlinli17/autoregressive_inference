@@ -17,8 +17,9 @@ In VOI, the encoder permutation generator generates non-monotonic autoregressive
 To install this package, first download the package from github, then install it using pip. For CUDA 10.1 (as configured in `setup.py`), the package versions are Tensorflow 2.3 and PyTorch 1.5, with their corresponding `tensorflow_probability` and `torchvision` versions. For CUDA 11.0, you may need to change the package versions in `setup.py` to be `tensorflow==2.4`, `torch==1.6`, `tensorflow_probability==0.12.1`, and `torchvision==0.7.0`.
 
 ```bash
-git clone git@github.com:{name/voi}
-pip install -e voi
+git clone https://github.com/xuanlinli17/autoregressive_inference
+cd autoregressive_inference
+pip install -e .
 ```
 
 Install helper packages for word tokenization and part of speech tagging. Enter the following statements into the python interpreter where you have installed our package.
@@ -573,6 +574,9 @@ sed -r 's/(@@ )|(@@ ?$)//g' ref_caps_list.txt > ref_caps_list_cleaned.txt
 python scripts/calc_wmt_score.py --files hyp_caps_list_cleaned2.txt ref_caps_list_cleaned2.txt
 ```
 
+## Pretrained Models
+
+We have provided pretrained models for each task [here](https://drive.google.com/drive/folders/1qGi3sVba-tkPQy-Jm8889UwH7dH3pe4G?usp=sharing). 
 
 ## Visualization
 
