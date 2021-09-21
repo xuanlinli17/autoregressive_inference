@@ -7,10 +7,7 @@ events.out.tfevents.**
 .idea**
 *.out**
 *.pkl**
-*.txt**
 *.json**
 *.csv**
-*.png**
-*.jpg**
 *.tfrecord**
 *.pyc**
