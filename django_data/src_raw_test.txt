@@ -1,0 +1,1801 @@
+params is an empty list ,
+if not ,
+params is a list with second element of source as a element .
+return a list containing first element of source and a list containing params .
+result is a list containing an empty string .
+result_args is a list containing an empty list .
+pos and last are integer 0 .
+for every pos and elt in enumerated iterable source ,
+if elt is an instance of six.string_types [ six . string_types ] class ,
+skip this loop iteration .
+join source list elements from last till pos indexes into a string , substitute the result for piece .
+if elt is an instance of Group class ,
+increment piece by firs element of elt .
+substitute second element of elt for param .
+if not ,
+param is None .
+increment pos by one , substitute the result for last .
+for every i in range of integers from 0 to length of result , not included ,
+increment i-th element of result by piece .
+if param is true ,
+append param to i-th element of result_args .
+if elt is an instance of Choice or NonCapture classes ,
+if elt is an instance of NonCapture class ,
+elt is an list with an element elt .
+inner_result and inner_args are empty lists .
+for every item in elt ,
+call the function flatten_result with an argument item , assign the result to res and args , respectively .
+extend list inner_result with res .
+extend list inner_args with args .
+new_result is an empty list .
+new_args is an empty list .
+zip elements of result and result_args into a list of tuples , for every item and args in the result ,
+zip elements of inner_result and inner_args into a list of tuples , for every i_item and i_args in the result ,
+sum item and i_item together , append the result to new_result .
+append i_args to args , append new_args with the result .
+substitute new_result for result .
+substitute new_args for result_args .
+if pos is greater than or equal to last ,
+join elements of list source from index last to the end into a string , substitute it for piece .
+for every i in range of integers from 0 to length of result , not included ,
+increment i-th element of result by piece .
+return result and result_args .
+from django.utils.functional [ django . utils . functional ] import curry and Promise into default name space .
+from django.utils [ django . utils ] import six into default name space .
+derive the class EscapeData from object base class .
+do nothing .
+derive the class EscapeBytes from bytes and EscapeData base classes .
+do nothing .
+derive the class EscapeText from six.text_type [ six . text_type ] and EscapeData base classes .
+do nothing .
+if six.PY3 [ six . PY3 ] is true ,
+substitute EscapeText for EscapeString .
+if not ,
+substitute EscapeBytes for EscapeString .
+substitute EscapeText for EscapeUnicode .
+derive the class SafeData from object base class .
+define the method __html__ with an argument self .
+return self .
+derive the class SafeBytes from bytes and SafeData base classes .
+define the method __add__ with 2 arguments self and rhs .
+call the __add__ method with an arguments rhs from the base class of the class SafeBytes , substitute the result for t .
+if rhs is an instance of SafeText ,
+return an instance of SafeText , created with an argument t .
+otherwise if rhs is an instance of SafeBytes ,
+return an instance of SafeBytes , created with an argument t .
+return t .
+define the method _proxy_method with 3 arguments self , unpacked list args and unpacked dictionary kwargs .
+remove kwargs dictionary element under the _STR:0_ key , substitute it for method .
+call the function method with 3 arguments : self , unpacked list args and unpacked dictionary kwargs , substitute the result for data .
+if data is an instance of bytes ,
+return an instance of SafeBytes , created with an argument data .
+if not ,
+return an instance of SafeText , created with an argument data .
+call the function curry with 2 arguments : _proxy_method and method set to bytes.decode [ bytes . decode ] , substitute the result for decode .
+derive the class SafeText from six.text_type [ six . text_type ] and SafeData base classes .
+define the method __add__ with 2 arguments self and rhs .
+call the __add__ method with an arguments rhs from the base class of the class SafeText , substitute the result for t .
+if rhs is an instance of SafeData .
+return an instance of SafeText , created with an argument t .
+return t .
+define the method _proxy_method with 3 arguments self , unpacked list args and unpacked dictionary kwargs .
+remove kwargs dictionary element under the _STR:0_ key , substitute it for method .
+call the function method with 3 arguments : self , unpacked list args and unpacked dictionary kwargs , substitute the result for data .
+if data is an instance of bytes .
+return an instance of SafeBytes , created with an argument data .
+if not ,
+return an instance of SafeText , created with an argument data .
+call the function curry with 2 arguments : _proxy_method and method set to six.text_type.encode [ six . text_type . encode ] , substitute the result for encode .
+if six.PY3 [ six . PY3 ] is true ,
+substitute SafeText for SafeString .
+if not ,
+substitute SafeBytes for SafeString .
+substitute SafeText for SafeUnicode .
+define the function mark_safe with an argument s .
+if s is an instance of SafeData .
+return s .
+if s is an instance of bytes or Promise and s._delegate_bytes [ s . _delegate_bytes ] is true ,
+return an instance of SafeBytes , created with an argument s .
+if s is an instance of six.text_type [ six . text_type ] or Promise ,
+return an instance of SafeText , created with an argument s .
+return an instance of SafeText , created with an argument s converted into a string .
+define the function mark_for_escaping with an argument s .
+if s is an instance of SafeData or EscapeData ,
+return s .
+if s is an instance of bytes or Promise and s._delegate_bytes [ s . _delegate_bytes ] is true ,
+return an instance of EscapeBytes , created with an argument s .
+if s is an instance of six.text_type [ six . text_type ] or Promise ,
+return an instance of EscapeText , created with an argument s .
+return an instance of EscapeBytes , created with an argument , reuslt of the call to the function bytes with an argument s .
+import module opera .
+import module sys .
+import module types .
+__author__ is a string _STR:0_ .
+__version__ is a string _STR:0_ .
+if first element of sys.version_info [ sys . version_info ] equals integer 2 , PY2 is boolean True , otherwise it is boolean False .
+if first element of sys.version_info [ sys . version_info ] equals integer 3 , PY3 is boolean True , otherwise it is boolean False .
+if PY3 is true ,
+substitute str for string_types .
+substitute int for integer_types .
+substitute type for class_types .
+substitute str for text_type .
+substitute bytes for binary_type .
+substitute sys.maxsize [ sys . maxsize ] for MAXSIZE .
+if not ,
+substitute basestring for string_types .
+integer_types is a tuple with 2 elements int and long .
+class_types is a tuple with 2 elements : type and types.ClassType [ types . ClassType ] .
+substitute unicode for text_type .
+substitute str for binary_type .
+if sys.platform [ sys . platform ] starts with string _STR:0_ ,
+bitwise shift integer 1 to the left by 31 spaces , substitute integer 1 from the result , convert the result to a integer , substitute it for MAXSIZE .
+if not ,
+derive class X from the object base class .
+define the method __len__ with an argument self .
+bitwise shift integer 1 to the left by 31 spaces , return the result .
+try
+instantiate class X , get its length .
+if OverflowError exception is caught ,
+bitwise shift integer 1 to the left by 31 spaces , substitute integer 1 from the result , convert the result to a integer , substitute it for MAXSIZE .
+if not ,
+bitwise shift integer 1 to the left by 63 spaces , substitute integer 1 from the result , convert the result to a integer , substitute it for MAXSIZE .
+delete X .
+define the function _add_doc with 2 arguments : func and doc .
+substitute doc for func.__doc__ [ func . __doc__ ] .
+define the function _import_module with an argument name .
+call the function __import__ with an argument name .
+return value under the name key of the sys.modules [ sys . modules ] dictionary .
+derive class _LazyDescr from the object base class .
+define the method __init__ with 2 arguments : self and name .
+substitute name for self.name [ self . name ] .
+define the method __get__ with 3 arguments : self , obj and tp .
+try ,
+call the method self._resolve [ self . _resolve ] , substitute the result for result .
+if ImportError exception is caught ,
+raise an AttributeError with an argument string _STR:0_ , formated with self.name [ self . name ] .
+set self.name [ self . name ] attribute of the obj object to result .
+delete self.name [ self . name ] attribute from the obj.__class__ [ obj . __class__ ] object .
+return result .
+derive class MovedModule from the _LazyDescr base class .
+define the method __init__ with 4 arguments : self , name , old and new set to None .
+call the __init__ method with an argument name from the base class of the MovedModule class .
+if PY3 is true ,
+if new is None ,
+substitute name for new .
+substitute new for self.mod [ self . mod ] .
+if not ,
+substitute old for self.mod [ self . mod ] .
+define the method _resolve with an argument self .
+call the function _import_module with an argument self.mod [ self . mod ] , return the result .
+define the method __getattr__ with 2 arguments : self and attr set to None .
+if attr equals any of the strings _STR:0_ , _STR:1_ or _STR:2_ and self.mod [ self . mod ] is not contained in sys.modules [ sys . modules ] ,
+raise an AttributeError with an argument attr .
+try ,
+call the method self._resolve [ self . _resolve ] , substitute the result for _module .
+if ImportError exception is caught ,
+raise an AttributeError with an argument attr .
+get attr attribute from the _module object , substitute it for value .
+set attr attribute of the self object to value .
+return value .
+derive class _LazyModule from the types.ModuleType [ types . ModuleType ] base class .
+define the method __init__ with 2 arguments : self and name .
+call the method __init__ with an argument name form the base class of the class _LazyModule .
+substitute self.__class__.__doc__ [ self . __class__ . __doc__ ] for self.__doc__ [ self . __doc__ ] .
+define the method __dir__ with an argument self .
+attrs is a list with 2 elements : strings _STR:0_ and _STR:1_ .
+append attr.name [ attr . name ] to attrs for every attr in self._moved_attributes [ self . _moved_attributes ] .
+return attrs .
+_moved_attributes is an empty list .
+derive class MovedAttribute from the _LazyDescr base class .
+define the method __init__ with 6 arguments : self , name , old_mod , new_mod , old_attr set to None , new_attr set to None .
+call the method __init__ with an argument name form the base class of the class MovedAttribute .
+if PY3 is true ,
+if new_mod is None ,
+substitute name for new_mod .
+substitute new_mod for self.mod [ self . mod ] .
+if new_attr is None ,
+if old_attr is None ,
+substitute name for new_attr .
+if not ,
+substitute old_attr for new_attr .
+substitute new_attr for self.attr [ self . attr ] .
+if not ,
+substitute old_mod for self.mod [ self . mod ] .
+if old_attr is None ,
+substitute name for old_attr .
+substitute old_attr for self.attr [ self . attr ] .
+define the method _resolve with an argument self .
+call the function _import_module with an argument self.mod [ self . mod ] , substitute the result for module .
+gett self.attr [ self . attr ] from the module object , return it .
+derive class _MovedItems from the _LazyModule base class .
+_moved_attributes is a list with 55 initial elements , 13 of them are the results of the call to the function MovedAttribute ,
+with different 3 string arguments , the others are results of the call to the function MovedModule called with 3 string arguments . for every attr in _moved_attributes ,
+set attr.name [ attr . name ] attribute of the _MovedItemst object to attr .
+if attr is an instance of MovedModule .
+concatenate __name__ , string _STR:0_ and attr.name [ attr . name ] together , use it as an key to get the value from the sys.modules [ sys . modules ] dictionary ,
+substitute attr for the obtained value . delete attr .
+substitute _moved_attributes for _MovedItems._moved_attributes [ _MovedItems . _moved_attributes ] .
+append string _STR:0_ to __name__ , use it as an argument to instantiate _MovedItems class , assign it to moves ,
+and to value under the _STR:0_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary . derive class Module_six_moves_urllib_parse from the _LazyModule base class .
+_urllib_parse_moved_attributes is a list with 16 elemetns , all of them are the results of the call to the function MovedAttribute with different 3 string arguments .
+for every attr in _urllib_parse_moved_attributes ,
+set attr.name [ attr . name ] attribute of the Module_six_moves_urllib_parse object to attr .
+delete attr .
+substitute _urllib_parse_moved_attributes for Module_six_moves_urllib_parse._moved_attributes [ Module_six_moves_urllib_parse . _moved_attributes ] .
+call the method Module_six_moves_urllib_request with an argument : string _STR:0_ appended to __name__ ,
+assign the result to the value under the string _STR:0_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary , and to the value under the string _STR:1_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary . derive class Module_six_moves_urllib_error from the _LazyModule base class .
+_urllib_error_moved_attributes is a list with 3 elements : result of the call to the function MovedAttribute with 3 arguments :
+strings _STR:0_ , _STR:1_ , _STR:2_ , result of the call to the function MovedAttribute with 3 arguments : strings _STR:3_ , _STR:1_ , _STR:2_ and result of the call to the function MovedAttribute with 3 arguments : strings _STR:4_ , _STR:5_ , _STR:2_ . for every attr in _urllib_error_moved_attributes ,
+set attr.name [ attr . name ] attribute of the Module_six_moves_urllib_error object to attr .
+delete attr .
+substitute _urllib_error_moved_attributes for Module_six_moves_urllib_error._moved_attributes [ Module_six_moves_urllib_error . _moved_attributes ] .
+call the method Module_six_moves_urllib_request with an argument : string _STR:0_ appended to __name__ ,
+assign the result to the value under the string _STR:0_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary , and to the value under the string _STR:1_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary . derive class Module_six_moves_urllib_request from the _LazyModule base class .
+_urllib_request_moved_attributes is an list with 33 elements , all of them are the results of the call to the function MovedAttribute with 3 different string arguments .
+for every attr in _urllib_request_moved_attributes ,
+set attr.name [ attr . name ] attribute of the Module_six_moves_urllib_request object to attr .
+delete attr .
+substitute _urllib_request_moved_attributes for Module_six_moves_urllib_request._moved_attributes [ Module_six_moves_urllib_request . _moved_attributes ] .
+call the method Module_six_moves_urllib_request with an argument : string _STR:0_ appended to __name__ ,
+assign the result to the value under the string _STR:0_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary , and to the value under the string _STR:1_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary . derive class Module_six_moves_urllib_response from the _LazyModule base class .
+_urllib_response_moved_attributes is a list with 4 elements : result of the function MovedAttribute , called with 3 arguments :
+strings _STR:0_ , _STR:1_ and _STR:2_ , result of the function MovedAttribute , called with 3 arguments : strings _STR:3_ , _STR:1_ , _STR:2_ , result of the function MovedAttribute , called with 3 arguments : strings _STR:4_ , _STR:1_ , _STR:2_ and result of the function MovedAttribute , called with 3 arguments : strings _STR:5_ , _STR:1_ , _STR:2_ . for every attr in _urllib_response_moved_attributes ,
+set attr.name [ attr . name ] attribute of Module_six_moves_urllib_response object to attr .
+delete attr .
+substitute _urllib_response_moved_attributes for Module_six_moves_urllib_response._moved_attributes [ Module_six_moves_urllib_response . _moved_attributes ] .
+instantiate class Module_six_moves_urllib_response with an argument , string _STR:0_ appended to __name__ ,
+assign it to value under the string _STR:0_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary , and to value under the string _STR:1_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary . derive class Module_six_moves_urllib_robotparser from the _LazyModule base class .
+_urllib_robotparser_moved_attributes is a list containing an instance of MovedAttribute class , created with 3 argument : strings ,
+_STR:0_ , _STR:1_ , _STR:2_ . for every attr in _urllib_robotparser_moved_attributes ,
+set attr.name [ attr . name ] attribute of Module_six_moves_urllib_robotparser object to attr .
+delete attr .
+substitute _urllib_robotparser_moved_attributes for Module_six_moves_urllib_robotparser._moved_attributes [ Module_six_moves_urllib_robotparser . _moved_attributes ] .
+instantiate class Module_six_moves_urllib_robotparser with an argument , string _STR:0_ appended to __name__ ,
+assign it to value under the string _STR:0_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary , and to value under the string _STR:1_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary . derive class Module_six_moves_urllib from the types.ModuleType [ types . ModuleType ] base class .
+append string _STR:0_ to __name__ , use it as an key to get the value from the sys.modules [ sys . modules ] dictionary , substitute it for parse .
+append string _STR:0_ to __name__ , use it as an key to get the value from the sys.modules [ sys . modules ] dictionary , substitute it for error .
+append string _STR:0_ to __name__ , use it as an key to get the value from the sys.modules [ sys . modules ] dictionary , substitute it for request .
+append string _STR:0_ to __name__ , use it as an key to get the value from the sys.modules [ sys . modules ] dictionary , substitute it for response .
+append string _STR:0_ to __name__ , use it as an key to get the value from the sys.modules [ sys . modules ] dictionary , substitute it for robotparser .
+define the method __dir__ with an argument self .
+return a list with 5 elements : strings _STR:0_ , _STR:1_ , _STR:2_ , _STR:3_ and _STR:4_ .
+instantiate class Module_six_moves_urllib with an argument , string _STR:0_ appended to __name__ ,
+substitute it for value under the string _STR:0_ appended to __name__ key of the sys.modules [ sys . modules ] dictionary . define the function add_move with an argument move .
+set move.name [ move . name ] attribute of the _MovedItems to move .
+define the function remove_move with an argument name .
+try ,
+delete name attribute of the _MovedItems object .
+if AttributeError exception is caught ,
+try ,
+delete entry under the name key of the moves.__dict__ [ moves . __dict__ ] dictionary .
+if NameError exception is caught ,
+raise an AttributeError with an argument string _STR:0_ , formated with a tuple with an element name .
+if PY3 is true ,
+_meth_func is a string _STR:0_ .
+_meth_self is a string _STR:0_ .
+_func_closure is a string _STR:0_ .
+_func_code is a string _STR:0_ .
+_func_defaults is a string _STR:0_ .
+_func_globals is a string _STR:0_ .
+_iterkeys is a string _STR:0_ .
+_itervalues is a string _STR:0_ .
+_iteritems is a string _STR:0_ .
+_iterlists is a string _STR:0_ .
+if not ,
+_meth_func is a string _STR:0_ .
+_meth_self is a string _STR:0_ .
+_func_closure is a string _STR:0_ .
+_func_code is a string _STR:0_ .
+_func_defaults is a string _STR:0_ .
+_func_globals is a string _STR:0_ .
+_iterkeys is a string _STR:0_ .
+_iterkeys is a string _STR:0_ .
+_iteritems is a string _STR:0_ .
+_iterlists is a string _STR:0_ .
+try ,
+substitute next for advance_iterator .
+if NameError exception is caught ,
+define the function advance_iterator with an argument it .
+return next element of the iterable it .
+substitute klass.__dict__ [ klass . __dict__ ] for next .
+try ,
+substitute callable for callable .
+if NameError exception is caught ,
+define the function callable with an argument obj .
+if _STR:0_ is contained in klass.__dict__ [ klass . __dict__ ] for any klass in __mro__ field of the obj class , return boolean True , otherwise return False .
+if PY3 is true ,
+define the function get_unbound_function with an argument unbound .
+return unbound .
+substitute Iterator for create_bound_method .
+substitute object for Iterator .
+if not ,
+define the function get_unbound_function with an argument unbound .
+return unbound.im_func [ unbound . im_func ] .
+define the function create_bound_function with 2 arguments : func and obj .
+call the method types.MethodType [ types . MethodType ] with 3 arguments : func , obj and obj.__class__ [ obj . __class__ ] , return the result .
+derive the class Iterator from the base class object .
+define the method next with an argument self .
+call the function type with an argument self , on the result call the method __next__ with an argument self , return the result .
+substitute callable for callable .
+call the function _add_doc with 2 arguments : get_unbound_function and string _STR:0_ '' Get the function out of a possibly unbound function_STR:0_ '' .
+call the method operator.attrgetter [ operator . attrgetter ] with an argument _meth_func , substitute the result for get_method_function .
+call the method operator.attrgetter [ operator . attrgetter ] with an argument _meth_self , substitute the result for get_method_self .
+call the method operator.attrgetter [ operator . attrgetter ] with an argument _func_closure , substitute the result for get_method_closure .
+call the method operator.attrgetter [ operator . attrgetter ] with an argument _func_code , substitute the result for get_method_code .
+call the method operator.attrgetter [ operator . attrgetter ] with an argument _func_defaults , substitute the result for get_method_defaults .
+call the method operator.attrgetter [ operator . attrgetter ] with an argument _func_globals , substitute the result for get_method_globals .
+define the function iterkeys with 2 arguments : d and unpacked dictionary kw .
+get _iterkeys attribute of the class d , call the result with an argument unpacked dictionary kw , convert the result to a iterable ,
+return it . define the function itervalues with 2 arguments : d and unpacked dictionary kw .
+get _itervalues attribute of the class d , call the result with an argument unpacked dictionary kw , convert the result to a iterable ,
+return it . define the function iteritems with 2 arguments : d and unpacked dictionary kw .
+get _iteritems attribute of the class d , call the result with an argument unpacked dictionary kw , convert the result to a iterable ,
+return it . define the function iterlists with 2 arguments : d and unpacked dictionary kw .
+get _iterlists attribute of the class d , call the result with an argument unpacked dictionary kw , convert the result to a iterable ,
+return it . if PY3 is true ,
+define the function b with an argument s .
+call the method e.encode [ e . encode ] with an argument string _STR:0_ .
+define the function u with an argument s .
+return s .
+substitute chr for unichr .
+if second element of sys.version_info [ sys . version_info ] is smaller than or equal to integer 1 ,
+define the function int2byte with an argument i .
+call the function bytes with an argument tuple with an element i , return the result .
+if not ,
+call the method operator.methodcaller [ operator . methodcaller ] with 3 arguments : string _STR:0_ , integer 1 and string _STR:1_ , substitute the result for int2byte .
+call te method operator.itemgetter [ operator . itemgetter ] with an argument integer 0 , substitute the result for byte2int .
+substitute operator.getitem [ operator . getitem ] for indexbytes .
+substitute iter for iterbytes .
+import io .
+substitute io.StringIO [ io . StringIO ] for StringIO .
+substitute io.BytesIO [ io . BytesIO ] for BytesIO .
+if not ,
+define the function b with an argument s .
+return s .
+define the function u with an argument s .
+replace every occurrence of raw string _STR:0_\\\\ ' , use the result and string _STR:1_ ,
+as arguments for the call to the unicode function , return the result . substitute unichr for unichr .
+substitute chr for int2byte .
+define the function byte2int with an argument bs .
+get the integer representation of the first element of bs , return it .
+define the function indexbytes with 2 arguments buf and i .
+get the integer representation of the i-th element of buf , return it .
+define the function iterbytes with an argument buf .
+convert byte to its integer representation , return all of the results for every byte in buf .
+import StringIO .
+assign StringIO.StringIO [ StringIO . StringIO ] to StringIO and BytesIO .
+call the function _add_doc with 2 arguments : b and string _STR:0_ '' Byte literal_STR:0_ '' .
+call the function _add_doc with 2 arguments : u and string _STR:0_ '' Text literal_STR:0_ '' .
+if PY3 is true ,
+get _STR:0_ attribute from the moves.builtins [ moves . builtins ] object , substitute it for exec_ .
+define the function reraise with 3 arguments : tp , value and tb set to None .
+if value.__traceback__ [ value . __traceback__ ] is not tb ,
+raise an value.with_traceback [ value . with_traceback ] exception with an argument tb .
+raise an exception value .
+if not ,
+define the function exec with 3 arguments : _code_ , _globs_ set to None and _locs_ set to None .
+if _globs_ is None ,
+call the method sys._getframe [ sys . _getframe ] with an argument 1 , substitute the result for frame .
+substitute frame.f_globals [ frame . f_globals ] for _globs_ .
+if _locs_ is None ,
+substitute if _locs_ is None for _locs_ .
+delete frame .
+otherwise if _locs_ is None ,
+substitute _globs_ with an argument _locs_ .
+execute code statement _STR:0_ '' exec _code_ in _globs_ , _locs__STR:0_ '' .
+call the function exec_ with an argument string _STR:0_ '' def reraise ( tp , value , tb=None ) : raise tp , value , tb_STR:0_ '' .
+get attribute _STR:0_ from the moves.builtins [ moves . builtins ] object , if it exists substitute it for print_ , if not print_ is None .
+if print_ is None ,
+define the function print_ with 2 arguments : unpacked list args and unpacked dictionary kwargs .
+remover _STR:0_ key from the kwargs dictionary , if it exists substitute it for fp , if not substitute sys.stdout [ sys . stdout ] for fp .
+if fp is None ,
+return nothing .
+define the function write with an argument data .
+if data is not an instance of basestring ,
+convert data to string , substitute it for data .
+if fp is an instance of file and data is an instance of unicode and fp.encoding [ fp . encoding ] is not None ,
+get _STR:0_ attribute from fp object , substitute it for errors if it exists , if not errors is None .
+if errors is None ,
+errors is a string _STR:0_ .
+call the method data.encode [ data . encode ] with 2 arguments : fp.encoding [ fp . encoding ] and errors , substitute the result for data .
+write data to fp .
+want_unicode is boolean False .
+remove _STR:0_ key from the kwargs dictionary , if it exists substitute it for sep , if not sep is None .
+if sep is not None ,
+if sep is an instance of unicode ,
+want_unicode is boolean True .
+otherwise if sep is not an instance of string type ,
+raise an TypeError exception with an argument string _STR:0_ .
+remove _STR:0_ key from the kwargs dictionary , if it exists substitute it for end , if not end is None .
+if end is not None ,
+if end is an instance of unicode ,
+want_unicode is boolean True .
+otherwise if end is not an instance of string type ,
+raise an TypeError exception with an argument string _STR:0_ .
+if kwargs is true ,
+raise an TypeError exception with an argument string _STR:0_ .
+if want_unicode is false ,
+for every arg in args ,
+if arg is an instance of unicode ,
+want_unicode is boolean True .
+break from the loop execution .
+if want_unicode is true ,
+convert newline character to unicode and substitute the result for newline .
+convert whitespace character to unicode and substitute the result for space .
+if not ,
+substitute newline character for newline .
+substitute string _STR:0_ for space .
+if sep is None ,
+substitute space for sep .
+if end is None
+substitute space for end .
+for every i and arg in enumerated iterable args ,
+if i is true ,
+call the function write with an argument sep .
+call the function write with an argument arg .
+call the function write with an argument end .
+call the function _add_doc with 2 arguments : reraise and string _STR:0_ '' Reraise an exception._STR:0_ [ exception . _STR:0_ ] '' .
+define the function with_metaclass with 2 arguments meta and unpacked list bases .
+derive the class metaclass form the meta base class .
+substitute type.__call__ [ type . __call__ ] for __call__ .
+substitute type.__init__ [ type . __init__ ] for __init__ .
+define the method __new__ with 4 arguments : cls , name , this_bases and d .
+if this_bases is None ,
+call the method type.__new__ [ type . __new__ ] with 4 arguments : cls , name , empty tuple and d , return the result .
+call the function meta with 3 arguments : name , base and d .
+return an instance of metaclass class , created with 3 arguments : string _STR:0_ , None and an empty dictionary .
+define the function add_metaclass with an argument metaclass .
+define the function wrapper with an argument cls .
+call the method cls.__dict__.copy [ cls . __dict__ . copy ] substitute the result for orig_vars .
+remove _STR:0_ key from the orig_vars dictionary .
+remove _STR:0_ key from the orig_vars dictionary .
+get the value under the _STR:0_ key of the orig_vars dictionary , substitute it for slots .
+if slots is not None ,
+if slots is an instance of str ,
+slots is a list with an element , slots .
+for every slots_var in slots ,
+remove slots_var key from the orig_vars dictionary .
+return an instance of metaclass class , created with 3 arguments : cls.__name__ [ cls . __name__ ] , cls.__bases__ [ cls . __bases__ ] and orig_vars .
+return wrapper .
+if PY3 is true ,
+_assertCountEqual is a strnig _STR:0_ .
+_assertRaisesRegex is a strnig _STR:0_ .
+_assertRegex is a strnig _STR:0_ .
+substitute memoryview for memoryview .
+buffer_types is a tuple with 3 elements : bytes , bytearray and memoryview .
+if not ,
+_assertCountEqual is a strnig _STR:0_ .
+_assertRaisesRegex is a strnig _STR:0_ .
+_assertRegex is a strnig _STR:0_ .
+if sys.platform [ sys . platform ] starts with a string _STR:0_ ,
+substitute memoryview for memoryview .
+if not ,
+substitute buffer for memoryview .
+buffer_types is a tuple with 2 elements bytearray and memoryview .
+define the function assertCountEqual with 3 arguments : self , unpacked list args and unpacked dictionary kwargs .
+get _assertCountEqual attribute of the self object , call the result with 2 arguments : unpacked list args ,
+and unpacked dictionary kwargs , return the result . define the function assertRaisesRegex with 3 arguments : self , unpacked list args and unpacked dictionary kwargs .
+get _assertRaisesRegex attribute of the self object , call the result with 2 arguments : unpacked list args ,
+and unpacked dictionary kwargs , return the result . define the function assertRegex with 3 arguments : self , unpacked list args and unpacked dictionary kwargs .
+get _assertRegex attribute of the self object , call the result with 2 arguments : unpacked list args ,
+and unpacked dictionary kwargs , return the result . call the function MovedModule with 2 arguments : strings _STR:0_ and _STR:1_ ,
+use the result as an argument for the call to the add_move function . call the function MovedModule with 2 arguments : strings _STR:0_ and _STR:1_ ,
+import module contextlib .
+try ,
+import threading .
+except ImportError .
+import dummy_threading as threading .
+derive the class RWLock from the object base class .
+define the method __init__ with an argument self .
+call the method threading.RLock [ threading . RLock ] , substitute the result for self.mutex [ self . mutex ] .
+call the method threading.Semaphore [ threading . Semaphore ] with an argument integer 0 , substitute the result for self.can_read [ self . can_read ] .
+call the method threading.Semaphore [ threading . Semaphore ] with an argument integer 0 , substitute the result for self.can_write [ self . can_write ] .
+self.active_readers [ self . active_readers ] is an integer 0 .
+self.active_writers [ self . active_writers ] is an integer 0 .
+self.waiting_readers [ self . waiting_readers ] is an integer 0 .
+self.waiting_writers [ self . waiting_writers ] is an integer 0 .
+define the method reader_enters with an argument self .
+with self.mutex [ self . mutex ] perform ,
+if self.active_writers [ self . active_writers ] and self.waiting_writers [ self . waiting_writers ] both equal to integer 0 ,
+increment self.active_readers [ self . active_readers ] by 1 .
+call the method self.can_read.release [ self . can_read . release ] .
+if not ,
+increment self.waiting_readers [ self . waiting_readers ] by 1 .
+call the method self.can_read.acquire [ self . can_read . acquire ] .
+define the method reader_leaves with an argument self .
+with self.mutex [ self . mutex ] perform ,
+decrement self.active_readers [ self . active_readers ] by integer 1 ,
+if self.active_readers [ self . active_readers ] equals integer 0 and self.waiting_writers [ self . waiting_writers ] is not equal to integer 0 ,
+increment self.active_writers [ self . active_writers ] by 1 .
+decrement self.waiting_writers [ self . waiting_writers ] by integer 1 ,
+call the method self.can_write.release [ self . can_write . release ] .
+contextlib.contextmanager [ contextlib . contextmanager ] decorator ,
+define the method reader with an argument self .
+call the method self.reader_enters [ self . reader_enters ] .
+try ,
+yield nothing .
+finally perform ,
+call the method self.reader_leaves [ self . reader_leaves ] .
+define the method writer_enters with an argument self .
+with self.mutex [ self . mutex ] perform ,
+if self.active_writers [ self . active_writers ] equals integer 0 and self.waiting_writers [ self . waiting_writers ] equals integer 0 and self.active_readers [ self . active_readers ] equals integer 0 ,
+increment self.active_writers [ self . active_writers ] by integer 1 ,
+call the method self.can_write.release [ self . can_write . release ] .
+if not ,
+increment self.waiting_writers [ self . waiting_writers ] by integer 1 ,
+call the method self.can_write.acquire [ self . can_write . acquire ] .
+define the method writer_leaves with an argument self .
+with self.mutex [ self . mutex ] perform ,
+decrement self.active_writers [ self . active_writers ] by integer 1 ,
+if self.waiting_writers [ self . waiting_writers ] is not equal to integer 0 ,
+increment self.active_writers [ self . active_writers ] by integer 1 ,
+decrement self.waiting_writers [ self . waiting_writers ] by integer 1 ,
+call the method self.can_write.release [ self . can_write . release ] .
+otherwise if self.waiting_readers [ self . waiting_readers ] is not equal to integer 0 ,
+substitute self.waiting_readers [ self . waiting_readers ] for t .
+self.waiting_readers [ self . waiting_readers ] is integer 0 .
+increment self.active_readers [ self . active_readers ] by t .
+while t is greater than integer 0 ,
+call the method self.can_read.release [ self . can_read . release ] .
+decrement t by integer 1 ,
+contextlib.contextmanager [ contextlib . contextmanager ] decorator ,
+define the method writer with an argument self .
+call the method self.writer_enters [ self . writer_enters ] .
+try ,
+yield nothing .
+finally perform ,
+call the method self.writer_leaves [ self . writer_leaves ] .
+from django.utils [ django . utils ] import six into default name space .
+color_names is a tuple with 8 elements : strings _STR:0_ , _STR:1_ , _STR:2_ , _STR:3_ , _STR:4_ , _STR:5_ , _STR:6_ and _STR:7_ .
+foreground is a dictionary created with elements : x appended to a string _STR:0_ for value under the key x of color_names dictionary ,
+for every x in sequence of integers from 0 to 7. background is a dictionary created with elements : x appended to a string _STR:0_ for value under the key x of color_names dictionary ,
+for every x in sequence of integers from 0 to 7 . RESET is a string _STR:0_ .
+opt_dict is an dictionary with 5 elements : _STR:0_ for _STR:1_ , _STR:2_ for _STR:3_ , _STR:4_ for _STR:5_ , _STR:6_ for _STR:7_ ,
+and _STR:0_ for _STR:1_ . define the method colorize with 3 arguments : text set to an empty string , opts set to an empty tuple and unpacked dictionary kwargs .
+code_list is an empty list .
+if text is an empty string and length of opts equals integer 1 and first element of opts equals string _STR:0_ ,
+format string _STR:0_ with RESET , return the result .
+call the function six.iteritems [ six . iteritems ] with an argument kwargs , for every k and v in the result ,
+if k equals a string _STR:0_ ,
+append value under the key v of foreground dictionary to code_list .
+otherwise if k equals a string _STR:0_ ,
+append value under the key v of background dictionary to code_list .
+for every o in opts ,
+if o is contained in opt_dict ,
+append value under the 0 key of the opt_dict dictionary to code_list .
+if string _STR:0_ is not contained in opts ,
+if text is true format with it and RESET a string _STR:0_ , if not format it with an empty string and RESET , substitute the result for text .
+join elements of code_list in a string , separated by _STR:0_ , format string _STR:1_ with it , append text to the result if exists ,
+return the string . define the function make_style with 2 arguments : opts set to an empty tuple and unpacked dictionary kwargs .
+return lambda function with text as argument and return value being result of the function colorize , called with 3 arguments : text ,
+opts and unpacked dictionary kwargs . NOCOLOR_PALETTE is a string _STR:0_ .
+DARK_PALETTE is a string _STR:0_ .
+LIGHT_PALETTE is a string _STR:0_ .
+PALETTES is a dictionary containing 3 elements , a dictionary with 18 pairs of dictionary value and string keys for NOCOLOR_PALETTE ,
+a dictionary with 18 pairs of dictionary value and string keys for DARK_PALETTE , and a dictionary with 18 pairs of dictionary value and string keys for LIGHT_PALETTE . substitute DARK_PALETTE for DEFAULT_PALETTE .
+define the function parse_color_setting with an argument config_string .
+if config_string is false ,
+return value under the DEFAULT_PALETTE key of the PALETTES dictionary .
+convert config_string to lowercase and split it by _STR:0_ character , substitute the result for parts .
+get value under the config_string key of the PALETTES dictionary , call the copy method on the result and substitute it for palette .
+for every part in parts ,
+if part is contained in PALETTES ,
+get the value under the part key of the PALETTES dictionary , update with it palette dictionary .
+otherwise if _STR:0_ is contained in part ,
+definition is an empty dictionary ,
+split part by _STR:0_ character , substitute the result for role and instructions , respectively .
+convert role to uppercase .
+split instructions by _STR:0_ character , substitute the result for styles .
+reverse the order of elements of styles .
+remove first element from styles , split it by the _STR:0_ character , substitute the result for colors .
+reverse the order of colors elements ,
+remove the first element from colors , substitute it for fg .
+if fg is contained in color_names ,
+substitute fg for value under the _STR:0_ key of definition dictionary .
+if colors is true and last element of colors is contained in color_names ,
+substitute last element of colors for value under the _STR:0_ key of definition dictionary .
+opts is a tuple created out of elements s , for every s in styles is s is in the keys of the opt_dict dictionary .
+if opts is true ,
+substitute opts for value under the _STR:0_ key of definition dictionary .
+if role is contained in value under the NOCOLOR_PALETTE key of the PALETTES dictionary and definition is true ,
+substitute definition for value under the role key of palette dictionary .
+if palette equals value under the NOCOLOR_PALETTE key of the PALETTES dictionary ,
+return None .
+return palette .
+from __future__ import unicode_literals into default name space .
+import module re .
+import module unicodedata .
+from gzip import GzipFile into default name space .
+from io import BytesIO into default name space .
+import module warnings .
+from django.utils.deprecation [ django . utils . deprecation ] import RemovedInDjango19Warning into default name space .
+from django.utils.encoding [ django . utils . encoding ] import force_text into default name space .
+from django.utils.functional [ django . utils . functional ] import allow_lazy and SimpleLazyObject into default name space .
+from django.utils [ django . utils ] import six into default name space .
+from django.utils.six.moves [ django . utils . six . moves ] import html_entities into default name space .
+from django.utils.translation [ django . utils . translation ] import ugettext_lazy , ugettext as _ and pgettext into default name space .
+from django.utils.safestring [ django . utils . safestring ] import mark_safe into default name space .
+if six.PY2 [ six . PY2 ] is true ,
+from django.utils.encoding [ django . utils . encoding ] import force_unicode .
+if identity lambda function returns false , substitute the x for capfirst , if not call the function force_text with an argument x ,
+convert the first element of the result to uppercase , append to it the rest of the result , substitute it for capfirst . call the function allow_lazy with 3 arguments : capfirst and six.text_type [ six . text_type ] .
+call the function re.compile [ re . compile ] with 2 arguments : raw string _STR:0_ and bitwise OR performed with 2 operands ,
+re.U [ re . U ] and re.S [ re . S ] , substitute the result for re_words . call the function re.compile [ re . compile ] with 2 arguments : raw string _STR:0_ and bitwise OR performed with 2 operands ,
+re.U [ re . U ] and re.S [ re . S ] , substitute the result for re_chars . call the function re.compile [ re . compile ] with 2 arguments : raw string _STR:0_ and bitwise OR performed with 2 operands ,
+re.U [ re . U ] and re.S [ re . S ] , substitute the result for re_chars . call the function re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute the result for re_newlines .
+call the function re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute the result for re_camel_case .
+define the function wrap with 2 arguments text and width .
+call the function force_text with an argument text , substitute the result for text .
+define the function _generator .
+call the method text.splitlines [ text . splitlines ] with an argument boolean True , for every line in the result ,
+if line ends with a new line character substitute width incremented by integer 1 for max_width , if not substitute width for max_width .
+while length of line is grater than max_width ,
+get fist max_width incremented by 1 elements from line , find index of the first occurrenece of whitespace from the right side ,
+add integer 1 to it , substitute the result for space . if space equals integer 0 ,
+find first index of whitespace occurrence in line , add integer 1 to it , substitute the result for space .
+if space equals integer 0 ,
+yield line .
+line is an empty string .
+break from the loop execution
+get the first space decremented with integer 1 elements from string line , append newline character to it , and yield the result .
+remove all the elements from space index of line .
+if line ends with a new line character substitute width incremented by integer 1 for max_width , if not substitute width for max_width .
+if line is true ,
+yield line .
+call the function _generator , join the result into a string , return the result .
+call the function allow_lazy with 2 arguments : wrap and six.text_type [ six . text_type ] , substitute the result for wrap .
+derive the class Truncator form the SimpleLazyObject class .
+define the method __init__ with 2 arguments : self and text .
+call the method __init__ from the base class of the class Truncator ,
+called with with an argument lambda function which returns result of the force_text function called with an argument text . define the method add_truncation_text with 3 arguments : self , text and truncate set to None .
+if truncate is None ,
+call the function pgettext with an argument _STR:0_ , _STR:1_ , substitute the result for truncate .
+call the function force_text with an argument truncate , substitute the result for truncate .
+if string _STR:0_ is contained in truncate ,
+format truncate with a dictionary with an element : text for _STR:0_ , return the result .
+if text ends with truncate ,
+return text .
+append truncate to text , return the result .
+define the method chars with 4 arguments : self , num , truncate set to None , html set to boolean False .
+convert num to an integer , substitute it for length .
+call the function unicodedata.normalize [ unicodedata . normalize ] with 2 arguments : string _STR:0_ and self._wrapped [ self . _wrapped ] , substitute the result for text .
+substitute length for truncate_len .
+for every char in result of the self.add_truncation_text [ self . add_truncation_text ] , called with 2 arguments : an empty string and truncate .
+call the method unicodedata.combining [ unicodedata . combining ] with an argument char , if it evaluates to false ,
+decrement truncate_len by integer 1 .
+if truncate_len equals integer 0 .
+break from the loop execution .
+if html is true ,
+call the function self._truncate_html [ self . _truncate_html ] with 5 arguments : length , truncate , text , truncate_len and boolean False , return the result .
+call the method self._text_chars [ self . _text_chars ] with 4 arguments : length , truncate , text and truncate_len , return the result .
+call the function allow_lazy with an argument chars , substitute the result for chars .
+define the method _text_chars with 5 arguments : self , length , truncate , text and truncate_len .
+s_len is integer 0 .
+end_index is None .
+for every i and char in enumerated text ,
+call the function unicodedata.combining [ unicodedata . combining ] with an argument char , if it evaluates to true ,
+skip this loop iteration , s
+increment s_len by integer 1 ,
+if end_index is None and s_len is greater than truncate_len ,
+substitute i for end_index .
+if s_len is greater than length ,
+call the method self.add_truncation_text [ self . add_truncation_text ] with 2 arguments : if end_index is greater than zero , first end_index elements of text ,
+if not an empty string , and truncate , return the result . return text .
+define the method words with 4 arguments : self , num , truncate set to None , html set to boolean False .
+convert num to an integer , substitute the result for length .
+if html is true ,
+call the method self._truncate_html [ self . _truncate_html ] with 5 arguments : length , truncate , self._wrapped [ self . _wrapped ] , length and boolean True , return the result .
+call the method self._text_words [ self . _text_words ] with 2 arguments length and truncate , return the result .
+call the function allow_lazy with an argument words , substitute the result for words .
+define the method _text_words with 3 arguments : self , length and truncate .
+split self._wrapped [ self . _wrapped ] into words , substitute the result for words .
+if length of words is greater than length ,
+substitute first length elements of words for words .
+call the method self.add_truncation_text [ self . add_truncation_text ] with 2 arguments : elements of words joined in a string , separated with whitespaces ,
+and truncate , return the result . return elements of words joined in a string , separated with whitespaces .
+define the method _truncate_html with 6 arguments : self , length , truncate , text , truncate_len and words .
+if words is not empty and length is smaller than or equal to integer 0 ,
+return an empty string .
+html4_singlets is a tuple with 9 elements : strings _STR:0_ , _STR:1_ , _STR:2_ , _STR:3_ , _STR:4_ , _STR:5_ , _STR:6_ , _STR:7_ and _STR:8_ .
+pos is equal to integer 0 .
+end_text_pos is equal to integer 0 .
+current_len is equal to integer 0 .
+open_tags is an empty list .
+if words is true , substitute re_words for regex , if not substitute re_chars for regex .
+while current_len is smaller than or equal to length ,
+call the method regex.search [ regex . search ] with 2 arguments : text and pos .
+if m is false ,
+break from the loop execution ,
+call the method m.end [ m . end ] with an argument integer 0 , substitute the result for pos .
+call the function m.group [ m . group ] , if the result evaluates to true ,
+increment current_len by integer 1 ,
+if current_len equals truncate_len ,
+substitute pos for end_text_pos .
+skip this loop iteration .
+call the method m.group [ m . group ] with an argument integer 0 , use it as an argument for the call to the re_tag.match [ re_tag . match ] function ,
+substitute the result for tag . if tag is false or current_len is greater or equal to truncate_len ,
+skip this loop iteration .
+call the method tag.groups [ tag . groups ] , substitute the result for closing_tag , tagname and self_closing , respectively .
+convert tagname to lowercase , substitute it for tagname .
+if self_closing is true or tagname is contained in html4_singlets ,
+do nothing .
+otherwise if closing_tag is true ,
+try ,
+get the index of the first occurrence of tagname , substitute it for i .
+if ValueError exception is caught ,
+do nothing .
+if not ,
+create a list out of open_tags elements form ( i+1 ) -th index to the end , substitute it for open_tags .
+if not ,
+insert tagname at the beginning of open_tags .
+if current_len is smaller than or equal to length ,
+return text .
+create a list out of fist end_text_pos text elemnts , substitue it for out .
+call the method self.add_truncation_text [ self . add_truncation_text ] with 2 arguments : an empty string and truncate , substitute it for truncate_text .
+if truncate_text is true ,
+append truncate_text to out .
+for every tag in open_tags ,
+replace ' % s ' in string _STR:0_ with tag , append the result to out .
+return out .
+define the function get_valid_filename with an argument s .
+call the function force_text with an argument s , strip the result of whitespaces from both ends ,
+replace every occurrence of whitespaces in the previous result for _STR:0_ , substitute the result for s. call the function re.sub [ re . sub ] with 3 arguments : raw string _STR:1_ , an empty string and s , return the result .
+call the function allow_lazy with 2 arguments : get_valid_filename and six.text_type [ six . text_type ] , substitute the result for get_valid_filename .
+define the function get_text_list with 2 arguments : list_ and last_word set to result of the function ugettext_lazy called with an argument string _STR:0_ .
+is length of list_ equals integer 0 ,
+return an empty string .
+if length of list_ equals integer 1 ,
+call the function force_text with first element of list_ as an argument , return the result .
+return a string _STR:0_ formated with 3 elements : result of the function force_text called with an argument i ,
+separated by result of the function _ called with an argument string _STR:0_ , for every i in list_ without last element , result of the function force_text called with an argument last_word , result of the function force_text called with an argument : last element of list_ . call the function allow_lazy with 2 arguments : get_text_list and six.text_type [ six . text_type ] , substitute the result for get_text_list .
+define the function normalize_newlines with an argument text .
+call the function force_text with an argument text , substitute the result for text .
+call the method re_newlines.sub [ re_newlines . sub ] with 2 arguments : _STR:0_ and text , return the result .
+call the function allow_lazy with 2 arguments : normalize_newlines and six.text_type [ six . text_type ] , substitute the result for normalize_newlines .
+define the function phone2numeric with an argument phone .
+char2number is an dictionary , with 26 elements : 2 for _STR:0_ , 2 for _STR:1_ , 2 for _STR:2_ , 3 for _STR:3_ , 3 for _STR:4_ , 3 for _STR:5_ , 4 for _STR:6_ ,
+4 for _STR:0_ , 4 for _STR:1_ , 4 for _STR:2_ , 5 for _STR:3_ , 5 for _STR:4_ , 5 for _STR:5_ , 6 for _STR:6_ , 6 for _STR:7_ , 6 for _STR:8_ , 7 for _STR:9_ , 7 for _STR:10_ , 7 for _STR:10_ , 7 for _STR:11_ , 7 for _STR:12_ , 8 for _STR:12_ , 8 for _STR:13_ , 8 for _STR:14_ , 9 for _STR:15_ , 9 for _STR:16_ , 9 for _STR:17_ and 9 for _STR:18_ . for every c in phone converted to lowercase , join the value under the c key of the char2number dictionary into a string , return it .
+call the function allow_lazy with an argument phone2numeric , substitute the result for phone2numeric .
+define the function compress_string with an argument s .
+zbuf is an instance of BytesIO class .
+zfile is an instance of GzipFile class , created with 3 arguments : mode set to string _STR:0_ , compresslevel set to integer 6 ,
+and fileobj set to zbuf . call the method zfile.write [ zfile . write ] with an argument s .
+call the method zfile.close [ zfile . close ] .
+call the method zbuf.getvalue [ zbuf . getvalue ] , return the result .
+derive the class StreamingBuffer from the object base class .
+define the method __init__ with an argument self .
+self.vals [ self . vals ] is an empty list .
+define the method write with 2 arguments : self and val .
+append val to self.vals [ self . vals ] .
+define the method read with an argument self .
+join elements of self.vals [ self . vals ] into a bytes string , substitute the result for ret .
+self.vals [ self . vals ] is an empty list .
+return ret .
+define the method flush with an argument self .
+return nothing .
+define the method close with an argument self .
+return nothing .
+define the function compress_sequence with an argument sequence .
+buf is an instance of StreamingBuffer class .
+zfile is an instance of GzipFile class , created with 3 arguments : mode set to string _STR:0_ , compresslevel set to integer 6 ,
+and fileobj set to buf . read data from buf file stream , yield the result .
+for every item in sequence ,
+write item to zfile stream .
+flush zfile stream buffer .
+read data from buf , yield the result .
+close zfile stream .
+read data from buf , yield the result .
+call the function re.compile [ re . compile ] with an argument string _STR:0_ , substitute the result for ustring_re .
+define the function javascript_quote with 2 arguments : s and quote_double_quotes set to boolean False .
+msg is an string _STR:0_ .
+call the function warnings.warn [ warnings . warn ] with 3 arguments : msg , RemovedInDjango19Warning and stacklevel as integer 2 .
+define the function fix with an argument match .
+get the unicode representation of result of the method match.group [ match . group ] called with an integer 1 , format with in a string _STR:0_ ,
+return the result . if type of s equals bytes ,
+call the method s.decode [ s . decode ] with an argument string _STR:0_ , substitute the result for s .
+otherwise if , type of s doesnt equal to six.text_type [ six . text_type ] ,
+raise an TypeError with an argument s .
+replace every occurrence of _STR:0_\\\\ ' .
+replace every occurrence of _STR:0_ in s with _STR:1_ .
+replace every occurrence of _STR:0_ in s with _STR:1_ .
+replace every occurrence of _STR:0_ in s with _STR:1_ .
+replace every occurrence of _STR:0_ in s with _STR:1_ .
+replace every occurrence of _STR:0_ in s with _STR:1_ .
+if quote_double_quotes is true ,
+replace every occurrence of _STR:0_ in s with _STR:1_ .
+call the method ustring_re.sub [ ustring_re . sub ] with 2 arguments : fix and s , return the result .
+call the function allow_lazy with 2 arguments : javascript_quote and six.text_type [ six . text_type ] , substitute the result for javascript_quote .
+call the function re.compile [ re . compile ] with 2 arguments : raw string _STR:0_ ] * ( ? : ( ? : _STR:1_\\ ] |\\ . ) *_STR:2_ ] * ) + ) | \+ ) '' ,
+and re.VERBOSE [ re . VERBOSE ] , substitute the result for smart_split_re . define the function smart_split with an argument text .
+call the function force_text with an argument text , substitute the result for text .
+call the method smart_split_re.finditer [ smart_split_re . finditer ] with an argument text , for every bit in result ,
+call the method bit.group [ bit . group ] with an argument integer 0 , yield the result .
+define the function _replace_entity with an argument match .
+call the method match.group [ match . group ] with an argument integer 1 , substitute the result for text .
+if first element of text equals _STR:0_ ,
+remove first element of text .
+try ,
+if first element of text is contained in _STR:0_ .
+convert text without first element to hexadecimal integer , substitute it for c .
+if nor ,
+convert text to an integer , substitute it for c .
+call the method six.unichr [ six . unichr ] with an argument c , return the result .
+if ValueError exception is caught ,
+call the method match.group [ match . group ] with an argument integer 0 , return the result .
+if not ,
+try ,
+call the function six.unichr [ six . unichr ] with value under the text key of the html_entities.name2codepoint [ html_entities . name2codepoint ] dictionary , return the result .
+if OverflowError or ValueError exceptions are caught ,
+call the method match.group [ match . group ] with an argument integer 0 , return the result .
+call the method re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute the result for _entity_re .
+define the function unescape_entities with an argument text .
+call the method _entity_re.sub [ _entity_re . sub ] with 2 arguments : _replace_entity and text , return the result .
+call the function allow_lazy with 2 arguments : unescape_entities and six.text_type [ six . text_type ] , substitute the result for unescape_entities .
+define the function unescape_string_literal with an argument s .
+if first element of s is not contained in _STR:0_ or last element of s is not equal to first element of s ,
+raise an ValueError exception wit an argument string _STR:0_ , where _STR:1_ is replaced with s .
+substitute first element of s for quote .
+remove first and last elements of s , replace every occurrence of string _STR:0_ formated with quote with quote ,
+replace every occurrence of raw string _STR:0_\\ ' , return the result . call the function allow_lazy with an argument unescape_string_literal , substitute the result for unescape_string_literal .
+define the function slugify with an argument value .
+call the method unicodedata.normalize [ unicodedata . normalize ] with 2 arguments : string _STR:0_ and value , encode the result with 2 arguments : string _STR:1_ ,
+and string _STR:0_ , call the method decode on the result with an argument string _STR:1_ , substitute the result for value . call the method re.sub [ re . sub ] with 3 arguments : string _STR:2_ , empty string and value , strip the result of whitespaces from both ends ,
+and convert it to lowercase , substitute the result for value . call the function re.sub [ re . sub ] with 3 arguments : string _STR:0_ , string _STR:1_ and value , use the result as an argument for the call to the ,
+mark_safe function , return the result . call the function allow_lazy with 2 arguments : slugify and six.text_type [ six . text_type ] , substitute the result slugify .
+define the function camel_case_to_spaces with an argument value .
+call the method re_camel_case.sub [ re_camel_case . sub ] with 2 arguments : raw string _STR:0_ and value , strip the result of whitespaces from both ends ,
+from __future__ import unicode_literals into default name space .
+import module datetime .
+from django.utils.html [ django . utils . html ] import avoid_wrapping into default name space .
+from django.utils.timezone [ django . utils . timezone ] import is_aware and utc into default name space .
+from django.utils.translation [ django . utils . translation ] import ugettext and ungettext_lazy into default name space .
+define the function timesince with d , now defaulting to None , reversed defaulting to False as arguments .
+chunks is a tuple containing 6 initial tuples :
+result of multiplication of integers : 60,60,24,365 , and return value of ungettext_lazy with 2 arguments : _STR:0_ , _STR:1_ , result of multiplication of integers : 60,60,24,30 , and return value of ungettext_lazy with 2 arguments : _STR:2_ , _STR:2_ , result of multiplication of integers : 60,60,24,7 , and return value of ungettext_lazy with 2 arguments : _STR:3_ , _STR:3_ , result of multiplication of integers : 60,60,24 , and return value of ungettext_lazy with 2 arguments : _STR:4_ , _STR:4_ , result of multiplication of integers : 60,60 , and return value of ungettext_lazy with 2 arguments : _STR:5_ , _STR:5_ , result of multiplication of integers : 60 , and return value of ungettext_lazy with 2 arguments : _STR:6_ , _STR:6_ , if d is not an instance of datetime.datetime [ datetime . datetime ] ,
+call the function datetime.datetime [ datetime . datetime ] with 3 arguments , d.year [ d . year ] , d.month [ d . month ] and d.day [ d . day ] , substitute the result for d .
+if now equals to boolean True and now is not an instance of datetime.datetime [ datetime . datetime ] ,
+call the function datetime.datetime [ datetime . datetime ] with 3 arguments , now.year [ now . year ] , now.month [ now . month ] and now.day [ now . day ] , substitute the result for now .
+if now is false ,
+call the function datetime.datetime [ datetime . datetime ] with utc as argument if call to the is_aware ( d ) returns True , if not None is the argument , store the result in now .
+if reversed is True substitute difference of d and now for delta , if not substitute the difference of now and d for delta .
+multiply delta.days [ delta . days ] , integer 24 , integer 60 and integer 60 add delta.seconds [ delta . seconds ] to it , substitute the result for since .
+if since is lesser or equal to integer 0 ,
+call the function ugettext with _STR:0_ as argument , use the result as the argument for the call to the avoid_wrapping function , return the result .
+for every i and tuple containing 2 elements : seconds and name , in enumerated chunks ,
+divide since by seconds , store the floored result in count .
+if count does not equals to integer 0 ,
+break the execution of the smallest enclosing loop .
+use the remainder of the division of name by count as the argument for the call to the avoid_wrapping function , store the result in result .
+if i incremented by 1 is lesser than length of chunks ,
+get the element of chunks at the ( i+1 ) -the index , assign it to the seconds2 and name2 , respectively .
+multiply seconds by count , subtract it from since , divide the result by seconds2 , store the floored result in count2 .
+if count2 does not equals to integer 0 ,
+call avoid_wrapping function with name2 modulus count2 as argument , call the ugettext with _STR:0_ as argument , add previous 2 results , increment variable result by it .
+return result .
+define the function timeuntil with 2 arguments , d and now defaulting to none .
+evaluate the function timesince with d , now and reversed set to boolean true as arguments , return the result .
+from datetime import datetime , timedelta and tzinfo into default name space .
+from threading import local into default name space .
+import module sys .
+import module time as _time .
+try ,
+import pytz .
+if ImportError exception is caught ,
+pytz is None .
+from django.conf [ django . conf ] import settings into default name space .
+from django.utils [ django . utils ] import six into default name space .
+__all__ is a list with 15 elements : strings _STR:0_ , _STR:1_ , _STR:2_ , _STR:3_ ,
+_STR:0_ , _STR:1_ , _STR:2_ , _STR:3_ , _STR:4_ , _STR:5_ , _STR:6_ , _STR:7_ , _STR:8_ , _STR:9_ and _STR:10_ . call the function timedelta with an argument integer 0 , substitute the result for ZERO .
+derive the class UTC from the tzinfo base class .
+define the method __repr__ with an argument self .
+return a string _STR:0_ .
+define the method utcoffset with 2 arguments self and dt .
+return ZERO .
+define the method tzname with 2 arguments self and dt .
+return a string _STR:0_ .
+define the method dst with 2 arguments self and dt .
+return ZERO .
+derive the class FixedOffset from the tzinfo base class .
+define the method __init__ with 3 arguments : self , offset set to None , name set to None .
+if offset is not None ,
+call the function timedelta with an argument minutes set to offset , substitute the result for self.__offset [ self . __offset ] .
+if name is not None ,
+substitute name for self.__name [ self . __name ] .
+define the method utcoffset with 2 arguments : self and dt .
+return self.__offset [ self . __offset ] .
+define the method tzname with 2 arguments : self and dt .
+return self.__name [ self . __name ] .
+define the method dst with 2 arguments : self and dt .
+return ZERO .
+derive the class ReferenceLocalTimezone from the tzinfo base class .
+define the method __init__ with an argument self .
+call the function timedelta with an argument seconds set to negative _time.timezone [ _time . timezone ] , substitute the result for self.STDOFFSET [ self . STDOFFSET ] .
+if _time.daylight [ _time . daylight ] is true ,
+call the function timedelta with an argument seconds set to negative _time.altzone [ _time . altzone ] , substitute the result for self.DSTOFFSET [ self . DSTOFFSET ] .
+if not ,
+substitute self.STDOFFSET [ self . STDOFFSET ] for self.DSTOFFSET [ self . DSTOFFSET ] .
+subtract self.STDOFFSET [ self . STDOFFSET ] with self.DSTOFFSET [ self . DSTOFFSET ] , substitute the result for self.DSTDIFF [ self . DSTDIFF ] .
+call the method tzinfo.__init__ [ tzinfo . __init__ ] with an argument self .
+define the method utcoffset with 2 arguments : self and dt .
+call the method self._isdst [ self . _isdst ] with an argument dt , if it evaluates to true ,
+return self.DSTOFFSET [ self . DSTOFFSET ] .
+if not ,
+return self.STDOFFSET [ self . STDOFFSET ] .
+define the method utcoffset with 2 arguments : self and dt .
+call the method self._isdst [ self . _isdst ] with an argument dt , if it evaluates to true ,
+return self.DSTDIFF [ self . DSTDIFF ] .
+if not ,
+return ZERO .
+define the method tzname with 2 arguments : self and dt .
+call the method self._isdst [ self . _isdst ] with an argument dt , use it as an key to get the value from the _time.tzname [ _time . tzname ] dictionary , return it .
+define the method _isdst with 2 arguments : self and dt .
+tt is a tuple with 9 elements : dt.year [ dt . year ] , dt.month [ dt . month ] , dt.day [ dt . day ] , dt.hour [ dt . hour ] , dt.minute [ dt . minute ] , dt.second [ dt . second ] , result of the method dt.weekday [ dt . weekday ] ,
+ingeter 0 and integer 0. call the method _time.mktime [ _time . mktime ] with an argument tt , substitute the result for stamp .
+call the method _time.localtime [ _time . localtime ] with an argument stamp , substitute the result for tt .
+if tt.tm_isdst [ tt . tm_isdst ] is greater than integer 0 , return the result .
+derive the class LocalTimezone from the ReferenceLocalTimezone base class .
+define the method tzname with 2 arguments : self and dt .
+if dt is None , is_dst is boolean False , otherwise call the method _isdst with an argument dt , substitute the result for is_dst .
+return the value under the is_dst key of the _time.tzname [ _time . tzname ] dictionary .
+define the method _isdst with 2 arguments : self and dt .
+try ,
+call the method _isdst with an argument dt from the base class of the class LocalTimezone , return the result .
+if OverflowError or ValueError , renamed to exc , exceptions are caught ,
+get the type of the exc object , substitute it for exc_type .
+call the function exc_type with an argument string _STR:0_ , replace ' % s ' with dt ,
+substitute the result for exc_value . substitute exc for exc_value.__cause__ [ exc_value . __cause__ ] .
+call the function six.reraise [ six . reraise ] with 3 arguments : exc_type , exc_value and third element of the result of the method sys.exc_info [ sys . exc_info ] .
+if pytz is true , substitute pytz.utc [ pytz . utc ] for utc , otherwise substitute result of the function UTC for utc .
+define the function get_fixed_timezone with an argument offset .
+if offset is an instance of timedelta class ,
+substitute offset.seconds [ offset . seconds ] for offset .
+if offset is smaller than integer 0 , sign is _STR:0_ , otherwise sign is _STR:1_ .
+divide absolute offset by module 60 , use the result to format string _STR:0_ , substitute it for hhmm .
+sum sign and hhmm , substitute the result for name .
+return an instance of FixedOffset class , created with 2 arguments : offset and name .
+_localtime is None .
+define the function get_default_timezone .
+use global variable _localtime .
+if _localtime is None ,
+if settings.TIME_ZONE [ settings . TIME_ZONE ] is an instance of six.string_types [ six . string_types ] and pytz is not None ,
+call the method pytz.timezone [ pytz . timezone ] with an argument settings.TIME_ZONE [ settings . TIME_ZONE ] , substitute the result for _localtime .
+if not ,
+_localtime is an instance of LocalTimezone class .
+return _localtime .
+define the function get_default_timezone_name .
+call the function get_default_timezone , use the result as an argument for the call to the function _get_timezone_name , return the result .
+call the method local , substitute the result for _active .
+define the function get_current_timezone .
+get _STR:0_ attribute of the _active object , if it exists return it , if not , call the function get_default_timezone and return the result .
+define the function get_current_timezone_name .
+call the function get_current_timezone , use the result as an argument for the call to the function _get_timezone_name , return the result .
+define the function _get_timezone_name with an argument timezone .
+try ,
+return timezone.zone [ timezone . zone ] .
+if AttributeError exception is caught ,
+call the method timezone.tzname [ timezone . tzname ] with an argument None , return the result .
+define the function activate with an argument timezone .
+if timezone is an instance of tzinfo ,
+substitute timezone for _active.value [ _active . value ] .
+otherwise if timezone is an instance of six.string_types [ six . string_types ] and pytz is not None ,
+call the method pytz.timezone [ pytz . timezone ] with an argument timezone , substitute the result for _active.value [ _active . value ] .
+if not ,
+raise an ValueError with an argument string _STR:0_ , substitute _STR:1_ with timezone .
+define the function deactivate .
+if active has an attribute _STR:0_ ,
+delete _active.value [ _active . value ] .
+derive the class override from the object base class .
+define the method __init__ with 2 arguments : self and timezone .
+substitute timezone for self.timezone [ self . timezone ] .
+get _STR:0_ attribute of the _active object
+define the method __enter__ with an argument self .
+if self.timezone [ self . timezone ] is None ,
+call the method deactivate .
+if not ,
+call the method activate with an argument self.timezone [ self . timezone ] .
+define the method __exit__ with 4 arguments self , exc_type , exc_value and traceback .
+if self.old_timezone [ self . old_timezone ] is None ,
+call the method deactivate .
+if not ,
+substitute self.old_timezone [ self . old_timezone ] for _active.value [ _active . value ] .
+define the function template_localtime with 2 arguments : value and use_tz set to None .
+if value is an instance of datetime and settings.USE_TZ [ settings . USE_TZ ] if use_tz is None else use_tz and call to the function is_naive ,
+with an argument value evaluates to false , and if _STR:0_ attribute of value object doesnt exists , or is it does is boolean True , should_convert is boolean True , otherwise is boolean False . if should_convert is true , call the function localtime with an argument value and return the result , otherwise return value .
+define the function localtime with 2 arguments : value and timezone set to None .
+if timezone is None ,
+call the function get_current_timezone , substitute the result for timezone .
+call the method value.astimezone [ value . astimezone ] with an argument timezone , substitute the result for value .
+if timezone has an attribute _STR:0_ ,
+call the method timezone.normalize [ timezone . normalize ] with an argument value , substitute the result for value .
+return value .
+define the function now .
+if settings.USE_TZ [ settings . USE_TZ ] is true ,
+call the method datetime.utcnow [ datetime . utcnow ] , on the result call the method replace with an argument tzinfo set to utc , return the result .
+if not ,
+call the method datetime.now [ datetime . now ] , return the result .
+define the function is_aware with an argument value .
+if value.tzinfo [ value . tzinfo ] is not None and call to the method value.tzinfo.utcoffset [ value . tzinfo . utcoffset ] called with an argument value evaluates to not None ,
+return boolean True , otherwise return boolean False . define the function is_naive with an argument value .
+if value.tzinfo [ value . tzinfo ] is None and call to the method value.tzinfo.utcoffset [ value . tzinfo . utcoffset ] called with an argument value evaluates to None ,
+return boolean True , otherwise return boolean False . define the function make_aware with 2 arguments : value and timezone .
+if timezone has an attribute _STR:0_ ,
+call the method timezone.localize [ timezone . localize ] with 2 arguments : value and is_dst as None , return the result .
+if not ,
+call the function is_aware with an argument value , if it evaluates to true ,
+raise an ValueError exception with an argument string _STR:0_ , where ' % s ' is replaced with value .
+call the method value.replace [ value . replace ] with an argument tzinfo as timezone , return the result .
+define the function make_naive with 2 arguments : value and timezone .
+call the method value.astimezone [ value . astimezone ] with an argument timezone , substitute the result for value .
+if timezone has an attribute _STR:0_ ,
+call the method timezone.normalize [ timezone . normalize ] with an argument value , substitute the result for value .
+call the method value.replace [ value . replace ] with an arugment tzinfo set to None , return the result .
+from __future__ import unicode_literals into default name space .
+import module re .
+from django.utils.encoding [ django . utils . encoding ] import force_text into default name space .
+from django.utils.functional [ django . utils . functional ] import lazy into default name space .
+from django.utils [ django . utils ] import six into default name space .
+__all__ is an list containing strings : _STR:0_ , _STR:1_ , _STR:2_ , _STR:3_ , _STR:4_ ,
+_STR:0_ , _STR:1_ , _STR:2_ , _STR:3_ , _STR:4_ , _STR:5_ , _STR:6_ , _STR:7_ , _STR:8_ , _STR:9_ , _STR:10_ , _STR:11_ , _STR:12_ , _STR:13_ , _STR:14_ , _STR:15_ , _STR:16_ , _STR:17_ , _STR:18_ , _STR:19_ , _STR:20_ and _STR:21_ . LANGUAGE_SESSION_KEY is an string _STR:22_ .
+derive the class TranslatorCommentWarning from the SyntaxWarning base class .
+do nothing .
+derive the class Trans from the object base class .
+define the method __getattr__ with 2 arguments : self and real_name .
+from django.conf [ django . conf ] import settings .
+if settings.USE_I18N [ settings . USE_I18N ] is true ,
+from django.utils.translation [ django . utils . translation ] import trans_real as trans .
+if not ,
+from django.utils.translation [ django . utils . translation ] import trans_null as trans .
+set real_name attribute of the self object to value of real_name attribute of trans object .
+get attribute real_name from the trans object , return it .
+_trans is an instance of Trans class .
+delete Trans .
+define the function gettext_noop with an argument message .
+call the method _trans.gettext_noop [ _trans . gettext_noop ] with an argument message .
+substitute gettext_noop for ugettext_noop .
+define the function gettext_noop with an argument message .
+call the method _trans.gettext [ _trans . gettext ] with an argument message .
+define the function ngettext with 3 arguments : singular , plural and number .
+call the method _trans.ngettext [ _trans . ngettext ] with 3 arguments singular , plural and number .
+define the method ugettext with an argument message .
+call the method _trans.gettext_noop [ _trans . gettext_noop ] with an argument message .
+define the function ungettext with 3 arguments : singular , plural and number .
+call the method _trans.ungettext [ _trans . ungettext ] with 3 arguments singular , plural and number .
+define the function pgettext with 2 arguments : context and message .
+call the method _trans.pgettext [ _trans . pgettext ] with 2 arguments context and message .
+define the function npgettext with 4 arguments : context , singular , plural and number .
+call the method _trans.npgettext [ _trans . npgettext ] with 4 arguments context , singular , plural and number .
+call the function lazy with 2 arguments : gettext and str , substitute gettext_lazy .
+call the function lazy with 2 arguments : ugettext and six.text_type [ six . text_type ] , substitute ugettext_lazy .
+call the function lazy with 2 arguments : pgettext and six.text_type [ six . text_type ] , substitute pgettext_lazy .
+define the function lazy_number with 4 arguments : func , resultclass , number set to None and unpacked dictionary kwargs .
+if number is an instance of int type .
+substitute number for value under the _STR:0_ key of the kwargs dictionary .
+call the function lazy with 2 arguments : func and resultclass , call the result with an argument , unpacked dictionary kwargs ,
+substitute the result for proxy . if not ,
+derive the class NumberAwareString from the resultclass base class .
+define the method __mod__ with 2 arguments : self and rhs .
+if rhs is an instance of dict type and number is true ,
+try ,
+substitute value under the number key of the rhs dictionary for number_value .
+if KeyError exception is caught ,
+raise an KeyError with an argument string _STR:0_
+_STR:0_ , where ' % s ' is replaced with number . if not ,
+substitute rhs for number_value .
+substitute number_value for kwargs dictionary value under the _STR:0_ key .
+call the function func with unpacked dictionary kwargs as an argument , substitute the result for translated .
+try ,
+format translated with rhs , substitute the result for translated .
+if TypeError exception is caught ,
+do nothing .
+return translated .
+call the function lazy with 2 arguments : lambda function with unpacked dictionary kwargs as an argument and return value an instance of NumberAwareString class and NumberAwareString , call the result with an argument unpacked dictionary kwargs , substitute the result for proxy .
+return proxy .
+define the function ngettext_lazy with 3 arguments : singular , plural and number set to None .
+call the function lazy_number with 5 arguments : ngettext , str , singular set to singular , plural set to plural ,
+and number set to number , return the result . define the function ungettext_lazy with 3 arguments : singular , plural and number set to None .
+call the function lazy_number with 5 arguments : ungettext , six.text_type [ six . text_type ] , singular set to singular , plural set to plural ,
+and number set to number , return the result . define the function npgettext_lazy with 4 arguments : context , singular , plural and number set to None .
+call the function lazy_number with 6 arguments : npgettext , six.text_type [ six . text_type ] , context set to context , singular set to singular ,
+plural set to plural and number set to number , return the result . define the function activate with an argument language .
+call the function _trans.activate [ _trans . activate ] with an argument language , return the result .
+define the function deactivate .
+call the function _trans.deactivate [ _trans . deactivate ] , return the result .
+derive the class override from the object base class .
+define the method __init__ with 3 arguments : self , language and deactivate set to boolean False .
+substitute language for self.language [ self . language ] .
+substitute deactivate for self.deactivate [ self . deactivate ] .
+call the function get_language , substitute the result for self.old_language [ self . old_language ] .
+define the method __enter__ with an argument self .
+if self.language [ self . language ] is not None ,
+call the function activate with an argument self.language [ self . language ] .
+if not ,
+call the function deactivate_all .
+define the method __exit__ with 4 arguments : self , exc_type , exc_value and traceback .
+if self.deactivate [ self . deactivate ] is true ,
+call the method deactivate .
+if not ,
+call the method activate with an argument self.old_language [ self . old_language ] .
+define the function get_language .
+call the function _trans.get_language [ _trans . get_language ] , return the result .
+define the function get_language_bidi .
+call the function _trans.get_language_bidi [ _trans . get_language_bidi ] , return the result .
+define the function check_for_language with an argument lang_code .
+call the function _trans.check_for_language [ _trans . check_for_language ] with an argument lang_code , return the result .
+define the function to_locale with an argument language .
+call the function _trans.to_locale [ _trans . to_locale ] with an argument language , return the result .
+define the function get_language_from_request with 2 arguments : request and check_path set to boolean False .
+call the function _trans.get_language_from_request [ _trans . get_language_from_request ] with 2 arguments : request and check_path , return the result .
+define the function get_language_from_path with an argument path .
+call the function _trans.get_language_from_path [ _trans . get_language_from_path ] with an argument path , return the result .
+define the function templatize with 2 arguments : src and origin set to None .
+call the function _trans.templatize [ _trans . templatize ] with 2 arguments : src and origin , return the result .
+define the function deactivate_all .
+call the function _trans.deactivate_all [ _trans . deactivate_all ] , return the result .
+define the function _string_concat with an argument unpacked list strings .
+for every s in strings , call the function force_text with an argument s , join the results in a string , return the result .
+call the function lazy with 2 arguments : _string_concat and six.text_type [ six . text_type ] , substitute the result for string_concat .
+define the function get_language_info with an argument lang_code .
+from django.conf.locale [ django . conf . locale ] import LANG_INFO .
+try ,
+get the value under the lang_code key of the LANG_INFO dictionary , return it .
+if KeyError exception is caught ,
+if character _STR:0_ is not contained in lang_code ,
+raise an KeyError with an argument _STR:0_ , where ' % s ' is replaced with lang_code .
+split lang_code by character _STR:0_ , substitute the first element of the result for generic_lang_code .
+try ,
+get the LANG_INFO dictionary value under the generic_lang_code key , return the result .
+if KeyError exception is caught ,
+raise an KeyError with an argument string _STR:0_ , where ' % s ' is replaced with lang_code ,
+and generic_lang_code . call the function re.compile [ re . compile ] with an argument string _STR:0_ , substitute the result for trim_whitespace_re .
+define the function trim_whitespace with an argument s .
+call strip s of the surrounding whitespaces , substitute every occurrence of the whitespace in the trim_whitespace_re with previous result , return the result .
+from django.conf [ django . conf ] import settings into default name space .
+from django.utils.encoding [ django . utils . encoding ] import force_text into default name space .
+from django.utils.safestring [ django . utils . safestring ] import mark_safe and SafeData into default name space .
+define the function ngettext with 3 arguments : singular , plural and number .
+if number equals integer 1 ,
+return singular .
+return plural .
+substitute ngettext for ngettext_lazy .
+define the function ungettext with 3 arguments : singular , plural and number .
+call the function ngettext with 3 arguments : singular , plural and number , use the result as an argument for the call to the force_text ,
+return the result . define the function pgettext with 2 arguments : context and message .
+call the function ugettext with an argument message .
+define the function ngettext with 4 arguments : context , singular , plural and number .
+call the function ungettext with 3 arguments : singular , plural and number , return the result .
+activate is a lambda function which returns None for any argument x .
+deactivate and deactivate_all are lambda functions returning None .
+get_language is a lambda function returning settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] .
+get_language_bidi is lambda function returning boolean True if settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] is contained in settings.LANGUAGES_BIDI [ settings . LANGUAGES_BIDI ] .
+check_for_language is lambda function that returns boolean True for every argument x .
+define the function gettext with an argument message .
+if message is an instance of SafeData .
+call the function mark_safe with an argument message , return the result .
+return message .
+define the function ugettext with an argument message .
+call the function gettext with an argument message , use the result as an argument for the call to the force_text function , return the result .
+substitute gettext for gettext_noop , gettext_lazy and _ .
+define the function to_locale with an argument language .
+find position of _STR:0_ in the index of the language , substitute the result for p .
+if p is greater or equal to integer 0 ,
+append _STR:0_ to string created from first p elements of languages converted to lowercase ,
+convert slice of language string from ( p+1 ) -th index to the end to uppercase , append it to the previous result , return the resulting string . if not ,
+convert language to lowercase and return it .
+define the function get_language_from_request with 2 arguments : request and check_path set to boolean False .
+return settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] .
+define the function get_language_from_path with an argument request .
+return None .
+from __future__ import unicode_literals into default name space .
+from collections import OrderedDict into default name space .
+import module os .
+import module re .
+import module sys .
+import module gettext as gettext_module .
+from threading import local into default name space .
+import module warnings .
+from django.apps [ django . apps ] import apps into default name space .
+from django.conf [ django . conf ] import settings into default name space .
+from django.core.exceptions [ django . core . exceptions ] import AppRegistryNotReady into default name space .
+from django.dispatch [ django . dispatch ] import receiver into default name space .
+from django.test.signals [ django . test . signals ] import setting_changed into default name space .
+from django.utils.deprecation [ django . utils . deprecation ] import RemovedInDjango19Warning into default name space .
+from django.utils.encoding [ django . utils . encoding ] import force_text into default name space .
+from django.utils._os [ django . utils . _os ] import upath into default name space .
+from django.utils.safestring [ django . utils . safestring ] import mark_safe and SafeData into default name space .
+from django.utils [ django . utils ] import six and lru_cache into default name space .
+from django.utils.six [ django . utils . six ] import StringIO into default name space .
+from django.utils.translation [ django . utils . translation ] import TranslatorCommentWarning , trim_whitespace and LANGUAGE_SESSION_KEY into default name space .
+_translations is an empty dictionary .
+call the function local , substitute the result for _active .
+_default is None .
+_supported is None .
+CONTEXT_SEPARATOR is a string _STR:0_ .
+call the function re.compile [ re . compile ] with 2 arguments : raw string _STR:0_ ,
+and re.VERBOSE [ re . VERBOSE ] , substitute the result for accept_language_re . call the function re.compile [ re . compile ] with 2 arguments : raw string _STR:0_ and re.IGNORECASE [ re . IGNORECASE ] ,
+substitute the result for language_code_re . call the function re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute the result for language_code_prefix_re .
+_BROWSERS_DEPRECATED_LOCALES is an dictionary with 2 initial entries : _STR:0_ for _STR:1_ and _STR:2_ for _STR:3_ .
+substitute _BROWSERS_DEPRECATED_LOCALES for _DJANGO_DEPRECATED_LOCALES .
+decorator function receiver with an argument setting_changed ,
+define the function reset_cache with an argument unpacked dictionary kwargs .
+if value under the _STR:0_ key of the kwargs dictionary is equal to string _STR:1_ or strnig _STR:2_ ,
+use global variable _supported .
+_supported is None .
+call the method check_for_language.cache_clear [ check_for_language . cache_clear ] .
+call the method get_supported_language_variant.cache_clear [ get_supported_language_variant . cache_clear ] .
+define the function to_locale with 2 arguments language and to_lower set to boolean False .
+find first index of occurrence of character _STR:0_ in language , substitute it for p .
+if p is greater or equal to integer 0 ,
+if to_lower is true ,
+convert fist p elements of language to lowercase , append _STR:0_ to it ,
+covert to lowercase language elements from ( p+1 ) -th index to the end , append it to the previous result , return it . if not ,
+slice language from ( p+1 ) -th index to the end , calculate the length of the obtained segment , if it is greater than integer 2 ,
+convert fist p elements of language to lowercase , append _STR:0_ to it ,
+covert to lowercase language element at ( p+1 ) -th index , append it to the previous result , covert to lowercase language elements from ( p+2 ) -th index to the end , append it to the previous result , return it . convert fist p elements of language to lowercase , append _STR:0_ to it ,
+covert to uppercase language elements from ( p+1 ) -th index to the end , append it to the previous result , return it . if not ,
+convert language to lowercase , return it .
+define the function to_language with an argument locale .
+find first index of occurrence of character _STR:0_ in locale , substitute it for p .
+if p is greater or equal to integer 0 ,
+convert fist p elements of locale to lowercase , append _STR:0_ to it ,
+covert to lowercase locale elements from ( p+1 ) -th index to the end , append it to the previous result , return it . if not ,
+convert locale to lowercase and return it .
+derive the class DjangoTranslation from gettext_module.GNUTranslations [ gettext_module . GNUTranslations ] base class .
+define the method __init__ with 2 arguments : self and language .
+call the method gettext_module.GNUTranslations.__init__ [ gettext_module . GNUTranslations . __init__ ] with an argument self .
+substitute language for self.__language [ self . __language ] .
+call the function to_language with an argument language , substitute it for self.__to_language [ self . __to_language ] .
+call the function to_locale with an argument language , substitute it for self.__locale [ self . __locale ] .
+self.plural [ self . plural ] is an lambda function with an argument n , which returns result of boolean expression n not equal to integer 1 ,
+converted to an integer . call the method self._init_translation_catalog [ self . _init_translation_catalog ] .
+call the method self._add_installed_apps_translations [ self . _add_installed_apps_translations ] .
+call the method self._add_local_translations [ self . _add_local_translations ] .
+call the method self._add_fallback [ self . _add_fallback ] .
+define the method __repr__ with an argument self .
+return a string _STR:0_ , where ' % s ' is replaced with self.__language [ self . __language ] .
+define the method _new_gnu_trans with 3 arguments : self , localedir and use_null_fallback set to boolean True .
+call the method gettext_module.translation [ gettext_module . translation ] with 5 arguments : domain set to string _STR:0_ , localedir set to localedir ,
+languages set to a list with an element self.__locale [ self . __locale ] , codeset set to a string _STR:0_ and fallback set to use_null_fallback , substitute the result for translation . if translation has an attribute _STR:1_ ,
+translation._catalog [ translation . _catalog ] is an empty dictionary .
+translation._info [ translation . _info ] is an empty dictionary .
+return translation .
+define the method _init_translation_catalog with an argument self .
+get the value under the settings.__module__ [ settings . __module__ ] key of the sys.modules [ sys . modules ] dictionary ,
+use its __file__ field as an argument for the call to the function upath , substitute the result for settingsfile . call the function os.path.dirname [ os . path . dirname ] with an argument settingsfile , join the result an string _STR:0_ into a file path ,
+substitute it for localedir . use_null_fallback is boolean True .
+if self.__language [ self . __language ] equals settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] ,
+use_null_fallback is boolean False .
+call the function self._new_gnu_trans [ self . _new_gnu_trans ] with 2 arguments : localedir and use_null_fallback , substitute the result for translation .
+call the method translation._info.copy [ translation . _info . copy ] , substitute the result for self._info [ self . _info ] .
+call the method translation._catalog.copy [ translation . _catalog . copy ] , substitute the result for self._catalog [ self . _catalog ] .
+define the method _add_installed_apps_translations with an argument self .
+try ,
+call the method apps.get_app_configs [ apps . get_app_configs ] , convert the result in a list , reverse the order of elements , substitute the result for app_configs .
+if AppRegistryNotReady exception is caught ,
+rais an AppRegistryNotReady exception with an argument string _STR:0_
+_STR:0_ . for every app_config in app_configs ,
+join app_config.path [ app_config . path ] and string _STR:0_ into a file path , substitute it for localedir .
+call the method self._new_gnu_trans [ self . _new_gnu_trans ] with an argument localedir , substitute the result for translation .
+call the method self.merge [ self . merge ] with an argument translation .
+define the method _add_local_translations with an argument self .
+reverse settings.LOCALE_PATHS [ settings . LOCALE_PATHS ] element order , for every localedir in the result ,
+call the function self._new_gnu_trans [ self . _new_gnu_trans ] with an argument localedir , substitute the result for translation .
+call the method self.merge [ self . merge ] with an argument translation .
+define the method _add_fallback with an argument self .
+if self.__language [ self . __language ] equals settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] or self.__language [ self . __language ] equals a string _STR:0_ ,
+return .
+call the function translation with an argument settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] , substitute the result for default_translation .
+call the method self.add_fallback [ self . add_fallback ] with an argument default_translation .
+define the method merge with 2 arguments self and other .
+update the self._catalog [ self . _catalog ] dictionary with other._catalog [ other . _catalog ] .
+define the method language with an argument self .
+return self.__language [ self . __language ] .
+define the method to_language with an argument self .
+return self.__to_language [ self . __to_language ] .
+define the function translation with an argument language .
+use global variable _translations .
+if language is not contained in _translations ,
+_translations dictionary value , under the language key is an instance of DjangoTranslation class , created with an argument language .
+return _translations dictionary value , under the language key .
+define the function activate with an argument language .
+if language is contained in _DJANGO_DEPRECATED_LOCALES ,
+msg is a string _STR:0_ .
+call the method call the function warnings.warn [ warnings . warn ] with 3 arguments : msg formatted with language and value under the language key ,
+of the _DJANGO_DEPRECATED_LOCALES dictionary , RemovedInDjango19Warning and stacklevel set to integer 2. call the function translation with an argument language , substitute the result for _active.value [ _active . value ] .
+define the function deactivate .
+if _active has an attribute _STR:0_ ,
+delete _active.value [ _active . value ] .
+define the function deactivate_all .
+call the method gettext_module.NullTranslations [ gettext_module . NullTranslations ] , substitute the result for _active.value [ _active . value ] .
+define the function get_language .
+get _STR:0_ attribute of the _active object , if it exists substitute it for t , if not t is None .
+if t is not None ,
+try ,
+call the method t.to_language [ t . to_language ] , return the result .
+if AttributeError exception is caught ,
+do nothing .
+return settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] .
+define the function get_language_bidi .
+call the function get_language , split the result by _STR:0_ , substitute the first element of the result for base_lang .
+if base_lang is contained in settings.LANGUAGES_BIDI [ settings . LANGUAGES_BIDI ] , return boolean True , if not , return boolean False .
+define the function catalog .
+use global variable _default .
+get _STR:0_ attribute of the _active object , if it exists substitute it for t , if not t is None .
+if t is not None
+return t .
+if _default is None
+call the function translation with an argument settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] , substitute the result for _default .
+return _default .
+define the function do_translate with 2 arguments : message and translation_function .
+use global variable _default .
+replace every occurrence of string _STR:0_ in message with _STR:1_ , replace every occurrence of string _STR:2_ ,
+in the previous result for with string _STR:0_ , substitute the result for eol_message . get _STR:1_ attribute of the _active object , if it exists substitute it for t , if not t is None .
+if t is not None ,
+get translation_function attribute of the object t , call the result with an argument eol_message , substitute the result for result .
+if not ,
+if _default is None ,
+call the function translation with an argument settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] , substitute the result for _default .
+get translation_function attribute of the object _default , call the result with an argument eol_message , substitute the result for result .
+if message is an instance of SafeData ,
+call the function mark_safe with an argument result , return it .
+return result .
+define the function gettext with an argument message .
+call the function do_translate with 2 arguments : message and string _STR:0_ , return the result .
+if six.PY3 [ six . PY3 ] is true ,
+substitute gettext for ugettext .
+if not ,
+define the function ugettext with an argument message .
+call the function do_translate with 2 arguments : message and string _STR:0_ , return the result .
+define the function pgettext with 2 arguments : context and message .
+convert to strings and concatenate context , CONTEXT_SEPARATOR and message , substitute the result for msg_with_ctxt .
+call the function ugettext with an argument msg_with_ctxt , substitute the result for result .
+if CONTEXT_SEPARATOR is contained in result ,
+call the function force_text with an argument message , return the result .
+return result .
+define the function locale with an argument locale .
+return message .
+define the function do_ntranslate with 4 arguments : singular , plural , number and translation_function .
+use global variable _default .
+get _STR:0_ attribute of the _active object , if it exists substitute it for t , if not t is None .
+if t is not None ,
+get translation_function attribute of the t object , call the result with 3 arguments : singular , plural and number , return the result .
+if _default is None ,
+call the function translation with an argument settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] , substitute the result for _default .
+get translation_function attribute of the _default object , call the result with 3 arguments : singular , plural and number , return the result .
+define the function ngettext with 3 arguments : singular , plural and number .
+call the function do_ntranslate with 3 arguments : singular , plural , number and string _STR:0_ , return the result .
+if six.PY3 [ six . PY3 ] is true ,
+substitute ngettext for ungettext .
+if not ,
+define the function ungettext with 3 arguments : singular , plural and number .
+call the function do_ntranslate with 3 arguments : singular , plural , number and string _STR:0_ , return the result .
+define the function npgettext with 4 arguments : context , singular , plural and number .
+msgs_with_ctxt is a tuple containing 2 elements : string created by concatenating context , CONTEXT_SEPARATOR and singular ,
+string created by concatenating context , CONTEXT_SEPARATOR and plural and number . call the function ungettext with unpacked dictionary msgs_with_ctxt , substitute the result for result .
+if CONTEXT_SEPARATOR is contained in result ,
+call the function ungettext with 3 arguments : singular , plural and number , substitute the result for result .
+return result .
+define the function all_locale_paths .
+get the value under the settings.__module__ [ settings . __module__ ] key of the sys.modules [ sys . modules ] dictionary , use its __file__ field as an argument ,
+for the call to the function upath , get the directory name of the resulting system path , join the result and string _STR:0_ , into a valid file path , substitute it for globalpath . append settings.LOCALE_PATHS [ settings . LOCALE_PATHS ] converted into a list to a list containing an element globalpath , return it .
+decorator function lru_cache.lru_cache [ lru_cache . lru_cache ] with an argument maxsize set to integer 1000 .
+define the function check_for_language with an argument lang_code .
+call the method language_code_re.search [ language_code_re . search ] with an argument lang_code , if it evaluates to false ,
+return boolean False .
+call the function all_locale_paths , for every path is the result ,
+call the method gettext_module.find [ gettext_module . find ] with 3 arguments : string _STR:0_ , path and list with an element : result of the function ,
+to_locale called with an argument lang_code , if the result is not None , return boolean True .
+return boolean False .
+decorator function lru_cache.lru_cache [ lru_cache . lru_cache ] with an argument maxsize set to integer 1000 .
+define the function get_supported_language_variant with 2 arguments : lang_code and strict set to boolean False .
+use global variable _supported .
+if _supported is None ,
+_supported is an instance of OrderedDict class , created with an argument settings.LANGUAGES [ settings . LANGUAGES ] .
+if lang_code is true ,
+get the value under the lang_code key of the _BROWSERS_DEPRECATED_LOCALES dictionary , substitute it for replacement .
+if lang_code is not contained in _supported and replacement is contained in _supported ,
+return replacement .
+split lang_code by _STR:0_ , substitute the first element of the result for generic_lang_code .
+for every code in tuple with 2 elements : lang_code and generic_lang_code ,
+if code is contained in _supported and call to the function check_for_language with an argument code evaluates to true ,
+return code .
+if strict is false ,
+for every supported_code in _supported ,
+append _STR:0_ to generic_lang_code , if supported_code starts with it ,
+return supported_code .
+raise an LookupError with an argument lang_code .
+define the function get_language_from_path with 2 arguments : path and strict set to boolean False .
+call the function language_code_prefix_re.match [ language_code_prefix_re . match ] with an argument path , substitute it for regex_match .
+if regex_match is false ,
+return None .
+call the method regex_match.group [ regex_match . group ] with an argument integer 1 , substitute the result for lang_code .
+try ,
+call the function get_supported_language_variant with 2 arguments : lang_code and strict set to strict , return the result .
+if LookupError exception is caught ,
+return None .
+define the function get_language_from_request with 2 arguments : request and check_path set to boolean False .
+use global variable _supported .
+if _supported is None ,
+_supported is an instance of OrderedDict class , created with an argument settings.LANGUAGES [ settings . LANGUAGES ] .
+if check_path is true ,
+call the function get_language_from_path with an argument request.path_info [ request . path_info ] , substitute it for lang_code .
+if lang_code is not None ,
+return lang_code .
+if request has an attribute _STR:0_ ,
+get the value under the LANGUAGE_SESSION_KEY key of the request.session [ request . session ] dictionary , substitute it for lang_code .
+if lang_code is contained in _supported and lang_code is not None and result of the function check_for_language ,
+called with an argument lang_code is true , return lang_code .
+get the value under the settings.LANGUAGE_COOKIE_NAME [ settings . LANGUAGE_COOKIE_NAME ] key of the request.COOKIES [ request . COOKIES ] dictionary , substitute it for lang_code .
+try ,
+call the function get_supported_language_variant with an argument lang_code , return the result .
+if LookupError exception is caught ,
+do nothing .
+get the value under the _STR:0_ key of the request.META [ request . META ] dictionary , if it exists substitute it for accept ,
+if not accept is an empty string . call the function parse_accept_lang_header with an argument accept , for every accept_lang and unused in the result ,
+if accept_lang equals _STR:0_ ,
+break from the loop execution .
+call the method language_code_re.search [ language_code_re . search ] with an argument accept_lang , if it evaluates to false ,
+skip this loop iteration .
+try ,
+call the function get_supported_language_variant with an argument accept_lang , return the result .
+if LookupError exception is caught ,
+skip this loop iteration .
+try ,
+call the function get_supported_language_variant with an argument settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] , return the result .
+if LookupError exception is caught ,
+return settings.LANGUAGE_CODE [ settings . LANGUAGE_CODE ] .
+call the function re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute it for dot_re .
+define the function blankout with 2 arguments : src and char .
+call the method dot_re.sub [ dot_re . sub ] with 2 arguments : char and src , return the result .
+substitute the result for block_re . call the function re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute the result for endblock_re .
+call the function re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute the result for plural_re .
+call the function re.compile [ re . compile ] with an argument raw string _STR:0_ , substitute the result for one_percent_re .
+define the function templatize with 2 arguments : src and origin set to None .
+from django.template [ django . template ] import Lexer , TOKEN_TEXT , TOKEN_VAR , TOKEN_BLOCK , TOKEN_COMMENT and TRANSLATOR_COMMENT_MARK .
+call the function force_text with 2 arguments : src and settings.FILE_CHARSET [ settings . FILE_CHARSET ] .
+out is an instance of StringIO class , created with an empty string as an argument .
+message_context is None .
+intrans is boolean False .
+inplural is boolean False .
+trimmed is boolean False .
+singular is an empty list .
+plural is an empty list .
+incomment is boolean False .
+comment is an empty list .
+lineno_comment_map is an dictionary .
+comment_lineno_cache is None .
+define the function join_tokens with 2 arguments : tokens and trim set to boolean False .
+join tokens elements into a string , substitute it for message .
+if trim is true ,
+call the function trim_whitespace with an argument message , substitute the result for message .
+return message .
+instantiate Lexer class with 2 argumets src and origin , call the method tokenize from it , for every t in the result ,
+if incomment is true ,
+if t.token_type [ t . token_type ] equals TOKEN_BLOCK and t.contents [ t . contents ] equals _STR:0_ ,
+join comment elements into a string , substitute it for content .
+translators_comment_start is None .
+for every lineno and line is enumerated result of the method content.splitlines [ content . splitlines ] , called with an argument boolean True ,
+call the method line.lstrip [ line . lstrip ] , if the result starts with TRANSLATOR_COMMENT_MARK ,
+substitute lineno for translators_comment_start .
+for every lineno and line is enumerated result of the method content.splitlines [ content . splitlines ] , called with an argument boolean True ,
+if translators_comment_start is not None and lineno is greater than or equal to translators_comment_start ,
+substitute ' % s ' in string _STR:0_ with line , write it to out file .
+if not ,
+write string _STR:0_ to out file .
+incomment is boolean False .
+comment is an empty list .
+if not ,
+append t.contents [ t . contents ] to comment .
+otherwise if intrans is true ,
+if t.token_type [ t . token_type ] equals TOKEN_BLOCK ,
+call the function endblock_re.match [ endblock_re . match ] with an argument t.contents [ t . contents ] , substitute the result for endbmatch .
+call the function plural_re.match [ plural_re . match ] with an argument t.contents [ t . contents ] , substitute the result for pluralmatch .
+if endbmatch is true ,
+if inplural is true ,
+if message_context is true ,
+substitute _STR:0_ in string _STR:1_ with message_context , result of the function join_tokens ,
+called with 2 arguments : singular and trimmed and result of the function join_tokens called with 2 arguments : plural and trimmed , write the result to out . if not ,
+substitute _STR:0_ in string _STR:1_ with result of the function join_tokens , called with 2 arguments : singular ,
+and trimmed and result of the function join_tokens called with 2 arguments : plural and trimmed , write the result to out . for every part in singular ,
+call the method blankout with 2 arguments : part and _STR:0_ , write the result to out .
+for every part in plural ,
+call the method blankout with 2 arguments : part and _STR:0_ , write the result to out .
+if not ,
+if message_context is true ,
+substitute _STR:0_ in string _STR:1_ with message_context and result of the function join_tokens ,
+called with 2 arguments : singular and trimmed , write the result to out . if not ,
+substitute _STR:0_ in string _STR:1_ with result of the function join_tokens , called with 2 arguments : singular ,
+and trimmed , write the result to out . for every part in singular ,
+call the method blankout with 2 arguments : part and _STR:0_ , write the result to out .
+message_context is None .
+intrans is boolean False .
+inplural is boolean False .
+singular is an empty list .
+plural is an empty list .
+otherwise if pluralmatch is true ,
+inplural is boolean True .
+if not ,
+filemsg is an empty string .
+if origin is true ,
+filemsg is a string _STR:0_ , where ' % s ' is replaced with origin .
+raise an SyntaxError with an argument string _STR:0_ ,
+formated with t.contents [ t . contents ] , filemsg and t.lineno [ t . lineno ] . otherwise if t.token_type [ t . token_type ] equals TOKEN_VAR ,
+if inplural is true ,
+append string _STR:0_ to plural , where ' % s ' is replaced with t.contents [ t . contents ] .
+if not ,
+append string _STR:0_ to singular , where ' % s ' is replaced with t.contents [ t . contents ] .
+if t.token_type [ t . token_type ] == TOKEN_TEXT :
+call the method one_percent_re.sub [ one_percent_re . sub ] with 2 arguments : string _STR:0_ and t.contents [ t . contents ] , substitute the result for contents .
+if inplural is true ,
+append contents to plural .
+if not ,
+append contents to singular .
+if not ,
+if comment_lineno_cache is not None ,
+count occurrences of _STR:0_ in t.contents [ t . contents ] , add the result to t.lineno [ t . lineno ] , substitute the result for cur_lineno .
+if comment_lineno_cache equals cur_lineno .
+if t.token_type [ t . token_type ] is not equal to TOKEN_COMMENT ,
+for every c in lineno_comment_map dictionary value under the comment_lineno_cache key ,
+filemsg is an empty string .
+if origin is true ,
+filemsg is a string _STR:0_ , where ' % s ' is replaced with origin .
+warn_msg is a string _STR:0_ ,
+formated with c , filemsg and comment_lineno_cache . call the function warnings.warn [ warnings . warn ] with 2 arguments : warn_msg and TranslatorCommentWarning .
+value under the comment_lineno_cache key of the lineno_comment_map dictionary is an empty string .
+if not ,
+join lineno_comment_map dictionary value under the comment_lineno_cache key into a string , separated with _STR:0_ ,
+format with it a string _STR:0_ , write it to out . comment_lineno_cache is None ,
+if t.token_type [ t . token_type ] equals TOKEN_BLOCK ,
+call the function inline_re.match [ inline_re . match ] with an argument t.contents [ t . contents ] , substitute the result for imatch .
+call the function block_re.match [ block_re . match ] with an argument t.contents [ t . contents ] , substitute the result for bmatch .
+call the function constant_re.findall [ constant_re . findall ] with an argument t.contents [ t . contents ] , substitute the result for cmatches .
+if imatch is true ,
+call the method imatch.group [ imatch . group ] with an argument integer 1 , substitute the result for g .
+if first element of g equals a string _STR:0_ ,
+strip g of _STR:0_ from both ends ,
+otherwise if first element of g equals a string _STR:0_ ,
+strip g of _STR:0_ from both ends ,
+call the method one_percent_re.sub [ one_percent_re . sub ] with 2 arguments : string _STR:0_ and g , substitute the result for .
+call the method imatch.group [ imatch . group ] with an argument integer 1 , if it evaluates to true ,
+call the method imatch.group [ imatch . group ] with an argument integer 2 , use the result as an argument for the call to the method context_re.match [ context_re . match ] ,
+substitute the result for context_match . call the method context_match.group [ context_match . group ] with an argument integer 1 , substitute the result for message_context .
+if first element of message_context equals to character _STR:0_ ,
+strip message_context of _STR:0_ characters from both ends , substitute the result for message_context .
+otherwise if , first element of message_context is equal to _STR:0_ ,
+strip message_context of _STR:0_ characters from both ends , substitute the result for message_context .
+format string _STR:0_ with message_context and g , write it to out .
+message_context is None .
+if not ,
+format string _STR:0_ with g , write it to out .
+otherwise if bmatch is true ,
+call the method constant_re.findall [ constant_re . findall ] with an argument t.contents [ t . contents ] , for every fmatch in the result ,
+format string _STR:0_ , with fmatch , write it to out .
+call the method bmatch.group [ bmatch . group ] with an argument integer 1 , if it evaluates to true ,
+call the method bmatch.group [ bmatch . group ] with an argument integer 1 , use the result as an argument for the call to the function context_re.match [ context_re . match ] ,
+substitute the result for context_match . call the method context_match.group [ context_match . group ] with an argument integer 1 , substitute the result for message_context .
+if first element of message_context equals to character _STR:0_ ,
+strip message_context of _STR:0_ characters from both ends , substitute the result for message_context .
+otherwise if first element of message_context equals to character _STR:0_ ,
+strip message_context of _STR:0_ characters from both ends , substitute the result for message_context .
+intrans is boolean True .
+inplural is boolean False .
+if string _STR:0_ is contained in result of the method t.split_contents [ t . split_contents ] , trimmed is boolean True , otherwise is boolean False .
+singular is an empty list .
+plural is an empty list .
+otherwise if cmatches is true ,
+for every cmatch in cmatches ,
+format string _STR:0_ , with fmatch , write it to out .
+otherwise if t.contents [ t . contents ] equals a string _STR:0_ ,
+incomment is boolean True .
+if not ,
+call the function blankout with 2 arguments : t.contents [ t . contents ] and _STR:0_ , write the result to out .
+otherwise if t.token_type [ t . token_type ] equals TOKEN_VAR ,
+split t.contents [ t . contents ] by _STR:0_ symbol , substitute the result for parts ,
+call the method constant_re.match [ constant_re . match ] with first element of parts as an argument , substitute the result for cmatch .
+if cmatch is true ,
+call the method cmatch.group [ cmatch . group ] with an argument integer 1 , format with the result string _STR:0_ , write it to out .
+for every p in parts without the first element ,
+find index of the occurrence of string _STR:0_ in p , if its greater or equal to integer 0 ,
+split p into two parts at the first _STR:0_ , use the second element of the result to format string _STR:1_ , write it to out .
+if not ,
+call the function blankout with 2 arguments : p and _STR:0_ , write the result to out .
+otherwise if t.token_type [ t . token_type ] equals TOKEN_COMMENT ,
+strip t.contents [ t . contents ] from the left side of whitespaces , if the result starts with TRANSLATOR_COMMENT_MARK ,
+call the method lineno_comment_map.setdefault [ lineno_comment_map . setdefault ] with 2 arguments : t.lineno [ t . lineno ] and an empty list , append t.contents [ t . contents ] to the result .
+substitute t.lineno [ t . lineno ] for comment_lineno_cache .
+if not ,
+call the function blankout with 2 arguments : t.contents [ t . contents ] and _STR:0_ , write the result to out .
+call the method out.getvalue [ out . getvalue ] , return the result .
+define the function parse_accept_lang_header with an argument lang_string .
+result is an empty list .
+convert lang_string to lowercase , split by the result string accept_language_re , substitute the result for pieces .
+if last element of pieces is true ,
+return an empty list .
+for every i in range of integers from integer 0 to the length of pieces decremented by one , with step of integer 3 ,
+substitute 3 successive elements starting from the i-th index of pieces for first , lang and priority , respectively .
+if first is true ,
+return an empty list .
+if priority is true ,
+try ,
+convert priority into a floating point integer , substitute it for priority .
+if ValueError exception is caught ,
+return an empty list .
+if priority is false ,
+priority is floating point number 1.0 [ 1 . 0 ] .
+append a tuple with 2 entries lang and priority to result .
+sort result in reversed order by the key as lambda function with an argument k and reeturn value second element of k .
+return result .
+import module copy .
+derive the class Node from object base class .
+default is a string _STR:0_ .
+define the method __init__ with 4 arguments : self , children set to None , connector set to None and negated set to boolean False .
+if children is true , copy children list to self.children [ self . children ] , otherwise self.children [ self . children ] is an empty list .
+if connector is true , substitute it for self.connector [ self . connector ] , otherwise substitute self.default [ self . default ] for self.connector [ self . connector ] .
+substitute negated for self.negated [ self . negated ] .
+decorator classmethod ,
+define the method _new_instance with 4 arguments : ( cls , children set to None , connector set to None and negated set to boolean False .
+obj is an instance of Node class , created with 3 arguments : children , connector and negated .
+substitute cls for obj.__class__ [ obj . __class__ ] .
+return obj .
+define the method __str__ with an argument self .
+if self.negated [ self . negated ] ,
+return string _STR:0_ , formated with self.connector [ self . connector ] and string created by joining c into a string , separated by _STR:1_ ,
+for every c in self.children [ self . children ] . return string _STR:0_ , formated with self.connector [ self . connector ] and string created by joining c into a string , separated by _STR:1_ ,
+for every c in self.children [ self . children ] . define the method __repr__ with an argument self .
+return string _STR:0_ , formated with self.__class__.__name__ [ self . __class__ . __name__ ] and self .
+define the method __deepcopy__ with 2 arguments : self and memodict .
+obj is an instance of Node class , created with 2 arguments : connector set to self.connector [ self . connector ] and negated set to self.negated [ self . negated ] .
+substitute self.__class__ [ self . __class__ ] for obj.__class__ [ obj . __class__ ] .
+call the function copy.deepcopy [ copy . deepcopy ] with 2 arguments : self.children [ self . children ] and memodict , substitute the result for obj.children [ obj . children ] .
+return obj .
+define the method __len__ with an argument self .
+return the length of self.children [ self . children ] .
+define the method __bool__ with an argument self .
+convert self.children [ self . children ] into an boolean , return it .
+define the method __nonzero__ with an argument self .
+get the type of the self object , on the result call the __bool__ method with an argument self , return the result .
+define the method __contains__ with 2 arguments : self and other .
+if other is contained in self.children [ self . children ] , return boolean True , otherwise return boolean False .
+define the method _prepare_data with 2 arguments : self and data .
+return data .
+define the method add with 4 arguments : self , data , conn_type and squash set to boolean True .
+if data is contained in self.children [ self . children ] ,
+return data .
+call the method self._prepare_data [ self . _prepare_data ] with an argument data , substitute the result for data .
+if squash is false ,
+append data to self.children [ self . children ] .
+return data .
+if self.connector [ self . connector ] equals conn_type ,
+if data is instance of Node and data.negated [ data . negated ] is false , and if data.connector [ data . connector ] equals conn_type or length of data equals integer 1 ,
+extend self.children [ self . children ] list with data.children [ data . children ] .
+return self .
+if not ,
+append data to self.children [ self . children ] .
+return data .
+if not ,
+call the method self._new_instance [ self . _new_instance ] with 3 arguments : self.children [ self . children ] , self.connector [ self . connector ] and self.negated [ self . negated ] , substitute the result for obj .
+substitute conn_type for self.connector [ self . connector ] .
+self.children [ self . children ] is an list with 2 elements : obj and data .
+return data .
+define the method negate with an argument self .
+invert self.negated [ self . negated ] .
+from __future__ import unicode_literals into default name space .
+from datetime import timedelta and tzinfo into default name space .
+import module time .
+import module warnings .
+from django.utils.deprecation [ django . utils . deprecation ] import RemovedInDjango19Warning into default name space .
+from django.utils.encoding [ django . utils . encoding ] import force_str , force_text and DEFAULT_LOCALE_ENCODING into default name space .
+call the function warnings.warn [ warnings . warn ] with 3 arguments : string _STR:0_
+_STR:0_ , RemovedInDjango19Warning and stacklevel set to 2. derive the class FixedOffset from the tzinfo base class .
+define the method __init__ with 2 arguments : self and offset .
+call the function warnings.warn [ warnings . warn ] with 2 arguments : _STR:0_
+_STR:0_ and RemovedInDjango19Warning . if offset is an instance of timedelta class ,
+substitute offset for self.__offset [ self . __offset ] .
+substitute self.__offset.seconds [ self . __offset . seconds ] for offset .
+if not ,
+call the function timedelta with an argument minutes set to offset , substitute the result for self.__offset [ self . __offset ] .
+if offset is lesser than integer 0 , sign is set to _STR:0_ , otherwise sign is _STR:1_ ,
+self.__name [ self . __name ] is a string _STR:0_ , replace ' % s ' with sign , _STR:1_ is replaced with absolute value of offset divided by 60 ,
+and placed into 2 character spaces , and _STR:0_ is replaced with reminder of the division of absolute offset by integer 60 , and placed into 2 character spaces . define the method __repr__ with an argument self .
+return self.__name [ self . __name ] .
+define the method __getinitargs__ with an argument self .
+return a tuple with an element self.__offset [ self . __offset ] .
+define the method utcoffset with 2 arguments self and dt .
+return self.__offset [ self . __offset ] .
+define the method tzname with 2 arguments self and dt .
+return self.__name [ self . __name ] .
+define the method dst with 2 arguments self and dt .
+call the function timedelta with an argument integer 0 , return the result .
+derive the class LocalTimezone from the tzinfo base class .
+define the method __init__ with 2 arguments self and dt .
+call the function warnings.warn [ warnings . warn ] with 2 arguments : string _STR:0_
+_STR:0_ and RemovedInDjango19Warning . call the method tzinfo.__init__ [ tzinfo . __init__ ] with an argument self .
+substitute dt for self.__dt [ self . __dt ] .
+call the method self.tzname [ self . tzname ] with an argument dt , substitute the result for self._tzname [ self . _tzname ] .
+define the method __repr__ with an argument self .
+call the function force_str with an argument self._tzname [ self . _tzname ] , return the result .
+define the method __getinitargs__ with an argument self .
+return a tuple with an element self.__dt [ self . __dt ] .
+define the method utcoffset with 2 arguments self and dt .
+call the nethod self._isdst [ self . _isdst ] with an argument dt , if it evaluates to true ,
+call the function timedelta with an argument seconds as negative time.altzone [ time . altzone ] , return the result .
+if not ,
+call the function timedelta with an argument seconds as negative time.timezone [ time . timezone ] , return the result .
+define the method dst with 2 arguments self and dt .
+call the nethod self._isdst [ self . _isdst ] with an argument dt , if it evaluates to true ,
+call the function timedelta with an argument seconds as negative time.timezone [ time . timezone ] , subtract the result from the result of the call ,
+to the function timedelta called with an argument seconds as negative time.altzone [ time . altzone ] , return the result . if not ,
+call the function timedelta with an argument integer 0 , return the result .
+define the method tzname with 2 arguments self and dt .
+if dt is None is_dst is boolean False , otherwise call the method self._isdst [ self . _isdst ] with an argument dt , substitute the result for is_dst .
+try ,
+call the function force_text with 2 arguments : value under the is_dst key of the time.tzname [ time . tzname ] and DEFAULT_LOCALE_ENCODING ,
+return the result . if UnicodeDecodeError exception is caught ,
+return None .
+define the method _isdst with 2 arguments self and dt .
+tt is an tuple with 9 elements : dt.year [ dt . year ] , dt.month [ dt . month ] , dt.day [ dt . day ] , dt.hour [ dt . hour ] , dt.minute [ dt . minute ] , dt.second [ dt . second ] , result of the function dt.weekday [ dt . weekday ] ,
+integer 0 and integer 0. try ,
+call the method time.mktime [ time . mktime ] with an argument tt , substitute the result for stamp .
+if OverflowError or ValueError exceptions are caught ,
+create a tuple out a tuple with an element integer 2037 and a list tt elements without the first element , substitute the result for tt .
+call the method time.mktime [ time . mktime ] with an argument tt , substitute the result for stamp .
+call the method time.localtime [ time . localtime ] with an argument stamp , substitute the result for tt .
+if tt.tm_isdst [ tt . tm_isdst ] is greater than intger 0 , return boolean True , otherwise return boolean False .
+from __future__ import absolute_import into default name space .
+import module warnings .
+from django.utils.deprecation [ django . utils . deprecation ] import RemovedInDjango19Warning into default name space .
+call the function warnings.warn [ warnings . warn ] with 3 arguments : string _STR:0_ ,
+RemovedInDjango19Warning and stacklevel as integer 2. try ,
+from unittest2 import everything .
+if ImportError exception is caught ,
+from unittest import import everything .
+from __future__ import unicode_literals into default name space .
+import module datetime .
+import module os .
+import module subprocess .
+define the function get_version with version set to None as argument .
+call the get_complete_version function with version as argument , store the result in version .
+call the get_major_version wit version as argument , store the result in major .
+sub is an empty string .
+if fourth element of version equals to string _STR:0_ and fight element of version equals to integer 0 ,
+call the function get_git_changeset , store the result in git_changeset .
+if git_changeset is true ,
+convert git_changeset to string , append it to the string _STR:0_ , replace it for sub .
+otherwise if fourth element of version does not equals to _STR:0_ ,
+mapping is a dictionary with 3 initial entries : _STR:0_ for _STR:1_ , _STR:2_ for _STR:3_ and _STR:4_ for _STR:5_ .
+use fourth element of version as a key to get the value from mapping dictionary , append to it fourth element of version converted to string , substitute it for sub .
+sum major and sub , return the result converted to string .
+define the function get_major_version with an argument version defaulting to None .
+call the get_complete_version with an argument version , store the result in version .
+assign integer 2 to parts if third element of version equals to zero , otherwise assign it integer 3 .
+convert x into a string for every x in list of version elements up to the parts index , join the previous into a string separated by _STR:0_ , assign the result to major .
+return major .
+define the function get_complete_version with in argument version , defaulting to None .
+if version is None ,
+from django import VERSION as version into default name space .
+if not ,
+if length of version does not equals to integer 5 , raise an exception .
+if fourth element of version does not equals to string _STR:0_ or _STR:1_ or _STR:2_ or _STR:3_ , raise an exception .
+return version
+define the function get_git_changeset .
+if get_git_changeset has an attribute _STR:0_ ,
+return get_git_changeset.cache [ get_git_changeset . cache ] .
+get the absolute path of the __file__ , repo_dir is name of the directory two leveles above it .
+call the subprocess.Popen [ subprocess . Popen ] function with , _STR:0_ , stdout set to subprocess.PIPE [ subprocess . PIPE ] ,
+stderr set to subprocess.PIPE [ subprocess . PIPE ] , shell set to boolean True , cwd set to repo_dir and universal_newlines set to boolean True , as arguments , substitute the result for git_log . evaluate the method git_log.communicate [ git_log . communicate ] , substitute first element of the result for timestamp .
+try
+call the datetime.datetime.utcfromtimestamp [ datetime . datetime . utcfromtimestamp ] with timestamp converted to an integer as argument , substitute result for timestamp .
+if ValueError exception is caught ,
+changeset is None .
+if not ,
+call the timestamp.strftime [ timestamp . strftime ] with string _STR:0_ as an argument , substitute the result for changeset .
+substitute changeset for get_git_changeset.cache [ get_git_changeset . cache ] .
+return changeset .
+from xml.sax.saxutils [ xml . sax . saxutils ] import XMLGenerator into default name space .
+derive the class SimplerXMLGenerator form the XMLGenerator base class .
+define the method addQuickElement with 4 arguments : self , name , contents set to None and attrs set to None .
+if attrs is None ,
+attrs is an empty dictionary .
+cal the method self.startElement [ self . startElement ] with 2 arguments : name and attrs .
+if contents is not None ,
+call the method self.characters [ self . characters ] with an argument contents .
+call the method self.endElement [ self . endElement ] with an argument name .

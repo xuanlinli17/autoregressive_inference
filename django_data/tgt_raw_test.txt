@@ -1,0 +1,1801 @@
+params = [ ]
+if True: pass _newline_ else :pass
+params = [ source [ 1 ] ]
+return [ source [ 0 ] ] , [ params ]
+result = [ '' ]
+result_args = [ [ ] ]
+pos = last = 0
+for pos , elt in enumerate ( source ) :pass
+if isinstance ( elt , six . string_types ) :pass
+continue
+piece = '' . join ( source [ last : pos ] )
+if isinstance ( elt , Group ) :pass
+piece += elt [ 0 ]
+param = elt [ 1 ]
+if True: pass _newline_ else :pass
+param = None
+last = pos + 1
+for i in range ( len ( result ) ) :pass
+result [ i ] += piece
+if param :pass
+result_args [ i ] . append ( param )
+if isinstance ( elt , ( Choice , NonCapture ) ) :pass
+if isinstance ( elt , NonCapture ) :pass
+elt = [ elt ]
+inner_result , inner_args = [ ] , [ ]
+for item in elt :pass
+res , args = flatten_result ( item )
+inner_result . extend ( res )
+inner_args . extend ( args )
+new_result = [ ]
+new_args = [ ]
+for item , args in zip ( result , result_args ) :pass
+for i_item , i_args in zip ( inner_result , inner_args ) :pass
+new_result . append ( item + i_item )
+new_args . append ( args [ : ] + i_args )
+result = new_result
+result_args = new_args
+if pos >= last :pass
+piece = '' . join ( source [ last : ] )
+for i in range ( len ( result ) ) :pass
+result [ i ] += piece
+return result , result_args
+from django . utils . functional import curry , Promise
+from django . utils import six
+class EscapeData ( object ) :pass
+pass
+class EscapeBytes ( bytes , EscapeData ) :pass
+pass
+class EscapeText ( six . text_type , EscapeData ) :pass
+pass
+if six . PY3 :pass
+EscapeString = EscapeText
+if True: pass _newline_ else :pass
+EscapeString = EscapeBytes
+EscapeUnicode = EscapeText
+class SafeData ( object ) :pass
+def __html__ ( self ) :pass
+return self
+class SafeBytes ( bytes , SafeData ) :pass
+def __add__ ( self , rhs ) :pass
+t = super ( SafeBytes , self ) . __add__ ( rhs )
+if isinstance ( rhs , SafeText ) :pass
+return SafeText ( t )
+if True: pass _newline_ elif isinstance ( rhs , SafeBytes ) :pass
+return SafeBytes ( t )
+return t
+def _proxy_method ( self , * args , ** kwargs ) :pass
+method = kwargs . pop ( '_STR:0_' )
+data = method ( self , * args , ** kwargs )
+if isinstance ( data , bytes ) :pass
+return SafeBytes ( data )
+if True: pass _newline_ else :pass
+return SafeText ( data )
+decode = curry ( _proxy_method , method = bytes . decode )
+class SafeText ( six . text_type , SafeData ) :pass
+def __add__ ( self , rhs ) :pass
+t = super ( SafeText , self ) . __add__ ( rhs )
+if isinstance ( rhs , SafeData ) :pass
+return SafeText ( t )
+return t
+def _proxy_method ( self , * args , ** kwargs ) :pass
+method = kwargs . pop ( '_STR:0_' )
+data = method ( self , * args , ** kwargs )
+if isinstance ( data , bytes ) :pass
+return SafeBytes ( data )
+if True: pass _newline_ else :pass
+return SafeText ( data )
+encode = curry ( _proxy_method , method = six . text_type . encode )
+if six . PY3 :pass
+SafeString = SafeText
+if True: pass _newline_ else :pass
+SafeString = SafeBytes
+SafeUnicode = SafeText
+def mark_safe ( s ) :pass
+if isinstance ( s , SafeData ) :pass
+return s
+if isinstance ( s , bytes ) or ( isinstance ( s , Promise ) and s . _delegate_bytes ) :pass
+return SafeBytes ( s )
+if isinstance ( s , ( six . text_type , Promise ) ) :pass
+return SafeText ( s )
+return SafeString ( str ( s ) )
+def mark_for_escaping ( s ) :pass
+if isinstance ( s , ( SafeData , EscapeData ) ) :pass
+return s
+if isinstance ( s , bytes ) or ( isinstance ( s , Promise ) and s . _delegate_bytes ) :pass
+return EscapeBytes ( s )
+if isinstance ( s , ( six . text_type , Promise ) ) :pass
+return EscapeText ( s )
+return EscapeBytes ( bytes ( s ) )
+import operator
+import sys
+import types
+__author__ = '_STR:0_'
+__version__ = '_STR:0_'
+PY2 = sys . version_info [ 0 ] == 2
+PY3 = sys . version_info [ 0 ] == 3
+if PY3 :pass
+string_types = str ,
+integer_types = int ,
+class_types = type ,
+text_type = str
+binary_type = bytes
+MAXSIZE = sys . maxsize
+if True: pass _newline_ else :pass
+string_types = basestring ,
+integer_types = ( int , long )
+class_types = ( type , types . ClassType )
+text_type = unicode
+binary_type = str
+if sys . platform . startswith ( "java" ) :pass
+MAXSIZE = int ( ( 1 << 31 ) - 1 )
+if True: pass _newline_ else :pass
+class X ( object ) :pass
+def __len__ ( self ) :pass
+return 1 << 31
+try :pass _newline_ except: pass
+len ( X ( ) )
+try: pass _newline_ except OverflowError :pass
+MAXSIZE = int ( ( 1 << 31 ) - 1 )
+if True: pass _newline_ else :pass
+MAXSIZE = int ( ( 1 << 63 ) - 1 )
+del X
+def _add_doc ( func , doc ) :pass
+func . __doc__ = doc
+def _import_module ( name ) :pass
+__import__ ( name )
+return sys . modules [ name ]
+class _LazyDescr ( object ) :pass
+def __init__ ( self , name ) :pass
+self . name = name
+def __get__ ( self , obj , tp ) :pass
+try :pass _newline_ except: pass
+result = self . _resolve ( )
+try: pass _newline_ except ImportError :pass
+raise AttributeError ( '_STR:0_' % self . name )
+setattr ( obj , self . name , result )
+delattr ( obj . __class__ , self . name )
+return result
+class MovedModule ( _LazyDescr ) :pass
+def __init__ ( self , name , old , new = None ) :pass
+super ( MovedModule , self ) . __init__ ( name )
+if PY3 :pass
+if new is None :pass
+new = name
+self . mod = new
+if True: pass _newline_ else :pass
+self . mod = old
+def _resolve ( self ) :pass
+return _import_module ( self . mod )
+def __getattr__ ( self , attr ) :pass
+if ( attr in ( '_STR:0_' , '_STR:1_' , '_STR:2_' ) and  self . mod not in sys . modules ) :pass
+raise AttributeError ( attr )
+try :pass _newline_ except: pass
+_module = self . _resolve ( )
+try: pass _newline_ except ImportError :pass
+raise AttributeError ( attr )
+value = getattr ( _module , attr )
+setattr ( self , attr , value )
+return value
+class _LazyModule ( types . ModuleType ) :pass
+def __init__ ( self , name ) :pass
+super ( _LazyModule , self ) . __init__ ( name )
+self . __doc__ = self . __class__ . __doc__
+def __dir__ ( self ) :pass
+attrs = [ '_STR:0_' , '_STR:1_' ]
+attrs += [ attr . name for attr in self . _moved_attributes ]
+return attrs
+_moved_attributes = [ ]
+class MovedAttribute ( _LazyDescr ) :pass
+def __init__ ( self , name , old_mod , new_mod , old_attr = None , new_attr = None ) :pass
+super ( MovedAttribute , self ) . __init__ ( name )
+if PY3 :pass
+if new_mod is None :pass
+new_mod = name
+self . mod = new_mod
+if new_attr is None :pass
+if old_attr is None :pass
+new_attr = name
+if True: pass _newline_ else :pass
+new_attr = old_attr
+self . attr = new_attr
+if True: pass _newline_ else :pass
+self . mod = old_mod
+if old_attr is None :pass
+old_attr = name
+self . attr = old_attr
+def _resolve ( self ) :pass
+module = _import_module ( self . mod )
+return getattr ( module , self . attr )
+class _MovedItems ( _LazyModule ) :pass
+_moved_attributes = [  MovedAttribute ( "cStringIO" , "cStringIO" , "io" , "StringIO" ) ,  MovedAttribute ( "filter" , "itertools" , "builtins" , "ifilter" , "filter" ) ,  MovedAttribute ( "filterfalse" , "itertools" , "itertools" , "ifilterfalse" , "filterfalse" ) ,  MovedAttribute ( "input" , "__builtin__" , "builtins" , "raw_input" , "input" ) ,  MovedAttribute ( "map" , "itertools" , "builtins" , "imap" , "map" ) ,  MovedAttribute ( "range" , "__builtin__" , "builtins" , "xrange" , "range" ) ,  MovedAttribute ( "reload_module" , "__builtin__" , "imp" , "reload" ) ,  MovedAttribute ( "reduce" , "__builtin__" , "functools" ) ,  MovedAttribute ( "StringIO" , "StringIO" , "io" ) ,  MovedAttribute ( "UserString" , "UserString" , "collections" ) ,  MovedAttribute ( "xrange" , "__builtin__" , "builtins" , "xrange" , "range" ) ,  MovedAttribute ( "zip" , "itertools" , "builtins" , "izip" , "zip" ) ,  MovedAttribute ( "zip_longest" , "itertools" , "itertools" , "izip_longest" , "zip_longest" ) ,   MovedModule ( "builtins" , "__builtin__" ) ,  MovedModule ( "configparser" , "ConfigParser" ) ,  MovedModule ( "copyreg" , "copy_reg" ) ,  MovedModule ( "dbm_gnu" , "gdbm" , "dbm.gnu" ) ,  MovedModule ( "http_cookiejar" , "cookielib" , "http.cookiejar" ) ,  MovedModule ( "http_cookies" , "Cookie" , "http.cookies" ) ,  MovedModule ( "html_entities" , "htmlentitydefs" , "html.entities" ) ,  MovedModule ( "html_parser" , "HTMLParser" , "html.parser" ) ,  MovedModule ( "http_client" , "httplib" , "http.client" ) ,  MovedModule ( "email_mime_multipart" , "email.MIMEMultipart" , "email.mime.multipart" ) ,  MovedModule ( "email_mime_text" , "email.MIMEText" , "email.mime.text" ) ,  MovedModule ( "email_mime_base" , "email.MIMEBase" , "email.mime.base" ) ,  MovedModule ( "BaseHTTPServer" , "BaseHTTPServer" , "http.server" ) ,  MovedModule ( "CGIHTTPServer" , "CGIHTTPServer" , "http.server" ) ,  MovedModule ( "SimpleHTTPServer" , "SimpleHTTPServer" , "http.server" ) ,  MovedModule ( "cPickle" , "cPickle" , "pickle" ) ,  MovedModule ( "queue" , "Queue" ) ,  MovedModule ( "reprlib" , "repr" ) ,  MovedModule ( "socketserver" , "SocketServer" ) ,  MovedModule ( "_thread" , "thread" , "_thread" ) ,  MovedModule ( "tkinter" , "Tkinter" ) ,  MovedModule ( "tkinter_dialog" , "Dialog" , "tkinter.dialog" ) ,  MovedModule ( "tkinter_filedialog" , "FileDialog" , "tkinter.filedialog" ) ,  MovedModule ( "tkinter_scrolledtext" , "ScrolledText" , "tkinter.scrolledtext" ) ,  MovedModule ( "tkinter_simpledialog" , "SimpleDialog" , "tkinter.simpledialog" ) ,  MovedModule ( "tkinter_tix" , "Tix" , "tkinter.tix" ) ,  MovedModule ( "tkinter_ttk" , "ttk" , "tkinter.ttk" ) ,  MovedModule ( "tkinter_constants" , "Tkconstants" , "tkinter.constants" ) ,  MovedModule ( "tkinter_dnd" , "Tkdnd" , "tkinter.dnd" ) ,  MovedModule ( "tkinter_colorchooser" , "tkColorChooser" ,  "tkinter.colorchooser" ) ,  MovedModule ( "tkinter_commondialog" , "tkCommonDialog" ,  "tkinter.commondialog" ) ,  MovedModule ( "tkinter_tkfiledialog" , "tkFileDialog" , "tkinter.filedialog" ) ,  MovedModule ( "tkinter_font" , "tkFont" , "tkinter.font" ) ,  MovedModule ( "tkinter_messagebox" , "tkMessageBox" , "tkinter.messagebox" ) ,  MovedModule ( "tkinter_tksimpledialog" , "tkSimpleDialog" ,  "tkinter.simpledialog" ) ,  MovedModule ( "urllib_parse" , __name__ + ".moves.urllib_parse" , "urllib.parse" ) ,  MovedModule ( "urllib_error" , __name__ + ".moves.urllib_error" , "urllib.error" ) ,  MovedModule ( "urllib" , __name__ + ".moves.urllib" , __name__ + ".moves.urllib" ) ,  MovedModule ( "urllib_robotparser" , "robotparser" , "urllib.robotparser" ) ,  MovedModule ( "xmlrpc_client" , "xmlrpclib" , "xmlrpc.client" ) ,  MovedModule ( "xmlrpc_server" , "xmlrpclib" , "xmlrpc.server" ) ,  MovedModule ( "winreg" , "_winreg" ) ,  ]
+for attr in _moved_attributes :pass
+setattr ( _MovedItems , attr . name , attr )
+if isinstance ( attr , MovedModule ) :pass
+sys . modules [ __name__ + ".moves." + attr . name ] = attr
+del attr
+_MovedItems . _moved_attributes = _moved_attributes
+moves = sys . modules [ __name__ + ".moves" ] = _MovedItems ( __name__ + ".moves" )
+class Module_six_moves_urllib_parse ( _LazyModule ) :pass
+_urllib_parse_moved_attributes = [  MovedAttribute ( "ParseResult" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "SplitResult" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "parse_qs" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "parse_qsl" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "urldefrag" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "urljoin" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "urlparse" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "urlsplit" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "urlunparse" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "urlunsplit" , "urlparse" , "urllib.parse" ) ,  MovedAttribute ( "quote" , "urllib" , "urllib.parse" ) ,  MovedAttribute ( "quote_plus" , "urllib" , "urllib.parse" ) ,  MovedAttribute ( "unquote" , "urllib" , "urllib.parse" ) ,  MovedAttribute ( "unquote_plus" , "urllib" , "urllib.parse" ) ,  MovedAttribute ( "urlencode" , "urllib" , "urllib.parse" ) ,  MovedAttribute ( "splitquery" , "urllib" , "urllib.parse" ) ,  ]
+for attr in _urllib_parse_moved_attributes :pass
+setattr ( Module_six_moves_urllib_parse , attr . name , attr )
+del attr
+Module_six_moves_urllib_parse . _moved_attributes = _urllib_parse_moved_attributes
+sys . modules [ __name__ + '_STR:0_' ] = sys . modules [ __name__ + ".moves.urllib.parse" ] = Module_six_moves_urllib_parse ( __name__ + '_STR:0_' )
+class Module_six_moves_urllib_error ( _LazyModule ) :pass
+_urllib_error_moved_attributes = [  MovedAttribute ( "URLError" , "urllib2" , "urllib.error" ) ,  MovedAttribute ( "HTTPError" , "urllib2" , "urllib.error" ) ,  MovedAttribute ( "ContentTooShortError" , "urllib" , "urllib.error" ) ,  ]
+for attr in _urllib_error_moved_attributes :pass
+setattr ( Module_six_moves_urllib_error , attr . name , attr )
+del attr
+Module_six_moves_urllib_error . _moved_attributes = _urllib_error_moved_attributes
+sys . modules [ __name__ + ".moves.urllib_error" ] = sys . modules [ __name__ + '_STR:0_' ] = Module_six_moves_urllib_error ( __name__ + '_STR:0_' )
+class Module_six_moves_urllib_request ( _LazyModule ) :pass
+_urllib_request_moved_attributes = [  MovedAttribute ( "urlopen" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "install_opener" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "build_opener" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "pathname2url" , "urllib" , "urllib.request" ) ,  MovedAttribute ( "url2pathname" , "urllib" , "urllib.request" ) ,  MovedAttribute ( "getproxies" , "urllib" , "urllib.request" ) ,  MovedAttribute ( "Request" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "OpenerDirector" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPDefaultErrorHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPRedirectHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPCookieProcessor" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "ProxyHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "BaseHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPPasswordMgr" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPPasswordMgrWithDefaultRealm" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "AbstractBasicAuthHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPBasicAuthHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "ProxyBasicAuthHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "AbstractDigestAuthHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPDigestAuthHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "ProxyDigestAuthHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPSHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "FileHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "FTPHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "CacheFTPHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "UnknownHandler" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "HTTPErrorProcessor" , "urllib2" , "urllib.request" ) ,  MovedAttribute ( "urlretrieve" , "urllib" , "urllib.request" ) ,  MovedAttribute ( "urlcleanup" , "urllib" , "urllib.request" ) ,  MovedAttribute ( "URLopener" , "urllib" , "urllib.request" ) ,  MovedAttribute ( "FancyURLopener" , "urllib" , "urllib.request" ) ,  MovedAttribute ( "proxy_bypass" , "urllib" , "urllib.request" ) ,  ]
+for attr in _urllib_request_moved_attributes :pass
+setattr ( Module_six_moves_urllib_request , attr . name , attr )
+del attr
+Module_six_moves_urllib_request . _moved_attributes = _urllib_request_moved_attributes
+sys . modules [ __name__ + ".moves.urllib_request" ] = sys . modules [ __name__ + '_STR:0_' ] = Module_six_moves_urllib_request ( __name__ + '_STR:0_' )
+class Module_six_moves_urllib_response ( _LazyModule ) :pass
+_urllib_response_moved_attributes = [  MovedAttribute ( "addbase" , "urllib" , "urllib.response" ) ,  MovedAttribute ( "addclosehook" , "urllib" , "urllib.response" ) ,  MovedAttribute ( "addinfo" , "urllib" , "urllib.response" ) ,  MovedAttribute ( "addinfourl" , "urllib" , "urllib.response" ) ,  ]
+for attr in _urllib_response_moved_attributes :pass
+setattr ( Module_six_moves_urllib_response , attr . name , attr )
+del attr
+Module_six_moves_urllib_response . _moved_attributes = _urllib_response_moved_attributes
+sys . modules [ __name__ + ".moves.urllib_response" ] = sys . modules [ __name__ + '_STR:0_' ] = Module_six_moves_urllib_response ( __name__ + '_STR:0_' )
+class Module_six_moves_urllib_robotparser ( _LazyModule ) :pass
+_urllib_robotparser_moved_attributes = [  MovedAttribute ( "RobotFileParser" , "robotparser" , "urllib.robotparser" ) ,  ]
+for attr in _urllib_robotparser_moved_attributes :pass
+setattr ( Module_six_moves_urllib_robotparser , attr . name , attr )
+del attr
+Module_six_moves_urllib_robotparser . _moved_attributes = _urllib_robotparser_moved_attributes
+sys . modules [ __name__ + ".moves.urllib_robotparser" ] = sys . modules [ __name__ + '_STR:0_' ] = Module_six_moves_urllib_robotparser ( __name__ + '_STR:0_' )
+class Module_six_moves_urllib ( types . ModuleType ) :pass
+parse = sys . modules [ __name__ + '_STR:0_' ]
+error = sys . modules [ __name__ + '_STR:0_' ]
+request = sys . modules [ __name__ + '_STR:0_' ]
+response = sys . modules [ __name__ + '_STR:0_' ]
+robotparser = sys . modules [ __name__ + '_STR:0_' ]
+def __dir__ ( self ) :pass
+return [ '_STR:0_' , '_STR:1_' , '_STR:2_' , '_STR:3_' , '_STR:4_' ]
+sys . modules [ __name__ + '_STR:0_' ] = Module_six_moves_urllib ( __name__ + '_STR:0_' )
+def add_move ( move ) :pass
+setattr ( _MovedItems , move . name , move )
+def remove_move ( name ) :pass
+try :pass _newline_ except: pass
+delattr ( _MovedItems , name )
+try: pass _newline_ except AttributeError :pass
+try :pass _newline_ except: pass
+del moves . __dict__ [ name ]
+try: pass _newline_ except KeyError :pass
+raise AttributeError ( '_STR:0_' % ( name , ) )
+if PY3 :pass
+_meth_func = '_STR:0_'
+_meth_self = '_STR:0_'
+_func_closure = '_STR:0_'
+_func_code = '_STR:0_'
+_func_defaults = '_STR:0_'
+_func_globals = '_STR:0_'
+_iterkeys = '_STR:0_'
+_itervalues = '_STR:0_'
+_iteritems = '_STR:0_'
+_iterlists = '_STR:0_'
+if True: pass _newline_ else :pass
+_meth_func = '_STR:0_'
+_meth_self = '_STR:0_'
+_func_closure = '_STR:0_'
+_func_code = '_STR:0_'
+_func_defaults = '_STR:0_'
+_func_globals = '_STR:0_'
+_iterkeys = '_STR:0_'
+_itervalues = "itervalues"
+_iteritems = '_STR:0_'
+_iterlists = '_STR:0_'
+try :pass _newline_ except: pass
+advance_iterator = next
+try: pass _newline_ except NameError :pass
+def advance_iterator ( it ) :pass
+return it . next ( )
+next = advance_iterator
+try :pass _newline_ except: pass
+callable = callable
+try: pass _newline_ except NameError :pass
+def callable ( obj ) :pass
+return any ( '_STR:0_' in klass . __dict__ for klass in type ( obj ) . __mro__ )
+if PY3 :pass
+def get_unbound_function ( unbound ) :pass
+return unbound
+create_bound_method = types . MethodType
+Iterator = object
+if True: pass _newline_ else :pass
+def get_unbound_function ( unbound ) :pass
+return unbound . im_func
+def create_bound_method ( func , obj ) :pass
+return types . MethodType ( func , obj , obj . __class__ )
+class Iterator ( object ) :pass
+def next ( self ) :pass
+return type ( self ) . __next__ ( self )
+callable = callable
+_add_doc ( get_unbound_function ,  '_STR:0_''_STR:1_''_STR:0_' )
+get_method_function = operator . attrgetter ( _meth_func )
+get_method_self = operator . attrgetter ( _meth_self )
+get_function_closure = operator . attrgetter ( _func_closure )
+get_function_code = operator . attrgetter ( _func_code )
+get_function_defaults = operator . attrgetter ( _func_defaults )
+get_function_globals = operator . attrgetter ( _func_globals )
+def iterkeys ( d , ** kw ) :pass
+return iter ( getattr ( d , _iterkeys ) ( ** kw ) )
+def itervalues ( d , ** kw ) :pass
+return iter ( getattr ( d , _itervalues ) ( ** kw ) )
+def iteritems ( d , ** kw ) :pass
+return iter ( getattr ( d , _iteritems ) ( ** kw ) )
+def iterlists ( d , ** kw ) :pass
+return iter ( getattr ( d , _iterlists ) ( ** kw ) )
+if PY3 :pass
+def b ( s ) :pass
+return s . encode ( '_STR:0_' )
+def u ( s ) :pass
+return s
+unichr = chr
+if sys . version_info [ 1 ] <= 1 :pass
+def int2byte ( i ) :pass
+return bytes ( ( i , ) )
+if True: pass _newline_ else :pass
+int2byte = operator . methodcaller ( "to_bytes" , 1 , "big" )
+byte2int = operator . itemgetter ( 0 )
+indexbytes = operator . getitem
+iterbytes = iter
+import io
+StringIO = io . StringIO
+BytesIO = io . BytesIO
+if True: pass _newline_ else :pass
+def b ( s ) :pass
+return s
+def u ( s ) :pass
+return unicode ( s . replace ( r'\\' , r'\\\\' ) , '_STR:1_' )
+unichr = unichr
+int2byte = chr
+def byte2int ( bs ) :pass
+return ord ( bs [ 0 ] )
+def indexbytes ( buf , i ) :pass
+return ord ( buf [ i ] )
+def iterbytes ( buf ) :pass
+return ( ord ( byte ) for byte in buf )
+import StringIO
+StringIO = BytesIO = StringIO . StringIO
+_add_doc ( b , '_STR:0_'"Byte literal'_STR:0_'" )
+_add_doc ( u , '_STR:0_''_STR:1_''_STR:0_' )
+if PY3 :pass
+exec_ = getattr ( moves . builtins , "exec" )
+def reraise ( tp , value , tb = None ) :pass
+if value . __traceback__ is not tb :pass
+raise value . with_traceback ( tb )
+raise value
+if True: pass _newline_ else :pass
+def exec_ ( _code_ , _globs_ = None , _locs_ = None ) :pass
+if _globs_ is None :pass
+frame = sys . _getframe ( 1 )
+_globs_ = frame . f_globals
+if _locs_ is None :pass
+_locs_ = frame . f_locals
+del frame
+if True: pass _newline_ elif _locs_ is None :pass
+_locs_ = _globs_
+exec ( '_STR:0_'"exec _code_ in _globs_, _locs_'_STR:0_'" )
+exec_ ( '_STR:0_'"def reraise(tp, value, tb=None):     raise tp, value, tb '_STR:0_'" )
+print_ = getattr ( moves . builtins , "print" , None )
+if print_ is None :pass
+def print_ ( * args , ** kwargs ) :pass
+fp = kwargs . pop ( "file" , sys . stdout )
+if fp is None :pass
+return
+def write ( data ) :pass
+if not isinstance ( data , basestring ) :pass
+data = str ( data )
+if ( isinstance ( fp , file ) and  isinstance ( data , unicode ) and  fp . encoding is not None ) :pass
+errors = getattr ( fp , "errors" , None )
+if errors is None :pass
+errors = '_STR:0_'
+data = data . encode ( fp . encoding , errors )
+fp . write ( data )
+want_unicode = False
+sep = kwargs . pop ( "sep" , None )
+if sep is not None :pass
+if isinstance ( sep , unicode ) :pass
+want_unicode = True
+if True: pass _newline_ elif not isinstance ( sep , str ) :pass
+raise TypeError ( '_STR:0_' )
+end = kwargs . pop ( "end" , None )
+if end is not None :pass
+if isinstance ( end , unicode ) :pass
+want_unicode = True
+if True: pass _newline_ elif not isinstance ( end , str ) :pass
+raise TypeError ( '_STR:0_' )
+if kwargs :pass
+raise TypeError ( '_STR:0_' )
+if not want_unicode :pass
+for arg in args :pass
+if isinstance ( arg , unicode ) :pass
+want_unicode = True
+break
+if want_unicode :pass
+newline = unicode ( "\n" )
+space = unicode ( " " )
+if True: pass _newline_ else :pass
+newline = "\n"
+space = '_STR:0_'
+if sep is None :pass
+sep = space
+if end is None :pass
+end = newline
+for i , arg in enumerate ( args ) :pass
+if i :pass
+write ( sep )
+write ( arg )
+write ( end )
+_add_doc ( reraise , '_STR:0_''_STR:1_''_STR:0_' )
+def with_metaclass ( meta , * bases ) :pass
+class metaclass ( meta ) :pass
+__call__ = type . __call__
+__init__ = type . __init__
+def __new__ ( cls , name , this_bases , d ) :pass
+if this_bases is None :pass
+return type . __new__ ( cls , name , ( ) , d )
+return meta ( name , bases , d )
+return metaclass ( '_STR:0_' , None , { } )
+def add_metaclass ( metaclass ) :pass
+def wrapper ( cls ) :pass
+orig_vars = cls . __dict__ . copy ( )
+orig_vars . pop ( '_STR:0_' , None )
+orig_vars . pop ( '_STR:0_' , None )
+slots = orig_vars . get ( '_STR:0_' )
+if slots is not None :pass
+if isinstance ( slots , str ) :pass
+slots = [ slots ]
+for slots_var in slots :pass
+orig_vars . pop ( slots_var )
+return metaclass ( cls . __name__ , cls . __bases__ , orig_vars )
+return wrapper
+if PY3 :pass
+_assertCountEqual = '_STR:0_'
+_assertRaisesRegex = '_STR:0_'
+_assertRegex = '_STR:0_'
+memoryview = memoryview
+buffer_types = ( bytes , bytearray , memoryview )
+if True: pass _newline_ else :pass
+_assertCountEqual = '_STR:0_'
+_assertRaisesRegex = '_STR:0_'
+_assertRegex = '_STR:0_'
+if sys . platform . startswith ( '_STR:0_' ) :pass
+memoryview = memoryview
+if True: pass _newline_ else :pass
+memoryview = buffer
+buffer_types = ( bytearray , memoryview )
+def assertCountEqual ( self , * args , ** kwargs ) :pass
+return getattr ( self , _assertCountEqual ) ( * args , ** kwargs )
+def assertRaisesRegex ( self , * args , ** kwargs ) :pass
+return getattr ( self , _assertRaisesRegex ) ( * args , ** kwargs )
+def assertRegex ( self , * args , ** kwargs ) :pass
+return getattr ( self , _assertRegex ) ( * args , ** kwargs )
+add_move ( MovedModule ( '_STR:0_' , '_STR:1_' ) )
+add_move ( MovedModule ( '_STR:0_' , '_STR:1_' ) )
+import contextlib
+try :pass _newline_ except: pass
+import threading
+try: pass _newline_ except ImportError :pass
+import dummy_threading as threading
+class RWLock ( object ) :pass
+def __init__ ( self ) :pass
+self . mutex = threading . RLock ( )
+self . can_read = threading . Semaphore ( 0 )
+self . can_write = threading . Semaphore ( 0 )
+self . active_readers = 0
+self . active_writers = 0
+self . waiting_readers = 0
+self . waiting_writers = 0
+def reader_enters ( self ) :pass
+with self . mutex :pass
+if self . active_writers == 0 and self . waiting_writers == 0 :pass
+self . active_readers += 1
+self . can_read . release ( )
+if True: pass _newline_ else :pass
+self . waiting_readers += 1
+self . can_read . acquire ( )
+def reader_leaves ( self ) :pass
+with self . mutex :pass
+self . active_readers -= 1
+if self . active_readers == 0 and self . waiting_writers != 0 :pass
+self . active_writers += 1
+self . waiting_writers -= 1
+self . can_write . release ( )
+@ contextlib . contextmanager _newline_ def dummy(): pass
+def reader ( self ) :pass
+self . reader_enters ( )
+try :pass _newline_ except: pass
+yield
+try: pass _newline_ finally :pass
+self . reader_leaves ( )
+def writer_enters ( self ) :pass
+with self . mutex :pass
+if self . active_writers == 0 and self . waiting_writers == 0 and self . active_readers == 0 :pass
+self . active_writers += 1
+self . can_write . release ( )
+if True: pass _newline_ else :pass
+self . waiting_writers += 1
+self . can_write . acquire ( )
+def writer_leaves ( self ) :pass
+with self . mutex :pass
+self . active_writers -= 1
+if self . waiting_writers != 0 :pass
+self . active_writers += 1
+self . waiting_writers -= 1
+self . can_write . release ( )
+if True: pass _newline_ elif self . waiting_readers != 0 :pass
+t = self . waiting_readers
+self . waiting_readers = 0
+self . active_readers += t
+while t > 0 :pass
+self . can_read . release ( )
+t -= 1
+@ contextlib . contextmanager _newline_ def dummy(): pass
+def writer ( self ) :pass
+self . writer_enters ( )
+try :pass _newline_ except: pass
+yield
+try: pass _newline_ finally :pass
+self . writer_leaves ( )
+from django . utils import six
+color_names = ( '_STR:0_' , '_STR:1_' , '_STR:2_' , '_STR:3_' , '_STR:4_' , '_STR:5_' , '_STR:6_' , '_STR:7_' )
+foreground = dict ( ( color_names [ x ] , '3%s' % x ) for x in range ( 8 ) )
+background = dict ( ( color_names [ x ] , '4%s' % x ) for x in range ( 8 ) )
+RESET = '_STR:0_'
+opt_dict = { '_STR:1_' : '_STR:0_' , '_STR:3_' : '_STR:2_' , '_STR:5_' : '_STR:4_' , '_STR:7_' : '_STR:6_' , 'conceal' : '8' }
+def colorize ( text = '' , opts = ( ) , ** kwargs ) :pass
+code_list = [ ]
+if text == '' and len ( opts ) == 1 and opts [ 0 ] == '_STR:0_' :pass
+return '_STR:0_' % RESET
+for k , v in six . iteritems ( kwargs ) :pass
+if k == '_STR:0_' :pass
+code_list . append ( foreground [ v ] )
+if True: pass _newline_ elif k == '_STR:0_' :pass
+code_list . append ( background [ v ] )
+for o in opts :pass
+if o in opt_dict :pass
+code_list . append ( opt_dict [ o ] )
+if '_STR:0_' not in opts :pass
+text = '_STR:0_' % ( text or '' , RESET )
+return '%s%s' % ( ( '_STR:1_' % '_STR:0_' . join ( code_list ) ) , text or '' )
+def make_style ( opts = ( ) , ** kwargs ) :pass
+return lambda text : colorize ( text , opts , ** kwargs )
+NOCOLOR_PALETTE = '_STR:0_'
+DARK_PALETTE = '_STR:0_'
+LIGHT_PALETTE = '_STR:0_'
+PALETTES = {  NOCOLOR_PALETTE : {  'ERROR' : { } ,  'WARNING' : { } ,  'NOTICE' : { } ,  'SQL_FIELD' : { } ,  'SQL_COLTYPE' : { } ,  'SQL_KEYWORD' : { } ,  'SQL_TABLE' : { } ,  'HTTP_INFO' : { } ,  'HTTP_SUCCESS' : { } ,  'HTTP_REDIRECT' : { } ,  'HTTP_NOT_MODIFIED' : { } ,  'HTTP_BAD_REQUEST' : { } ,  'HTTP_NOT_FOUND' : { } ,  'HTTP_SERVER_ERROR' : { } ,  'MIGRATE_HEADING' : { } ,  'MIGRATE_LABEL' : { } ,  'MIGRATE_SUCCESS' : { } ,  'MIGRATE_FAILURE' : { } ,  } ,  DARK_PALETTE : {  'ERROR' : { 'fg' : 'red' , 'opts' : ( 'bold' , ) } ,  'WARNING' : { 'fg' : 'yellow' , 'opts' : ( 'bold' , ) } ,  'NOTICE' : { 'fg' : 'red' } ,  'SQL_FIELD' : { 'fg' : 'green' , 'opts' : ( 'bold' , ) } ,  'SQL_COLTYPE' : { 'fg' : 'green' } ,  'SQL_KEYWORD' : { 'fg' : 'yellow' } ,  'SQL_TABLE' : { 'opts' : ( 'bold' , ) } ,  'HTTP_INFO' : { 'opts' : ( 'bold' , ) } ,  'HTTP_SUCCESS' : { } ,  'HTTP_REDIRECT' : { 'fg' : 'green' } ,  'HTTP_NOT_MODIFIED' : { 'fg' : 'cyan' } ,  'HTTP_BAD_REQUEST' : { 'fg' : 'red' , 'opts' : ( 'bold' , ) } ,  'HTTP_NOT_FOUND' : { 'fg' : 'yellow' } ,  'HTTP_SERVER_ERROR' : { 'fg' : 'magenta' , 'opts' : ( 'bold' , ) } ,  'MIGRATE_HEADING' : { 'fg' : 'cyan' , 'opts' : ( 'bold' , ) } ,  'MIGRATE_LABEL' : { 'opts' : ( 'bold' , ) } ,  'MIGRATE_SUCCESS' : { 'fg' : 'green' , 'opts' : ( 'bold' , ) } ,  'MIGRATE_FAILURE' : { 'fg' : 'red' , 'opts' : ( 'bold' , ) } ,  } ,  LIGHT_PALETTE : {  'ERROR' : { 'fg' : 'red' , 'opts' : ( 'bold' , ) } ,  'WARNING' : { 'fg' : 'yellow' , 'opts' : ( 'bold' , ) } ,  'NOTICE' : { 'fg' : 'red' } ,  'SQL_FIELD' : { 'fg' : 'green' , 'opts' : ( 'bold' , ) } ,  'SQL_COLTYPE' : { 'fg' : 'green' } ,  'SQL_KEYWORD' : { 'fg' : 'blue' } ,  'SQL_TABLE' : { 'opts' : ( 'bold' , ) } ,  'HTTP_INFO' : { 'opts' : ( 'bold' , ) } ,  'HTTP_SUCCESS' : { } ,  'HTTP_REDIRECT' : { 'fg' : 'green' , 'opts' : ( 'bold' , ) } ,  'HTTP_NOT_MODIFIED' : { 'fg' : 'green' } ,  'HTTP_BAD_REQUEST' : { 'fg' : 'red' , 'opts' : ( 'bold' , ) } ,  'HTTP_NOT_FOUND' : { 'fg' : 'red' } ,  'HTTP_SERVER_ERROR' : { 'fg' : 'magenta' , 'opts' : ( 'bold' , ) } ,  'MIGRATE_HEADING' : { 'fg' : 'cyan' , 'opts' : ( 'bold' , ) } ,  'MIGRATE_LABEL' : { 'opts' : ( 'bold' , ) } ,  'MIGRATE_SUCCESS' : { 'fg' : 'green' , 'opts' : ( 'bold' , ) } ,  'MIGRATE_FAILURE' : { 'fg' : 'red' , 'opts' : ( 'bold' , ) } ,  }  }
+DEFAULT_PALETTE = DARK_PALETTE
+def parse_color_setting ( config_string ) :pass
+if not config_string :pass
+return PALETTES [ DEFAULT_PALETTE ]
+parts = config_string . lower ( ) . split ( '_STR:0_' )
+palette = PALETTES [ NOCOLOR_PALETTE ] . copy ( )
+for part in parts :pass
+if part in PALETTES :pass
+palette . update ( PALETTES [ part ] )
+if True: pass _newline_ elif '_STR:0_' in part :pass
+definition = { }
+role , instructions = part . split ( '_STR:0_' )
+role = role . upper ( )
+styles = instructions . split ( '_STR:0_' )
+styles . reverse ( )
+colors = styles . pop ( ) . split ( '_STR:0_' )
+colors . reverse ( )
+fg = colors . pop ( )
+if fg in color_names :pass
+definition [ '_STR:0_' ] = fg
+if colors and colors [ - 1 ] in color_names :pass
+definition [ '_STR:0_' ] = colors [ - 1 ]
+opts = tuple ( s for s in styles if s in opt_dict . keys ( ) )
+if opts :pass
+definition [ '_STR:0_' ] = opts
+if role in PALETTES [ NOCOLOR_PALETTE ] and definition :pass
+palette [ role ] = definition
+if palette == PALETTES [ NOCOLOR_PALETTE ] :pass
+return None
+return palette
+from __future__ import unicode_literals
+import re
+import unicodedata
+from gzip import GzipFile
+from io import BytesIO
+import warnings
+from django . utils . deprecation import RemovedInDjango19Warning
+from django . utils . encoding import force_text
+from django . utils . functional import allow_lazy , SimpleLazyObject
+from django . utils import six
+from django . utils . six . moves import html_entities
+from django . utils . translation import ugettext_lazy , ugettext as _ , pgettext
+from django . utils . safestring import mark_safe
+if six . PY2 :pass
+from django . utils . encoding import force_unicode
+capfirst = lambda x : x and force_text ( x ) [ 0 ] . upper ( ) + force_text ( x ) [ 1 : ]
+capfirst = allow_lazy ( capfirst , six . text_type )
+re_words = re . compile ( r'_STR:0_' , re . U | re . S )
+re_chars = re . compile ( r'_STR:0_' , re . U | re . S )
+re_tag = re . compile ( r'_STR:0_' , re . S )
+re_newlines = re . compile ( r'_STR:0_' )
+re_camel_case = re . compile ( r'_STR:0_' )
+def wrap ( text , width ) :pass
+text = force_text ( text )
+def _generator ( ) :pass
+for line in text . splitlines ( True ) :pass
+max_width = min ( ( line . endswith ( '\n' ) and width + 1 or width ) , width )
+while len ( line ) > max_width :pass
+space = line [ : max_width + 1 ] . rfind ( ' ' ) + 1
+if space == 0 :pass
+space = line . find ( ' ' ) + 1
+if space == 0 :pass
+yield line
+line = ''
+break
+yield '%s\n' % line [ : space - 1 ]
+line = line [ space : ]
+max_width = min ( ( line . endswith ( '\n' ) and width + 1 or width ) , width )
+if line :pass
+yield line
+return '' . join ( _generator ( ) )
+wrap = allow_lazy ( wrap , six . text_type )
+class Truncator ( SimpleLazyObject ) :pass
+def __init__ ( self , text ) :pass
+super ( Truncator , self ) . __init__ ( lambda : force_text ( text ) )
+def add_truncation_text ( self , text , truncate = None ) :pass
+if truncate is None :pass
+truncate = pgettext (  '_STR:0_' ,  '_STR:1_' )
+truncate = force_text ( truncate )
+if '_STR:0_' in truncate :pass
+return truncate % { '_STR:0_' : text }
+if text . endswith ( truncate ) :pass
+return text
+return '%s%s' % ( text , truncate )
+def chars ( self , num , truncate = None , html = False ) :pass
+length = int ( num )
+text = unicodedata . normalize ( '_STR:0_' , self . _wrapped )
+truncate_len = length
+for char in self . add_truncation_text ( '' , truncate ) :pass
+if not unicodedata . combining ( char ) :pass
+truncate_len -= 1
+if truncate_len == 0 :pass
+break
+if html :pass
+return self . _truncate_html ( length , truncate , text , truncate_len , False )
+return self . _text_chars ( length , truncate , text , truncate_len )
+chars = allow_lazy ( chars )
+def _text_chars ( self , length , truncate , text , truncate_len ) :pass
+s_len = 0
+end_index = None
+for i , char in enumerate ( text ) :pass
+if unicodedata . combining ( char ) :pass
+continue
+s_len += 1
+if end_index is None and s_len > truncate_len :pass
+end_index = i
+if s_len > length :pass
+return self . add_truncation_text ( text [ : end_index or 0 ] ,  truncate )
+return text
+def words ( self , num , truncate = None , html = False ) :pass
+length = int ( num )
+if html :pass
+return self . _truncate_html ( length , truncate , self . _wrapped , length , True )
+return self . _text_words ( length , truncate )
+words = allow_lazy ( words )
+def _text_words ( self , length , truncate ) :pass
+words = self . _wrapped . split ( )
+if len ( words ) > length :pass
+words = words [ : length ]
+return self . add_truncation_text ( ' ' . join ( words ) , truncate )
+return ' ' . join ( words )
+def _truncate_html ( self , length , truncate , text , truncate_len , words ) :pass
+if words and length <= 0 :pass
+return ''
+html4_singlets = (  '_STR:0_' , '_STR:1_' , '_STR:2_' , '_STR:3_' , '_STR:4_' ,  '_STR:5_' , '_STR:6_' , '_STR:7_' , '_STR:8_'  )
+pos = 0
+end_text_pos = 0
+current_len = 0
+open_tags = [ ]
+regex = re_words if words else re_chars
+while current_len <= length :pass
+m = regex . search ( text , pos )
+if not m :pass
+break
+pos = m . end ( 0 )
+if m . group ( 1 ) :pass
+current_len += 1
+if current_len == truncate_len :pass
+end_text_pos = pos
+continue
+tag = re_tag . match ( m . group ( 0 ) )
+if not tag or current_len >= truncate_len :pass
+continue
+closing_tag , tagname , self_closing = tag . groups ( )
+tagname = tagname . lower ( )
+if self_closing or tagname in html4_singlets :pass
+pass
+if True: pass _newline_ elif closing_tag :pass
+try :pass _newline_ except: pass
+i = open_tags . index ( tagname )
+try: pass _newline_ except ValueError :pass
+pass
+if True: pass _newline_ else :pass
+open_tags = open_tags [ i + 1 : ]
+if True: pass _newline_ else :pass
+open_tags . insert ( 0 , tagname )
+if current_len <= length :pass
+return text
+out = text [ : end_text_pos ]
+truncate_text = self . add_truncation_text ( '' , truncate )
+if truncate_text :pass
+out += truncate_text
+for tag in open_tags :pass
+out += '_STR:0_' % tag
+return out
+def get_valid_filename ( s ) :pass
+s = force_text ( s ) . strip ( ) . replace ( ' ' , '_' )
+return re . sub ( r'_STR:1_' , '' , s )
+get_valid_filename = allow_lazy ( get_valid_filename , six . text_type )
+def get_text_list ( list_ , last_word = ugettext_lazy ( '_STR:0_' ) ) :pass
+if len ( list_ ) == 0 :pass
+return ''
+if len ( list_ ) == 1 :pass
+return force_text ( list_ [ 0 ] )
+return '_STR:0_' % (   _ ( ', ' ) . join ( force_text ( i ) for i in list_ [ : - 1 ] ) ,  force_text ( last_word ) , force_text ( list_ [ - 1 ] ) )
+get_text_list = allow_lazy ( get_text_list , six . text_type )
+def normalize_newlines ( text ) :pass
+text = force_text ( text )
+return re_newlines . sub ( '_STR:0_' , text )
+normalize_newlines = allow_lazy ( normalize_newlines , six . text_type )
+def phone2numeric ( phone ) :pass
+char2number = { '_STR:0_' : '2' , '_STR:1_' : '2' , '_STR:2_' : '2' , '_STR:3_' : '3' , '_STR:4_' : '3' , '_STR:5_' : '3' ,  '_STR:6_' : '4' , 'h' : '4' , 'i' : '4' , 'j' : '5' , 'k' : '5' , 'l' : '5' , 'm' : '6' ,  'n' : '6' , 'o' : '6' , 'p' : '7' , 'q' : '7' , 'r' : '7' , 's' : '7' , 't' : '8' ,  'u' : '8' , 'v' : '8' , 'w' : '9' , 'x' : '9' , 'y' : '9' , 'z' : '9' }
+return '' . join ( char2number . get ( c , c ) for c in phone . lower ( ) )
+phone2numeric = allow_lazy ( phone2numeric )
+def compress_string ( s ) :pass
+zbuf = BytesIO ( )
+zfile = GzipFile ( mode = '_STR:0_' , compresslevel = 6 , fileobj = zbuf )
+zfile . write ( s )
+zfile . close ( )
+return zbuf . getvalue ( )
+class StreamingBuffer ( object ) :pass
+def __init__ ( self ) :pass
+self . vals = [ ]
+def write ( self , val ) :pass
+self . vals . append ( val )
+def read ( self ) :pass
+ret = b'' . join ( self . vals )
+self . vals = [ ]
+return ret
+def flush ( self ) :pass
+return
+def close ( self ) :pass
+return
+def compress_sequence ( sequence ) :pass
+buf = StreamingBuffer ( )
+zfile = GzipFile ( mode = '_STR:0_' , compresslevel = 6 , fileobj = buf )
+yield buf . read ( )
+for item in sequence :pass
+zfile . write ( item )
+zfile . flush ( )
+yield buf . read ( )
+zfile . close ( )
+yield buf . read ( )
+ustring_re = re . compile ( '_STR:0_' )
+def javascript_quote ( s , quote_double_quotes = False ) :pass
+msg = (  "django.utils.text.javascript_quote() is deprecated. "  "Use django.utils.html.escapejs() instead."  )
+warnings . warn ( msg , RemovedInDjango19Warning , stacklevel = 2 )
+def fix ( match ) :pass
+return '_STR:0_' % ord ( match . group ( 1 ) )
+if type ( s ) == bytes :pass
+s = s . decode ( '_STR:0_' )
+if True: pass _newline_ elif type ( s ) != six . text_type :pass
+raise TypeError ( s )
+s = s . replace ( '\\' , '\\\\' )
+s = s . replace ( '_STR:0_' , '_STR:1_' )
+s = s . replace ( '_STR:0_' , '_STR:1_' )
+s = s . replace ( '_STR:0_' , '_STR:1_' )
+s = s . replace ( '_STR:0_' , '_STR:1_' )
+s = s . replace ( '_STR:0_' , '_STR:1_' )
+if quote_double_quotes :pass
+s = s . replace ( '_STR:0_' , '_STR:1_' )
+return ustring_re . sub ( fix , s )
+javascript_quote = allow_lazy ( javascript_quote , six . text_type )
+smart_split_re = re . compile ( r"""     ((?:         [^\s'"]*         (?:             (?:'_STR:1_'\\]|\\.)*" | '(?:[^'\\]|\\.)*')             [^\s'"]*         )+     ) | \S+) """ , re . VERBOSE )
+def smart_split ( text ) :pass
+text = force_text ( text )
+for bit in smart_split_re . finditer ( text ) :pass
+yield bit . group ( 0 )
+def _replace_entity ( match ) :pass
+text = match . group ( 1 )
+if text [ 0 ] == '_STR:0_' :pass
+text = text [ 1 : ]
+try :pass _newline_ except: pass
+if text [ 0 ] in '_STR:0_' :pass
+c = int ( text [ 1 : ] , 16 )
+if True: pass _newline_ else :pass
+c = int ( text )
+return six . unichr ( c )
+try: pass _newline_ except ValueError :pass
+return match . group ( 0 )
+if True: pass _newline_ else :pass
+try :pass _newline_ except: pass
+return six . unichr ( html_entities . name2codepoint [ text ] )
+try: pass _newline_ except ( ValueError , KeyError ) :pass
+return match . group ( 0 )
+_entity_re = re . compile ( r'_STR:0_' )
+def unescape_entities ( text ) :pass
+return _entity_re . sub ( _replace_entity , text )
+unescape_entities = allow_lazy ( unescape_entities , six . text_type )
+def unescape_string_literal ( s ) :pass
+if s [ 0 ] not in '_STR:0_' or s [ - 1 ] != s [ 0 ] :pass
+raise ValueError ( '_STR:0_' % s )
+quote = s [ 0 ]
+return s [ 1 : - 1 ] . replace ( r'_STR:0_' % quote , quote ) . replace ( r'\\' , '\\' )
+unescape_string_literal = allow_lazy ( unescape_string_literal )
+def slugify ( value ) :pass
+value = unicodedata . normalize ( '_STR:0_' , value ) . encode ( '_STR:1_' , 'ignore' ) . decode ( '_STR:1_' )
+value = re . sub ( '_STR:2_' , '' , value ) . strip ( ) . lower ( )
+return mark_safe ( re . sub ( '_STR:0_' , '_STR:1_' , value ) )
+slugify = allow_lazy ( slugify , six . text_type )
+def camel_case_to_spaces ( value ) :pass
+return re_camel_case . sub ( r'_STR:0_' , value ) . strip ( ) . lower ( )
+from __future__ import unicode_literals
+import datetime
+from django . utils . html import avoid_wrapping
+from django . utils . timezone import is_aware , utc
+from django . utils . translation import ugettext , ungettext_lazy
+def timesince ( d , now = None , reversed = False ) :pass
+chunks = (  ( 60 * 60 * 24 * 365 , ungettext_lazy ( '%d year' , '%d years' ) ) ,  ( 60 * 60 * 24 * 30 , ungettext_lazy ( '%d month' , '%d months' ) ) ,  ( 60 * 60 * 24 * 7 , ungettext_lazy ( '%d week' , '%d weeks' ) ) ,  ( 60 * 60 * 24 , ungettext_lazy ( '%d day' , '%d days' ) ) ,  ( 60 * 60 , ungettext_lazy ( '%d hour' , '%d hours' ) ) ,  ( 60 , ungettext_lazy ( '%d minute' , '%d minutes' ) )  )
+if not isinstance ( d , datetime . datetime ) :pass
+d = datetime . datetime ( d . year , d . month , d . day )
+if now and not isinstance ( now , datetime . datetime ) :pass
+now = datetime . datetime ( now . year , now . month , now . day )
+if not now :pass
+now = datetime . datetime . now ( utc if is_aware ( d ) else None )
+delta = ( d - now ) if reversed else ( now - d )
+since = delta . days * 24 * 60 * 60 + delta . seconds
+if since <= 0 :pass
+return avoid_wrapping ( ugettext ( '_STR:0_' ) )
+for i , ( seconds , name ) in enumerate ( chunks ) :pass
+count = since // seconds
+if count != 0 :pass
+break
+result = avoid_wrapping ( name % count )
+if i + 1 < len ( chunks ) :pass
+seconds2 , name2 = chunks [ i + 1 ]
+count2 = ( since - ( seconds * count ) ) // seconds2
+if count2 != 0 :pass
+result += ugettext ( '_STR:0_' ) + avoid_wrapping ( name2 % count2 )
+return result
+def timeuntil ( d , now = None ) :pass
+return timesince ( d , now , reversed = True )
+from datetime import datetime , timedelta , tzinfo
+from threading import local
+import sys
+import time as _time
+try :pass _newline_ except: pass
+import pytz
+try: pass _newline_ except ImportError :pass
+pytz = None
+from django . conf import settings
+from django . utils import six
+__all__ = [  '_STR:0_' , '_STR:1_' ,  '_STR:2_' , '_STR:3_' ,  'get_current_timezone' , 'get_current_timezone_name' ,  'activate' , 'deactivate' , 'override' ,  'localtime' , 'now' ,  'is_aware' , 'is_naive' , 'make_aware' , 'make_naive' ,  ]
+ZERO = timedelta ( 0 )
+class UTC ( tzinfo ) :pass
+def __repr__ ( self ) :pass
+return '_STR:0_'
+def utcoffset ( self , dt ) :pass
+return ZERO
+def tzname ( self , dt ) :pass
+return '_STR:0_'
+def dst ( self , dt ) :pass
+return ZERO
+class FixedOffset ( tzinfo ) :pass
+def __init__ ( self , offset = None , name = None ) :pass
+if offset is not None :pass
+self . __offset = timedelta ( minutes = offset )
+if name is not None :pass
+self . __name = name
+def utcoffset ( self , dt ) :pass
+return self . __offset
+def tzname ( self , dt ) :pass
+return self . __name
+def dst ( self , dt ) :pass
+return ZERO
+class ReferenceLocalTimezone ( tzinfo ) :pass
+def __init__ ( self ) :pass
+self . STDOFFSET = timedelta ( seconds = - _time . timezone )
+if _time . daylight :pass
+self . DSTOFFSET = timedelta ( seconds = - _time . altzone )
+if True: pass _newline_ else :pass
+self . DSTOFFSET = self . STDOFFSET
+self . DSTDIFF = self . DSTOFFSET - self . STDOFFSET
+tzinfo . __init__ ( self )
+def utcoffset ( self , dt ) :pass
+if self . _isdst ( dt ) :pass
+return self . DSTOFFSET
+if True: pass _newline_ else :pass
+return self . STDOFFSET
+def dst ( self , dt ) :pass
+if self . _isdst ( dt ) :pass
+return self . DSTDIFF
+if True: pass _newline_ else :pass
+return ZERO
+def tzname ( self , dt ) :pass
+return _time . tzname [ self . _isdst ( dt ) ]
+def _isdst ( self , dt ) :pass
+tt = ( dt . year , dt . month , dt . day ,  dt . hour , dt . minute , dt . second ,  dt . weekday ( ) , 0 , 0 )
+stamp = _time . mktime ( tt )
+tt = _time . localtime ( stamp )
+return tt . tm_isdst > 0
+class LocalTimezone ( ReferenceLocalTimezone ) :pass
+def tzname ( self , dt ) :pass
+is_dst = False if dt is None else self . _isdst ( dt )
+return _time . tzname [ is_dst ]
+def _isdst ( self , dt ) :pass
+try :pass _newline_ except: pass
+return super ( LocalTimezone , self ) . _isdst ( dt )
+try: pass _newline_ except ( OverflowError , ValueError ) as exc :pass
+exc_type = type ( exc )
+exc_value = exc_type (  '_STR:0_' % dt )
+exc_value . __cause__ = exc
+six . reraise ( exc_type , exc_value , sys . exc_info ( ) [ 2 ] )
+utc = pytz . utc if pytz else UTC ( )
+def get_fixed_timezone ( offset ) :pass
+if isinstance ( offset , timedelta ) :pass
+offset = offset . seconds // 60
+sign = '_STR:0_' if offset < 0 else '_STR:1_'
+hhmm = '_STR:0_' % divmod ( abs ( offset ) , 60 )
+name = sign + hhmm
+return FixedOffset ( offset , name )
+_localtime = None
+def get_default_timezone ( ) :pass
+global _localtime
+if _localtime is None :pass
+if isinstance ( settings . TIME_ZONE , six . string_types ) and pytz is not None :pass
+_localtime = pytz . timezone ( settings . TIME_ZONE )
+if True: pass _newline_ else :pass
+_localtime = LocalTimezone ( )
+return _localtime
+def get_default_timezone_name ( ) :pass
+return _get_timezone_name ( get_default_timezone ( ) )
+_active = local ( )
+def get_current_timezone ( ) :pass
+return getattr ( _active , "value" , get_default_timezone ( ) )
+def get_current_timezone_name ( ) :pass
+return _get_timezone_name ( get_current_timezone ( ) )
+def _get_timezone_name ( timezone ) :pass
+try :pass _newline_ except: pass
+return timezone . zone
+try: pass _newline_ except AttributeError :pass
+return timezone . tzname ( None )
+def activate ( timezone ) :pass
+if isinstance ( timezone , tzinfo ) :pass
+_active . value = timezone
+if True: pass _newline_ elif isinstance ( timezone , six . string_types ) and pytz is not None :pass
+_active . value = pytz . timezone ( timezone )
+if True: pass _newline_ else :pass
+raise ValueError ( '_STR:0_' % timezone )
+def deactivate ( ) :pass
+if hasattr ( _active , "value" ) :pass
+del _active . value
+class override ( object ) :pass
+def __init__ ( self , timezone ) :pass
+self . timezone = timezone
+self . old_timezone = getattr ( _active , '_STR:0_' , None )
+def __enter__ ( self ) :pass
+if self . timezone is None :pass
+deactivate ( )
+if True: pass _newline_ else :pass
+activate ( self . timezone )
+def __exit__ ( self , exc_type , exc_value , traceback ) :pass
+if self . old_timezone is None :pass
+deactivate ( )
+if True: pass _newline_ else :pass
+_active . value = self . old_timezone
+def template_localtime ( value , use_tz = None ) :pass
+should_convert = ( isinstance ( value , datetime )  and ( settings . USE_TZ if use_tz is None else use_tz )  and not is_naive ( value )  and getattr ( value , 'convert_to_local_time' , True ) )
+return localtime ( value ) if should_convert else value
+def localtime ( value , timezone = None ) :pass
+if timezone is None :pass
+timezone = get_current_timezone ( )
+value = value . astimezone ( timezone )
+if hasattr ( timezone , '_STR:0_' ) :pass
+value = timezone . normalize ( value )
+return value
+def now ( ) :pass
+if settings . USE_TZ :pass
+return datetime . utcnow ( ) . replace ( tzinfo = utc )
+if True: pass _newline_ else :pass
+return datetime . now ( )
+def is_aware ( value ) :pass
+return value . tzinfo is not None and value . tzinfo . utcoffset ( value ) is not None
+def is_naive ( value ) :pass
+return value . tzinfo is None or value . tzinfo . utcoffset ( value ) is None
+def make_aware ( value , timezone ) :pass
+if hasattr ( timezone , '_STR:0_' ) :pass
+return timezone . localize ( value , is_dst = None )
+if True: pass _newline_ else :pass
+if is_aware ( value ) :pass
+raise ValueError (  '_STR:0_' % value )
+return value . replace ( tzinfo = timezone )
+def make_naive ( value , timezone ) :pass
+value = value . astimezone ( timezone )
+if hasattr ( timezone , '_STR:0_' ) :pass
+value = timezone . normalize ( value )
+return value . replace ( tzinfo = None )
+from __future__ import unicode_literals
+import re
+from django . utils . encoding import force_text
+from django . utils . functional import lazy
+from django . utils import six
+__all__ = [  '_STR:0_' , '_STR:1_' , '_STR:2_' , '_STR:3_' ,  '_STR:4_' , 'get_language_from_request' ,  'get_language_info' , 'get_language_bidi' ,  'check_for_language' , 'to_locale' , 'templatize' , 'string_concat' ,  'gettext' , 'gettext_lazy' , 'gettext_noop' ,  'ugettext' , 'ugettext_lazy' , 'ugettext_noop' ,  'ngettext' , 'ngettext_lazy' ,  'ungettext' , 'ungettext_lazy' ,  'pgettext' , 'pgettext_lazy' ,  'npgettext' , 'npgettext_lazy' ,  'LANGUAGE_SESSION_KEY' ,  ]
+LANGUAGE_SESSION_KEY = '_STR:22_'
+class TranslatorCommentWarning ( SyntaxWarning ) :pass
+pass
+class Trans ( object ) :pass
+def __getattr__ ( self , real_name ) :pass
+from django . conf import settings
+if settings . USE_I18N :pass
+from django . utils . translation import trans_real as trans
+if True: pass _newline_ else :pass
+from django . utils . translation import trans_null as trans
+setattr ( self , real_name , getattr ( trans , real_name ) )
+return getattr ( trans , real_name )
+_trans = Trans ( )
+del Trans
+def gettext_noop ( message ) :pass
+return _trans . gettext_noop ( message )
+ugettext_noop = gettext_noop
+def gettext ( message ) :pass
+return _trans . gettext ( message )
+def ngettext ( singular , plural , number ) :pass
+return _trans . ngettext ( singular , plural , number )
+def ugettext ( message ) :pass
+return _trans . ugettext ( message )
+def ungettext ( singular , plural , number ) :pass
+return _trans . ungettext ( singular , plural , number )
+def pgettext ( context , message ) :pass
+return _trans . pgettext ( context , message )
+def npgettext ( context , singular , plural , number ) :pass
+return _trans . npgettext ( context , singular , plural , number )
+gettext_lazy = lazy ( gettext , str )
+ugettext_lazy = lazy ( ugettext , six . text_type )
+pgettext_lazy = lazy ( pgettext , six . text_type )
+def lazy_number ( func , resultclass , number = None , ** kwargs ) :pass
+if isinstance ( number , int ) :pass
+kwargs [ '_STR:0_' ] = number
+proxy = lazy ( func , resultclass ) ( ** kwargs )
+if True: pass _newline_ else :pass
+class NumberAwareString ( resultclass ) :pass
+def __mod__ ( self , rhs ) :pass
+if isinstance ( rhs , dict ) and number :pass
+try :pass _newline_ except: pass
+number_value = rhs [ number ]
+try: pass _newline_ except KeyError :pass
+raise KeyError ( 'Your dictionary lacks key \'%s\'. '  'Please provide it, because it is required to '  'determine whether string is singular or plural.'  % number )
+if True: pass _newline_ else :pass
+number_value = rhs
+kwargs [ '_STR:0_' ] = number_value
+translated = func ( ** kwargs )
+try :pass _newline_ except: pass
+translated = translated % rhs
+try: pass _newline_ except TypeError :pass
+pass
+return translated
+proxy = lazy ( lambda ** kwargs : NumberAwareString ( ) , NumberAwareString ) ( ** kwargs )
+return proxy
+def ngettext_lazy ( singular , plural , number = None ) :pass
+return lazy_number ( ngettext , str , singular = singular , plural = plural , number = number )
+def ungettext_lazy ( singular , plural , number = None ) :pass
+return lazy_number ( ungettext , six . text_type , singular = singular , plural = plural , number = number )
+def npgettext_lazy ( context , singular , plural , number = None ) :pass
+return lazy_number ( npgettext , six . text_type , context = context , singular = singular , plural = plural , number = number )
+def activate ( language ) :pass
+return _trans . activate ( language )
+def deactivate ( ) :pass
+return _trans . deactivate ( )
+class override ( object ) :pass
+def __init__ ( self , language , deactivate = False ) :pass
+self . language = language
+self . deactivate = deactivate
+self . old_language = get_language ( )
+def __enter__ ( self ) :pass
+if self . language is not None :pass
+activate ( self . language )
+if True: pass _newline_ else :pass
+deactivate_all ( )
+def __exit__ ( self , exc_type , exc_value , traceback ) :pass
+if self . deactivate :pass
+deactivate ( )
+if True: pass _newline_ else :pass
+activate ( self . old_language )
+def get_language ( ) :pass
+return _trans . get_language ( )
+def get_language_bidi ( ) :pass
+return _trans . get_language_bidi ( )
+def check_for_language ( lang_code ) :pass
+return _trans . check_for_language ( lang_code )
+def to_locale ( language ) :pass
+return _trans . to_locale ( language )
+def get_language_from_request ( request , check_path = False ) :pass
+return _trans . get_language_from_request ( request , check_path )
+def get_language_from_path ( path ) :pass
+return _trans . get_language_from_path ( path )
+def templatize ( src , origin = None ) :pass
+return _trans . templatize ( src , origin )
+def deactivate_all ( ) :pass
+return _trans . deactivate_all ( )
+def _string_concat ( * strings ) :pass
+return '' . join ( force_text ( s ) for s in strings )
+string_concat = lazy ( _string_concat , six . text_type )
+def get_language_info ( lang_code ) :pass
+from django . conf . locale import LANG_INFO
+try :pass _newline_ except: pass
+return LANG_INFO [ lang_code ]
+try: pass _newline_ except KeyError :pass
+if '_STR:0_' not in lang_code :pass
+raise KeyError ( '_STR:0_' % lang_code )
+generic_lang_code = lang_code . split ( '_STR:0_' ) [ 0 ]
+try :pass _newline_ except: pass
+return LANG_INFO [ generic_lang_code ]
+try: pass _newline_ except KeyError :pass
+raise KeyError ( '_STR:0_' % ( lang_code , generic_lang_code ) )
+trim_whitespace_re = re . compile ( '_STR:0_' )
+def trim_whitespace ( s ) :pass
+return trim_whitespace_re . sub ( ' ' , s . strip ( ) )
+from django . conf import settings
+from django . utils . encoding import force_text
+from django . utils . safestring import mark_safe , SafeData
+def ngettext ( singular , plural , number ) :pass
+if number == 1 :pass
+return singular
+return plural
+ngettext_lazy = ngettext
+def ungettext ( singular , plural , number ) :pass
+return force_text ( ngettext ( singular , plural , number ) )
+def pgettext ( context , message ) :pass
+return ugettext ( message )
+def npgettext ( context , singular , plural , number ) :pass
+return ungettext ( singular , plural , number )
+activate = lambda x : None
+deactivate = deactivate_all = lambda : None
+get_language = lambda : settings . LANGUAGE_CODE
+get_language_bidi = lambda : settings . LANGUAGE_CODE in settings . LANGUAGES_BIDI
+check_for_language = lambda x : True
+def gettext ( message ) :pass
+if isinstance ( message , SafeData ) :pass
+return mark_safe ( message )
+return message
+def ugettext ( message ) :pass
+return force_text ( gettext ( message ) )
+gettext_noop = gettext_lazy = _ = gettext
+def to_locale ( language ) :pass
+p = language . find ( '_STR:0_' )
+if p >= 0 :pass
+return language [ : p ] . lower ( ) + '_STR:0_' + language [ p + 1 : ] . upper ( )
+if True: pass _newline_ else :pass
+return language . lower ( )
+def get_language_from_request ( request , check_path = False ) :pass
+return settings . LANGUAGE_CODE
+def get_language_from_path ( request ) :pass
+return None
+from __future__ import unicode_literals
+from collections import OrderedDict
+import os
+import re
+import sys
+import gettext as gettext_module
+from threading import local
+import warnings
+from django . apps import apps
+from django . conf import settings
+from django . core . exceptions import AppRegistryNotReady
+from django . dispatch import receiver
+from django . test . signals import setting_changed
+from django . utils . deprecation import RemovedInDjango19Warning
+from django . utils . encoding import force_text
+from django . utils . _os import upath
+from django . utils . safestring import mark_safe , SafeData
+from django . utils import six , lru_cache
+from django . utils . six import StringIO
+from django . utils . translation import TranslatorCommentWarning , trim_whitespace , LANGUAGE_SESSION_KEY
+_translations = { }
+_active = local ( )
+_default = None
+_supported = None
+CONTEXT_SEPARATOR = '_STR:0_'
+accept_language_re = re . compile ( r'''         ([A-Za-z]{1,8}(?:-[A-Za-z0-9]{1,8})*|\*)      # "en", "en-au", "x-y-z", "es-419", "*"         (?:\s*;\s*q=(0(?:\.\d{,3})?|1(?:.0{,3})?))?   # Optional "q=1.00", "q=0.8"         (?:\s*,\s*|$)                                 # Multiple accepts per header.         ''' , re . VERBOSE )
+language_code_re = re . compile ( r'_STR:0_' , re . IGNORECASE )
+language_code_prefix_re = re . compile ( r'_STR:0_' )
+_BROWSERS_DEPRECATED_LOCALES = {  '_STR:1_' : '_STR:0_' ,  '_STR:3_' : '_STR:2_' ,  }
+_DJANGO_DEPRECATED_LOCALES = _BROWSERS_DEPRECATED_LOCALES
+@ receiver ( setting_changed ) _newline_ def dummy(): pass
+def reset_cache ( ** kwargs ) :pass
+if kwargs [ '_STR:0_' ] in ( '_STR:1_' , '_STR:2_' ) :pass
+global _supported
+_supported = None
+check_for_language . cache_clear ( )
+get_supported_language_variant . cache_clear ( )
+def to_locale ( language , to_lower = False ) :pass
+p = language . find ( '_STR:0_' )
+if p >= 0 :pass
+if to_lower :pass
+return language [ : p ] . lower ( ) + '_STR:0_' + language [ p + 1 : ] . lower ( )
+if True: pass _newline_ else :pass
+if len ( language [ p + 1 : ] ) > 2 :pass
+return language [ : p ] . lower ( ) + '_STR:0_' + language [ p + 1 ] . upper ( ) + language [ p + 2 : ] . lower ( )
+return language [ : p ] . lower ( ) + '_STR:0_' + language [ p + 1 : ] . upper ( )
+if True: pass _newline_ else :pass
+return language . lower ( )
+def to_language ( locale ) :pass
+p = locale . find ( '_' )
+if p >= 0 :pass
+return locale [ : p ] . lower ( ) + '-' + locale [ p + 1 : ] . lower ( )
+if True: pass _newline_ else :pass
+return locale . lower ( )
+class DjangoTranslation ( gettext_module . GNUTranslations ) :pass
+def __init__ ( self , language ) :pass
+gettext_module . GNUTranslations . __init__ ( self )
+self . __language = language
+self . __to_language = to_language ( language )
+self . __locale = to_locale ( language )
+self . plural = lambda n : int ( n != 1 )
+self . _init_translation_catalog ( )
+self . _add_installed_apps_translations ( )
+self . _add_local_translations ( )
+self . _add_fallback ( )
+def __repr__ ( self ) :pass
+return '_STR:0_' % self . __language
+def _new_gnu_trans ( self , localedir , use_null_fallback = True ) :pass
+translation = gettext_module . translation (  domain = '_STR:0_' ,  localedir = localedir ,  languages = [ self . __locale ] ,  codeset = 'utf-8' ,  fallback = use_null_fallback )
+if not hasattr ( translation , '_STR:1_' ) :pass
+translation . _catalog = { }
+translation . _info = { }
+return translation
+def _init_translation_catalog ( self ) :pass
+settingsfile = upath ( sys . modules [ settings . __module__ ] . __file__ )
+localedir = os . path . join ( os . path . dirname ( settingsfile ) , '_STR:0_' )
+use_null_fallback = True
+if self . __language == settings . LANGUAGE_CODE :pass
+use_null_fallback = False
+translation = self . _new_gnu_trans ( localedir , use_null_fallback )
+self . _info = translation . _info . copy ( )
+self . _catalog = translation . _catalog . copy ( )
+def _add_installed_apps_translations ( self ) :pass
+try :pass _newline_ except: pass
+app_configs = reversed ( list ( apps . get_app_configs ( ) ) )
+try: pass _newline_ except AppRegistryNotReady :pass
+raise AppRegistryNotReady (  '_STR:0_'  "apps registry is ready. Check that you don't make non-lazy "  "gettext calls at import time." )
+for app_config in app_configs :pass
+localedir = os . path . join ( app_config . path , '_STR:0_' )
+translation = self . _new_gnu_trans ( localedir )
+self . merge ( translation )
+def _add_local_translations ( self ) :pass
+for localedir in reversed ( settings . LOCALE_PATHS ) :pass
+translation = self . _new_gnu_trans ( localedir )
+self . merge ( translation )
+def _add_fallback ( self ) :pass
+if self . __language == settings . LANGUAGE_CODE or self . __language == '_STR:0_' :pass
+return
+default_translation = translation ( settings . LANGUAGE_CODE )
+self . add_fallback ( default_translation )
+def merge ( self , other ) :pass
+self . _catalog . update ( other . _catalog )
+def language ( self ) :pass
+return self . __language
+def to_language ( self ) :pass
+return self . __to_language
+def translation ( language ) :pass
+global _translations
+if language not in _translations :pass
+_translations [ language ] = DjangoTranslation ( language )
+return _translations [ language ]
+def activate ( language ) :pass
+if language in _DJANGO_DEPRECATED_LOCALES :pass
+msg = ( "The use of the language code '%s' is deprecated. "  "Please use the '%s' translation instead." )
+warnings . warn ( msg % ( language , _DJANGO_DEPRECATED_LOCALES [ language ] ) ,  RemovedInDjango19Warning , stacklevel = 2 )
+_active . value = translation ( language )
+def deactivate ( ) :pass
+if hasattr ( _active , '_STR:0_' ) :pass
+del _active . value
+def deactivate_all ( ) :pass
+_active . value = gettext_module . NullTranslations ( )
+def get_language ( ) :pass
+t = getattr ( _active , "value" , None )
+if t is not None :pass
+try :pass _newline_ except: pass
+return t . to_language ( )
+try: pass _newline_ except AttributeError :pass
+pass
+return settings . LANGUAGE_CODE
+def get_language_bidi ( ) :pass
+base_lang = get_language ( ) . split ( '_STR:0_' ) [ 0 ]
+return base_lang in settings . LANGUAGES_BIDI
+def catalog ( ) :pass
+global _default
+t = getattr ( _active , "value" , None )
+if t is not None :pass
+return t
+if _default is None :pass
+_default = translation ( settings . LANGUAGE_CODE )
+return _default
+def do_translate ( message , translation_function ) :pass
+global _default
+eol_message = message . replace ( str ( '_STR:0_' ) , str ( '_STR:1_' ) ) . replace ( str ( '_STR:2_' ) , str ( '_STR:1_' ) )
+t = getattr ( _active , "value" , None )
+if t is not None :pass
+result = getattr ( t , translation_function ) ( eol_message )
+if True: pass _newline_ else :pass
+if _default is None :pass
+_default = translation ( settings . LANGUAGE_CODE )
+result = getattr ( _default , translation_function ) ( eol_message )
+if isinstance ( message , SafeData ) :pass
+return mark_safe ( result )
+return result
+def gettext ( message ) :pass
+return do_translate ( message , '_STR:0_' )
+if six . PY3 :pass
+ugettext = gettext
+if True: pass _newline_ else :pass
+def ugettext ( message ) :pass
+return do_translate ( message , '_STR:0_' )
+def pgettext ( context , message ) :pass
+msg_with_ctxt = "%s%s%s" % ( context , CONTEXT_SEPARATOR , message )
+result = ugettext ( msg_with_ctxt )
+if CONTEXT_SEPARATOR in result :pass
+result = force_text ( message )
+return result
+def gettext_noop ( message ) :pass
+return message
+def do_ntranslate ( singular , plural , number , translation_function ) :pass
+global _default
+t = getattr ( _active , "value" , None )
+if t is not None :pass
+return getattr ( t , translation_function ) ( singular , plural , number )
+if _default is None :pass
+_default = translation ( settings . LANGUAGE_CODE )
+return getattr ( _default , translation_function ) ( singular , plural , number )
+def ngettext ( singular , plural , number ) :pass
+return do_ntranslate ( singular , plural , number , '_STR:0_' )
+if six . PY3 :pass
+ungettext = ngettext
+if True: pass _newline_ else :pass
+def ungettext ( singular , plural , number ) :pass
+return do_ntranslate ( singular , plural , number , 'ungettext' )
+def npgettext ( context , singular , plural , number ) :pass
+msgs_with_ctxt = ( "%s%s%s" % ( context , CONTEXT_SEPARATOR , singular ) ,  "%s%s%s" % ( context , CONTEXT_SEPARATOR , plural ) ,  number )
+result = ungettext ( * msgs_with_ctxt )
+if CONTEXT_SEPARATOR in result :pass
+result = ungettext ( singular , plural , number )
+return result
+def all_locale_paths ( ) :pass
+globalpath = os . path . join (  os . path . dirname ( upath ( sys . modules [ settings . __module__ ] . __file__ ) ) , 'locale' )
+return [ globalpath ] + list ( settings . LOCALE_PATHS )
+@ lru_cache . lru_cache ( maxsize = 1000 ) _newline_ def dummy(): pass
+def check_for_language ( lang_code ) :pass
+if not language_code_re . search ( lang_code ) :pass
+return False
+for path in all_locale_paths ( ) :pass
+if gettext_module . find ( '_STR:0_' , path , [ to_locale ( lang_code ) ] ) is not None :pass
+return True
+return False
+@ lru_cache . lru_cache ( maxsize = 1000 ) _newline_ def dummy(): pass
+def get_supported_language_variant ( lang_code , strict = False ) :pass
+global _supported
+if _supported is None :pass
+_supported = OrderedDict ( settings . LANGUAGES )
+if lang_code :pass
+replacement = _BROWSERS_DEPRECATED_LOCALES . get ( lang_code )
+if lang_code not in _supported and replacement in _supported :pass
+return replacement
+generic_lang_code = lang_code . split ( '_STR:0_' ) [ 0 ]
+for code in ( lang_code , generic_lang_code ) :pass
+if code in _supported and check_for_language ( code ) :pass
+return code
+if not strict :pass
+for supported_code in _supported :pass
+if supported_code . startswith ( generic_lang_code + '_STR:0_' ) :pass
+return supported_code
+raise LookupError ( lang_code )
+def get_language_from_path ( path , strict = False ) :pass
+regex_match = language_code_prefix_re . match ( path )
+if not regex_match :pass
+return None
+lang_code = regex_match . group ( 1 )
+try :pass _newline_ except: pass
+return get_supported_language_variant ( lang_code , strict = strict )
+try: pass _newline_ except LookupError :pass
+return None
+def get_language_from_request ( request , check_path = False ) :pass
+global _supported
+if _supported is None :pass
+_supported = OrderedDict ( settings . LANGUAGES )
+if check_path :pass
+lang_code = get_language_from_path ( request . path_info )
+if lang_code is not None :pass
+return lang_code
+if hasattr ( request , '_STR:0_' ) :pass
+lang_code = request . session . get ( LANGUAGE_SESSION_KEY )
+if lang_code in _supported and lang_code is not None and check_for_language ( lang_code ) :pass
+return lang_code
+lang_code = request . COOKIES . get ( settings . LANGUAGE_COOKIE_NAME )
+try :pass _newline_ except: pass
+return get_supported_language_variant ( lang_code )
+try: pass _newline_ except LookupError :pass
+pass
+accept = request . META . get ( '_STR:0_' , '' )
+for accept_lang , unused in parse_accept_lang_header ( accept ) :pass
+if accept_lang == '_STR:0_' :pass
+break
+if not language_code_re . search ( accept_lang ) :pass
+continue
+try :pass _newline_ except: pass
+return get_supported_language_variant ( accept_lang )
+try: pass _newline_ except LookupError :pass
+continue
+try :pass _newline_ except: pass
+return get_supported_language_variant ( settings . LANGUAGE_CODE )
+try: pass _newline_ except LookupError :pass
+return settings . LANGUAGE_CODE
+dot_re = re . compile ( r'_STR:0_' )
+def blankout ( src , char ) :pass
+return dot_re . sub ( char , src )
+endblock_re = re . compile ( r""'_STR:0_'"" )
+plural_re = re . compile ( r""'_STR:0_'"" )
+one_percent_re = re . compile ( r""'_STR:0_'"" )
+def templatize ( src , origin = None ) :pass
+from django . template import ( Lexer , TOKEN_TEXT , TOKEN_VAR , TOKEN_BLOCK ,  TOKEN_COMMENT , TRANSLATOR_COMMENT_MARK )
+src = force_text ( src , settings . FILE_CHARSET )
+out = StringIO ( '' )
+message_context = None
+intrans = False
+inplural = False
+trimmed = False
+singular = [ ]
+plural = [ ]
+incomment = False
+comment = [ ]
+lineno_comment_map = { }
+comment_lineno_cache = None
+def join_tokens ( tokens , trim = False ) :pass
+message = '' . join ( tokens )
+if trim :pass
+message = trim_whitespace ( message )
+return message
+for t in Lexer ( src , origin ) . tokenize ( ) :pass
+if incomment :pass
+if t . token_type == TOKEN_BLOCK and t . contents == '_STR:0_' :pass
+content = '' . join ( comment )
+translators_comment_start = None
+for lineno , line in enumerate ( content . splitlines ( True ) ) :pass
+if line . lstrip ( ) . startswith ( TRANSLATOR_COMMENT_MARK ) :pass
+translators_comment_start = lineno
+for lineno , line in enumerate ( content . splitlines ( True ) ) :pass
+if translators_comment_start is not None and lineno >= translators_comment_start :pass
+out . write ( '_STR:0_' % line )
+if True: pass _newline_ else :pass
+out . write ( '_STR:0_' )
+incomment = False
+comment = [ ]
+if True: pass _newline_ else :pass
+comment . append ( t . contents )
+if True: pass _newline_ elif intrans :pass
+if t . token_type == TOKEN_BLOCK :pass
+endbmatch = endblock_re . match ( t . contents )
+pluralmatch = plural_re . match ( t . contents )
+if endbmatch :pass
+if inplural :pass
+if message_context :pass
+out . write ( '_STR:1_' % (  message_context ,  join_tokens ( singular , trimmed ) ,  join_tokens ( plural , trimmed ) ) )
+if True: pass _newline_ else :pass
+out . write ( '_STR:1_' % (  join_tokens ( singular , trimmed ) ,  join_tokens ( plural , trimmed ) ) )
+for part in singular :pass
+out . write ( blankout ( part , '_STR:0_' ) )
+for part in plural :pass
+out . write ( blankout ( part , '_STR:0_' ) )
+if True: pass _newline_ else :pass
+if message_context :pass
+out . write ( '_STR:1_' % (  message_context ,  join_tokens ( singular , trimmed ) ) )
+if True: pass _newline_ else :pass
+out . write ( '_STR:1_' % join_tokens ( singular ,  trimmed ) )
+for part in singular :pass
+out . write ( blankout ( part , '_STR:0_' ) )
+message_context = None
+intrans = False
+inplural = False
+singular = [ ]
+plural = [ ]
+if True: pass _newline_ elif pluralmatch :pass
+inplural = True
+if True: pass _newline_ else :pass
+filemsg = ''
+if origin :pass
+filemsg = '_STR:0_' % origin
+raise SyntaxError ( '_STR:0_' % ( t . contents , filemsg , t . lineno ) )
+if True: pass _newline_ elif t . token_type == TOKEN_VAR :pass
+if inplural :pass
+plural . append ( '_STR:0_' % t . contents )
+if True: pass _newline_ else :pass
+singular . append ( '_STR:0_' % t . contents )
+if True: pass _newline_ elif t . token_type == TOKEN_TEXT :pass
+contents = one_percent_re . sub ( '_STR:0_' , t . contents )
+if inplural :pass
+plural . append ( contents )
+if True: pass _newline_ else :pass
+singular . append ( contents )
+if True: pass _newline_ else :pass
+if comment_lineno_cache is not None :pass
+cur_lineno = t . lineno + t . contents . count ( '_STR:0_' )
+if comment_lineno_cache == cur_lineno :pass
+if t . token_type != TOKEN_COMMENT :pass
+for c in lineno_comment_map [ comment_lineno_cache ] :pass
+filemsg = ''
+if origin :pass
+filemsg = '_STR:0_' % origin
+warn_msg = ( "The translator-targeted comment '%s' "  "(%sline %d) was ignored, because it wasn't the last item "  "on the line." ) % ( c , filemsg , comment_lineno_cache )
+warnings . warn ( warn_msg , TranslatorCommentWarning )
+lineno_comment_map [ comment_lineno_cache ] = [ ]
+if True: pass _newline_ else :pass
+out . write ( '# %s' % '_STR:0_' . join ( lineno_comment_map [ comment_lineno_cache ] ) )
+comment_lineno_cache = None
+if t . token_type == TOKEN_BLOCK :pass
+imatch = inline_re . match ( t . contents )
+bmatch = block_re . match ( t . contents )
+cmatches = constant_re . findall ( t . contents )
+if imatch :pass
+g = imatch . group ( 1 )
+if g [ 0 ] == '_STR:0_' :pass
+g = g . strip ( '_STR:0_' )
+if True: pass _newline_ elif g [ 0 ] == '_STR:0_' :pass
+g = g . strip ( '_STR:0_' )
+g = one_percent_re . sub ( '_STR:0_' , g )
+if imatch . group ( 2 ) :pass
+context_match = context_re . match ( imatch . group ( 2 ) )
+message_context = context_match . group ( 1 )
+if message_context [ 0 ] == '_STR:0_' :pass
+message_context = message_context . strip ( '_STR:0_' )
+if True: pass _newline_ elif message_context [ 0 ] == '_STR:0_' :pass
+message_context = message_context . strip ( '_STR:0_' )
+out . write ( '_STR:0_' % ( message_context , g ) )
+message_context = None
+if True: pass _newline_ else :pass
+out . write ( '_STR:0_' % g )
+if True: pass _newline_ elif bmatch :pass
+for fmatch in constant_re . findall ( t . contents ) :pass
+out . write ( '_STR:0_' % fmatch )
+if bmatch . group ( 1 ) :pass
+context_match = context_re . match ( bmatch . group ( 1 ) )
+message_context = context_match . group ( 1 )
+if message_context [ 0 ] == '_STR:0_' :pass
+message_context = message_context . strip ( '_STR:0_' )
+if True: pass _newline_ elif message_context [ 0 ] == '_STR:0_' :pass
+message_context = message_context . strip ( '_STR:0_' )
+intrans = True
+inplural = False
+trimmed = '_STR:0_' in t . split_contents ( )
+singular = [ ]
+plural = [ ]
+if True: pass _newline_ elif cmatches :pass
+for cmatch in cmatches :pass
+out . write ( '_STR:0_' % cmatch )
+if True: pass _newline_ elif t . contents == '_STR:0_' :pass
+incomment = True
+if True: pass _newline_ else :pass
+out . write ( blankout ( t . contents , '_STR:0_' ) )
+if True: pass _newline_ elif t . token_type == TOKEN_VAR :pass
+parts = t . contents . split ( '_STR:0_' )
+cmatch = constant_re . match ( parts [ 0 ] )
+if cmatch :pass
+out . write ( '_STR:0_' % cmatch . group ( 1 ) )
+for p in parts [ 1 : ] :pass
+if p . find ( '_STR:0_' ) >= 0 :pass
+out . write ( ' %s ' % p . split ( '_STR:0_' , 1 ) [ 1 ] )
+if True: pass _newline_ else :pass
+out . write ( blankout ( p , '_STR:0_' ) )
+if True: pass _newline_ elif t . token_type == TOKEN_COMMENT :pass
+if t . contents . lstrip ( ) . startswith ( TRANSLATOR_COMMENT_MARK ) :pass
+lineno_comment_map . setdefault ( t . lineno ,  [ ] ) . append ( t . contents )
+comment_lineno_cache = t . lineno
+if True: pass _newline_ else :pass
+out . write ( blankout ( t . contents , '_STR:0_' ) )
+return out . getvalue ( )
+def parse_accept_lang_header ( lang_string ) :pass
+result = [ ]
+pieces = accept_language_re . split ( lang_string . lower ( ) )
+if pieces [ - 1 ] :pass
+return [ ]
+for i in range ( 0 , len ( pieces ) - 1 , 3 ) :pass
+first , lang , priority = pieces [ i : i + 3 ]
+if first :pass
+return [ ]
+if priority :pass
+try :pass _newline_ except: pass
+priority = float ( priority )
+try: pass _newline_ except ValueError :pass
+return [ ]
+if not priority :pass
+priority = 1.0
+result . append ( ( lang , priority ) )
+result . sort ( key = lambda k : k [ 1 ] , reverse = True )
+return result
+import copy
+class Node ( object ) :pass
+default = '_STR:0_'
+def __init__ ( self , children = None , connector = None , negated = False ) :pass
+self . children = children [ : ] if children else [ ]
+self . connector = connector or self . default
+self . negated = negated
+@ classmethod _newline_ def dummy(): pass
+def _new_instance ( cls , children = None , connector = None , negated = False ) :pass
+obj = Node ( children , connector , negated )
+obj . __class__ = cls
+return obj
+def __str__ ( self ) :pass
+if self . negated :pass
+return '_STR:0_' % ( self . connector , '_STR:1_' . join ( [ str ( c ) for c  in self . children ] ) )
+return '_STR:0_' % ( self . connector , '_STR:1_' . join ( [ str ( c ) for c in  self . children ] ) )
+def __repr__ ( self ) :pass
+return '_STR:0_' % ( self . __class__ . __name__ , self )
+def __deepcopy__ ( self , memodict ) :pass
+obj = Node ( connector = self . connector , negated = self . negated )
+obj . __class__ = self . __class__
+obj . children = copy . deepcopy ( self . children , memodict )
+return obj
+def __len__ ( self ) :pass
+return len ( self . children )
+def __bool__ ( self ) :pass
+return bool ( self . children )
+def __nonzero__ ( self ) :pass
+return type ( self ) . __bool__ ( self )
+def __contains__ ( self , other ) :pass
+return other in self . children
+def _prepare_data ( self , data ) :pass
+return data
+def add ( self , data , conn_type , squash = True ) :pass
+if data in self . children :pass
+return data
+data = self . _prepare_data ( data )
+if not squash :pass
+self . children . append ( data )
+return data
+if self . connector == conn_type :pass
+if ( isinstance ( data , Node ) and not data . negated  and ( data . connector == conn_type or len ( data ) == 1 ) ) :pass
+self . children . extend ( data . children )
+return self
+if True: pass _newline_ else :pass
+self . children . append ( data )
+return data
+if True: pass _newline_ else :pass
+obj = self . _new_instance ( self . children , self . connector ,  self . negated )
+self . connector = conn_type
+self . children = [ obj , data ]
+return data
+def negate ( self ) :pass
+self . negated = not self . negated
+from __future__ import unicode_literals
+from datetime import timedelta , tzinfo
+import time
+import warnings
+from django . utils . deprecation import RemovedInDjango19Warning
+from django . utils . encoding import force_str , force_text , DEFAULT_LOCALE_ENCODING
+warnings . warn (  '_STR:0_'  "Use django.utils.timezone instead." ,  RemovedInDjango19Warning , stacklevel = 2 )
+class FixedOffset ( tzinfo ) :pass
+def __init__ ( self , offset ) :pass
+warnings . warn (  '_STR:0_'  "Use django.utils.timezone.get_fixed_timezone instead." ,  RemovedInDjango19Warning )
+if isinstance ( offset , timedelta ) :pass
+self . __offset = offset
+offset = self . __offset . seconds // 60
+if True: pass _newline_ else :pass
+self . __offset = timedelta ( minutes = offset )
+sign = '_STR:0_' if offset < 0 else '_STR:1_'
+self . __name = '_STR:0_' % ( sign , abs ( offset ) / 60. , abs ( offset ) % 60 )
+def __repr__ ( self ) :pass
+return self . __name
+def __getinitargs__ ( self ) :pass
+return self . __offset ,
+def utcoffset ( self , dt ) :pass
+return self . __offset
+def tzname ( self , dt ) :pass
+return self . __name
+def dst ( self , dt ) :pass
+return timedelta ( 0 )
+class LocalTimezone ( tzinfo ) :pass
+def __init__ ( self , dt ) :pass
+warnings . warn (  '_STR:0_'  "Use django.utils.timezone.get_default_timezone instead." ,  RemovedInDjango19Warning )
+tzinfo . __init__ ( self )
+self . __dt = dt
+self . _tzname = self . tzname ( dt )
+def __repr__ ( self ) :pass
+return force_str ( self . _tzname )
+def __getinitargs__ ( self ) :pass
+return self . __dt ,
+def utcoffset ( self , dt ) :pass
+if self . _isdst ( dt ) :pass
+return timedelta ( seconds = - time . altzone )
+if True: pass _newline_ else :pass
+return timedelta ( seconds = - time . timezone )
+def dst ( self , dt ) :pass
+if self . _isdst ( dt ) :pass
+return timedelta ( seconds = - time . altzone ) - timedelta ( seconds = - time . timezone )
+if True: pass _newline_ else :pass
+return timedelta ( 0 )
+def tzname ( self , dt ) :pass
+is_dst = False if dt is None else self . _isdst ( dt )
+try :pass _newline_ except: pass
+return force_text ( time . tzname [ is_dst ] , DEFAULT_LOCALE_ENCODING )
+try: pass _newline_ except UnicodeDecodeError :pass
+return None
+def _isdst ( self , dt ) :pass
+tt = ( dt . year , dt . month , dt . day ,  dt . hour , dt . minute , dt . second ,  dt . weekday ( ) , 0 , 0 )
+try :pass _newline_ except: pass
+stamp = time . mktime ( tt )
+try: pass _newline_ except ( OverflowError , ValueError ) :pass
+tt = ( 2037 , ) + tt [ 1 : ]
+stamp = time . mktime ( tt )
+tt = time . localtime ( stamp )
+return tt . tm_isdst > 0
+from __future__ import absolute_import
+import warnings
+from django . utils . deprecation import RemovedInDjango19Warning
+warnings . warn ( '_STR:0_' ,  RemovedInDjango19Warning , stacklevel = 2 )
+try :pass _newline_ except: pass
+from unittest2 import *
+try: pass _newline_ except ImportError :pass
+from unittest import *
+from __future__ import unicode_literals
+import datetime
+import os
+import subprocess
+def get_version ( version = None ) :pass
+version = get_complete_version ( version )
+major = get_major_version ( version )
+sub = ''
+if version [ 3 ] == '_STR:0_' and version [ 4 ] == 0 :pass
+git_changeset = get_git_changeset ( )
+if git_changeset :pass
+sub = '.dev%s' % git_changeset
+if True: pass _newline_ elif version [ 3 ] != '_STR:0_' :pass
+mapping = { '_STR:1_' : '_STR:0_' , '_STR:3_' : '_STR:2_' , '_STR:5_' : '_STR:4_' }
+sub = mapping [ version [ 3 ] ] + str ( version [ 4 ] )
+return str ( major + sub )
+def get_major_version ( version = None ) :pass
+version = get_complete_version ( version )
+parts = 2 if version [ 2 ] == 0 else 3
+major = '_STR:0_' . join ( str ( x ) for x in version [ : parts ] )
+return major
+def get_complete_version ( version = None ) :pass
+if version is None :pass
+from django import VERSION as version
+if True: pass _newline_ else :pass
+assert len ( version ) == 5
+assert version [ 3 ] in ( '_STR:0_' , '_STR:1_' , '_STR:2_' , '_STR:3_' )
+return version
+def get_git_changeset ( ) :pass
+if hasattr ( get_git_changeset , '_STR:0_' ) :pass
+return get_git_changeset . cache
+repo_dir = os . path . dirname ( os . path . dirname ( os . path . abspath ( __file__ ) ) )
+git_log = subprocess . Popen ( '_STR:0_' ,  stdout = subprocess . PIPE , stderr = subprocess . PIPE ,  shell = True , cwd = repo_dir , universal_newlines = True )
+timestamp = git_log . communicate ( ) [ 0 ]
+try :pass _newline_ except: pass
+timestamp = datetime . datetime . utcfromtimestamp ( int ( timestamp ) )
+try: pass _newline_ except ValueError :pass
+changeset = None
+if True: pass _newline_ else :pass
+changeset = timestamp . strftime ( '_STR:0_' )
+get_git_changeset . cache = changeset
+return changeset
+from xml . sax . saxutils import XMLGenerator
+class SimplerXMLGenerator ( XMLGenerator ) :pass
+def addQuickElement ( self , name , contents = None , attrs = None ) :pass
+if attrs is None :pass
+attrs = { }
+self . startElement ( name , attrs )
+if contents is not None :pass
+self . characters ( contents )
+self . endElement ( name )

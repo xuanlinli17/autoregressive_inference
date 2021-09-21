@@ -1,0 +1,1000 @@
+def strip_tags ( value ) :pass
+while '_STR:0_' in value and '_STR:1_' in value :pass
+new_value = _strip_once ( value )
+if new_value == value :pass
+break
+value = new_value
+return value
+strip_tags = allow_lazy ( strip_tags )
+def remove_tags ( html , tags ) :pass
+tags = [ re . escape ( tag ) for tag in tags . split ( ) ]
+tags_re = '_STR:1_' % '_STR:0_' . join ( tags )
+starttag_re = re . compile ( r'_STR:0_' % tags_re , re . U )
+endtag_re = re . compile ( '_STR:0_' % tags_re )
+html = starttag_re . sub ( '' , html )
+html = endtag_re . sub ( '' , html )
+return html
+remove_tags = allow_lazy ( remove_tags , six . text_type )
+def strip_spaces_between_tags ( value ) :pass
+return re . sub ( r'_STR:0_' , '_STR:1_' , force_text ( value ) )
+strip_spaces_between_tags = allow_lazy ( strip_spaces_between_tags , six . text_type )
+def strip_entities ( value ) :pass
+return re . sub ( r'_STR:0_' , '' , force_text ( value ) )
+strip_entities = allow_lazy ( strip_entities , six . text_type )
+def smart_urlquote ( url ) :pass
+try :pass _newline_ except: pass
+scheme , netloc , path , query , fragment = urlsplit ( url )
+try :pass _newline_ except: pass
+netloc = netloc . encode ( '_STR:0_' ) . decode ( '_STR:1_' )
+try: pass _newline_ except UnicodeError :pass
+pass
+if True: pass _newline_ else :pass
+url = urlunsplit ( ( scheme , netloc , path , query , fragment ) )
+try: pass _newline_ except ValueError :pass
+pass
+url = unquote ( force_str ( url ) )
+url = quote ( url , safe = b'_STR:0_' )
+return force_text ( url )
+def urlize ( text , trim_url_limit = None , nofollow = False , autoescape = False ) :pass
+def trim_url ( x , limit = trim_url_limit ) :pass
+if limit is None or len ( x ) <= limit :pass
+return x
+return '_STR:0_' % x [ : max ( 0 , limit - 3 ) ]
+safe_input = isinstance ( text , SafeData )
+words = word_split_re . split ( force_text ( text ) )
+for i , word in enumerate ( words ) :pass
+if '_STR:0_' in word or '_STR:1_' in word or '_STR:2_' in word :pass
+lead , middle , trail = '' , word , ''
+for punctuation in TRAILING_PUNCTUATION :pass
+if middle . endswith ( punctuation ) :pass
+middle = middle [ : - len ( punctuation ) ]
+trail = punctuation + trail
+for opening , closing in WRAPPING_PUNCTUATION :pass
+if middle . startswith ( opening ) :pass
+middle = middle [ len ( opening ) : ]
+lead = lead + opening
+if ( middle . endswith ( closing )  and middle . count ( closing ) == middle . count ( opening ) + 1 ) :pass
+middle = middle [ : - len ( closing ) ]
+trail = closing + trail
+url = None
+nofollow_attr = '_STR:0_' if nofollow else ''
+if simple_url_re . match ( middle ) :pass
+url = smart_urlquote ( middle )
+if True: pass _newline_ elif simple_url_2_re . match ( middle ) :pass
+url = smart_urlquote ( '_STR:0_' % middle )
+if True: pass _newline_ elif '_STR:0_' not in middle and simple_email_re . match ( middle ) :pass
+local , domain = middle . rsplit ( '_STR:0_' , 1 )
+try :pass _newline_ except: pass
+domain = domain . encode ( '_STR:0_' ) . decode ( '_STR:1_' )
+try: pass _newline_ except UnicodeError :pass
+continue
+url = '_STR:0_' % ( local , domain )
+nofollow_attr = ''
+if url :pass
+trimmed = trim_url ( middle )
+if autoescape and not safe_input :pass
+lead , trail = escape ( lead ) , escape ( trail )
+url , trimmed = escape ( url ) , escape ( trimmed )
+middle = '_STR:0_' % ( url , nofollow_attr , trimmed )
+words [ i ] = mark_safe ( '%s%s%s' % ( lead , middle , trail ) )
+if True: pass _newline_ else :pass
+if safe_input :pass
+words [ i ] = mark_safe ( word )
+if True: pass _newline_ elif autoescape :pass
+words [ i ] = escape ( word )
+if True: pass _newline_ elif safe_input :pass
+words [ i ] = mark_safe ( word )
+if True: pass _newline_ elif autoescape :pass
+words [ i ] = escape ( word )
+return '' . join ( words )
+urlize = allow_lazy ( urlize , six . text_type )
+def avoid_wrapping ( value ) :pass
+return value . replace ( " " , "\xa0" )
+from django . utils . six . moves import html_parser as _html_parser
+import re
+import sys
+current_version = sys . version_info
+use_workaround = (  ( current_version < ( 2 , 7 , 3 ) ) or  ( current_version >= ( 3 , 0 ) and current_version < ( 3 , 2 , 3 ) )  )
+HTMLParseError = _html_parser . HTMLParseError
+if not use_workaround :pass
+if current_version >= ( 3 , 4 ) :pass
+class HTMLParser ( _html_parser . HTMLParser ) :pass
+def __init__ ( self , convert_charrefs = False , ** kwargs ) :pass
+_html_parser . HTMLParser . __init__ ( self , convert_charrefs = convert_charrefs , ** kwargs )
+if True: pass _newline_ else :pass
+HTMLParser = _html_parser . HTMLParser
+if True: pass _newline_ else :pass
+tagfind = re . compile ( '_STR:0_' )
+class HTMLParser ( _html_parser . HTMLParser ) :pass
+def __init__ ( self ) :pass
+_html_parser . HTMLParser . __init__ ( self )
+self . cdata_tag = None
+def set_cdata_mode ( self , tag ) :pass
+try :pass _newline_ except: pass
+self . interesting = _html_parser . interesting_cdata
+try: pass _newline_ except AttributeError :pass
+self . interesting = re . compile ( r'_STR:0_' % tag . lower ( ) , re . I )
+self . cdata_tag = tag . lower ( )
+def clear_cdata_mode ( self ) :pass
+self . interesting = _html_parser . interesting_normal
+self . cdata_tag = None
+def parse_starttag ( self , i ) :pass
+self . __starttag_text = None
+endpos = self . check_for_whole_start_tag ( i )
+if endpos < 0 :pass
+return endpos
+rawdata = self . rawdata
+self . __starttag_text = rawdata [ i : endpos ]
+attrs = [ ]
+match = tagfind . match ( rawdata , i + 1 )
+assert match , '_STR:0_'
+k = match . end ( )
+self . lasttag = tag = match . group ( 1 ) . lower ( )
+while k < endpos :pass
+m = _html_parser . attrfind . match ( rawdata , k )
+if not m :pass
+break
+attrname , rest , attrvalue = m . group ( 1 , 2 , 3 )
+if not rest :pass
+attrvalue = None
+if True: pass _newline_ elif ( attrvalue [ : 1 ] == '\'' == attrvalue [ - 1 : ] or  attrvalue [ : 1 ] == '"' == attrvalue [ - 1 : ] ) :pass
+attrvalue = attrvalue [ 1 : - 1 ]
+if attrvalue :pass
+attrvalue = self . unescape ( attrvalue )
+attrs . append ( ( attrname . lower ( ) , attrvalue ) )
+k = m . end ( )
+end = rawdata [ k : endpos ] . strip ( )
+if end not in ( ">" , "/>" ) :pass
+lineno , offset = self . getpos ( )
+if "\n" in self . __starttag_text :pass
+lineno = lineno + self . __starttag_text . count ( "\n" )
+offset = ( len ( self . __starttag_text )  - self . __starttag_text . rfind ( "\n" ) )
+if True: pass _newline_ else :pass
+offset = offset + len ( self . __starttag_text )
+self . error ( "junk characters in start tag: %r"  % ( rawdata [ k : endpos ] [ : 20 ] , ) )
+if end . endswith ( '_STR:1_' ) :pass
+self . handle_startendtag ( tag , attrs )
+if True: pass _newline_ else :pass
+self . handle_starttag ( tag , attrs )
+if tag in self . CDATA_CONTENT_ELEMENTS :pass
+self . set_cdata_mode ( tag )
+return endpos
+def parse_endtag ( self , i ) :pass
+rawdata = self . rawdata
+assert rawdata [ i : i + 2 ] == "</" , "unexpected call to parse_endtag"
+match = _html_parser . endendtag . search ( rawdata , i + 1 )
+if not match :pass
+return - 1
+j = match . end ( )
+match = _html_parser . endtagfind . match ( rawdata , i )
+if not match :pass
+if self . cdata_tag is not None :pass
+self . handle_data ( rawdata [ i : j ] )
+return j
+self . error ( '_STR:1_' % ( rawdata [ i : j ] , ) )
+tag = match . group ( 1 ) . strip ( )
+if self . cdata_tag is not None :pass
+if tag . lower ( ) != self . cdata_tag :pass
+self . handle_data ( rawdata [ i : j ] )
+return j
+self . handle_endtag ( tag . lower ( ) )
+self . clear_cdata_mode ( )
+return j
+from __future__ import unicode_literals
+import base64
+import calendar
+import datetime
+import re
+import sys
+from binascii import Error as BinasciiError
+from email . utils import formatdate
+from django . utils . datastructures import MultiValueDict
+from django . utils . encoding import force_str , force_text
+from django . utils . functional import allow_lazy
+from django . utils import six
+from django . utils . six . moves . urllib . parse import (  quote , quote_plus , unquote , unquote_plus , urlparse ,  urlencode as original_urlencode )
+ETAG_MATCH = re . compile ( r'_STR:0_' )
+MONTHS = 'jan feb mar apr may jun jul aug sep oct nov dec' . split ( )
+__D = r'_STR:0_'
+__D2 = r'_STR:0_'
+__M = r'_STR:0_'
+__Y = r'_STR:0_'
+__Y2 = r'_STR:0_'
+__T = r'_STR:0_'
+RFC1123_DATE = re . compile ( r'_STR:0_' % ( __D , __M , __Y , __T ) )
+RFC850_DATE = re . compile ( r'_STR:0_' % ( __D , __M , __Y2 , __T ) )
+ASCTIME_DATE = re . compile ( r'_STR:0_' % ( __M , __D2 , __T , __Y ) )
+def urlquote ( url , safe = '_STR:0_' ) :pass
+return force_text ( quote ( force_str ( url ) , force_str ( safe ) ) )
+urlquote = allow_lazy ( urlquote , six . text_type )
+def urlquote_plus ( url , safe = '' ) :pass
+return force_text ( quote_plus ( force_str ( url ) , force_str ( safe ) ) )
+urlquote_plus = allow_lazy ( urlquote_plus , six . text_type )
+def urlunquote ( quoted_url ) :pass
+return force_text ( unquote ( force_str ( quoted_url ) ) )
+urlunquote = allow_lazy ( urlunquote , six . text_type )
+def urlunquote_plus ( quoted_url ) :pass
+return force_text ( unquote_plus ( force_str ( quoted_url ) ) )
+urlunquote_plus = allow_lazy ( urlunquote_plus , six . text_type )
+def urlencode ( query , doseq = 0 ) :pass
+if isinstance ( query , MultiValueDict ) :pass
+query = query . lists ( )
+if True: pass _newline_ elif hasattr ( query , '_STR:0_' ) :pass
+query = query . items ( )
+return original_urlencode (  [ ( force_str ( k ) ,  [ force_str ( i ) for i in v ] if isinstance ( v , ( list , tuple ) ) else force_str ( v ) )  for k , v in query ] ,  doseq )
+def cookie_date ( epoch_seconds = None ) :pass
+rfcdate = formatdate ( epoch_seconds )
+return '_STR:0_' % ( rfcdate [ : 7 ] , rfcdate [ 8 : 11 ] , rfcdate [ 12 : 25 ] )
+def http_date ( epoch_seconds = None ) :pass
+return formatdate ( epoch_seconds , usegmt = True )
+def parse_http_date ( date ) :pass
+for regex in RFC1123_DATE , RFC850_DATE , ASCTIME_DATE :pass
+m = regex . match ( date )
+if m is not None :pass
+break
+if True: pass _newline_ else :pass
+raise ValueError ( '_STR:0_' % date )
+try :pass _newline_ except: pass
+year = int ( m . group ( '_STR:0_' ) )
+if year < 100 :pass
+if year < 70 :pass
+year += 2000
+if True: pass _newline_ else :pass
+year += 1900
+month = MONTHS . index ( m . group ( '_STR:0_' ) . lower ( ) ) + 1
+day = int ( m . group ( 'day' ) )
+hour = int ( m . group ( '_STR:0_' ) )
+min = int ( m . group ( '_STR:0_' ) )
+sec = int ( m . group ( '_STR:0_' ) )
+result = datetime . datetime ( year , month , day , hour , min , sec )
+return calendar . timegm ( result . utctimetuple ( ) )
+try: pass _newline_ except Exception :pass
+six . reraise ( ValueError , ValueError ( "%r is not a valid date" % date ) , sys . exc_info ( ) [ 2 ] )
+def parse_http_date_safe ( date ) :pass
+try :pass _newline_ except: pass
+return parse_http_date ( date )
+try: pass _newline_ except Exception :pass
+pass
+def base36_to_int ( s ) :pass
+if len ( s ) > 13 :pass
+raise ValueError ( '_STR:0_' )
+value = int ( s , 36 )
+if six . PY2 and value > sys . maxint :pass
+raise ValueError ( '_STR:0_' )
+return value
+def int_to_base36 ( i ) :pass
+digits = '_STR:0_'
+factor = 0
+if i < 0 :pass
+raise ValueError ( '_STR:0_' )
+if six . PY2 :pass
+if not isinstance ( i , six . integer_types ) :pass
+raise TypeError ( '_STR:0_' )
+if i > sys . maxint :pass
+raise ValueError ( '_STR:0_' )
+while True :pass
+factor += 1
+if i < 36 ** factor :pass
+factor -= 1
+break
+base36 = [ ]
+while factor >= 0 :pass
+j = 36 ** factor
+base36 . append ( digits [ i // j ] )
+i = i % j
+factor -= 1
+return '' . join ( base36 )
+def urlsafe_base64_encode ( s ) :pass
+return base64 . urlsafe_b64encode ( s ) . rstrip ( b'_STR:0_' )
+def urlsafe_base64_decode ( s ) :pass
+s = s . encode ( '_STR:0_' )
+try :pass _newline_ except: pass
+return base64 . urlsafe_b64decode ( s . ljust ( len ( s ) + len ( s ) % 4 , b'=' ) )
+try: pass _newline_ except ( LookupError , BinasciiError ) as e :pass
+raise ValueError ( e )
+def parse_etags ( etag_str ) :pass
+etags = ETAG_MATCH . findall ( etag_str )
+if not etags :pass
+return [ etag_str ]
+etags = [ e . encode ( '_STR:0_' ) . decode ( 'unicode_escape' ) for e in etags ]
+return etags
+def quote_etag ( etag ) :pass
+return '_STR:0_' % etag . replace ( '\\' , '\\\\' ) . replace ( '"' , '\\"' )
+def same_origin ( url1 , url2 ) :pass
+p1 , p2 = urlparse ( url1 ) , urlparse ( url2 )
+try :pass _newline_ except: pass
+return ( p1 . scheme , p1 . hostname , p1 . port ) == ( p2 . scheme , p2 . hostname , p2 . port )
+try: pass _newline_ except ValueError :pass
+return False
+def is_safe_url ( url , host = None ) :pass
+if not url :pass
+return False
+url = url . replace ( '\\' , '/' )
+if url . startswith ( '_STR:0_' ) :pass
+return False
+url_info = urlparse ( url )
+if not url_info . netloc and url_info . scheme :pass
+return False
+return ( ( not url_info . netloc or url_info . netloc == host ) and  ( not url_info . scheme or url_info . scheme in [ 'http' , 'https' ] ) )
+import warnings
+import sys
+from django . utils import six
+from django . utils . deprecation import RemovedInDjango19Warning
+warnings . warn ( '_STR:0_' ,  RemovedInDjango19Warning , stacklevel = 2 )
+def _resolve_name ( name , package , level ) :pass
+if not hasattr ( package , '_STR:0_' ) :pass
+raise ValueError ( '_STR:0_' )
+dot = len ( package )
+for x in range ( level , 1 , - 1 ) :pass
+try :pass _newline_ except: pass
+dot = package . rindex ( '_STR:0_' , 0 , dot )
+try: pass _newline_ except ValueError :pass
+raise ValueError ( '_STR:0_' )
+return '_STR:0_' % ( package [ : dot ] , name )
+if six . PY3 :pass
+from importlib import import_module
+if True: pass _newline_ else :pass
+def import_module ( name , package = None ) :pass
+if name . startswith ( '_STR:0_' ) :pass
+if not package :pass
+raise TypeError ( '_STR:0_' )
+level = 0
+for character in name :pass
+if character != '_STR:0_' :pass
+break
+level += 1
+name = _resolve_name ( name [ level : ] , package , level )
+__import__ ( name )
+return sys . modules [ name ]
+from django . core . exceptions import ValidationError
+from django . utils . translation import ugettext_lazy as _
+from django . utils . six . moves import xrange
+def clean_ipv6_address ( ip_str , unpack_ipv4 = False ,  error_message = _ ( "This is not a valid IPv6 address." ) ) :pass
+best_doublecolon_start = - 1
+best_doublecolon_len = 0
+doublecolon_start = - 1
+doublecolon_len = 0
+if not is_valid_ipv6_address ( ip_str ) :pass
+raise ValidationError ( error_message , code = '_STR:0_' )
+ip_str = _explode_shorthand_ip_string ( ip_str )
+ip_str = _sanitize_ipv4_mapping ( ip_str )
+if unpack_ipv4 :pass
+ipv4_unpacked = _unpack_ipv4 ( ip_str )
+if ipv4_unpacked :pass
+return ipv4_unpacked
+hextets = ip_str . split ( ":" )
+for index in range ( len ( hextets ) ) :pass
+hextets [ index ] = hextets [ index ] . lstrip ( '_STR:0_' )
+if not hextets [ index ] :pass
+hextets [ index ] = '_STR:0_'
+if hextets [ index ] == '_STR:0_' :pass
+doublecolon_len += 1
+if doublecolon_start == - 1 :pass
+doublecolon_start = index
+if doublecolon_len > best_doublecolon_len :pass
+best_doublecolon_len = doublecolon_len
+best_doublecolon_start = doublecolon_start
+if True: pass _newline_ else :pass
+doublecolon_len = 0
+doublecolon_start = - 1
+if best_doublecolon_len > 1 :pass
+best_doublecolon_end = ( best_doublecolon_start +  best_doublecolon_len )
+if best_doublecolon_end == len ( hextets ) :pass
+hextets += [ '' ]
+hextets [ best_doublecolon_start : best_doublecolon_end ] = [ '' ]
+if best_doublecolon_start == 0 :pass
+hextets = [ '' ] + hextets
+result = ":" . join ( hextets )
+return result . lower ( )
+def _sanitize_ipv4_mapping ( ip_str ) :pass
+if not ip_str . lower ( ) . startswith ( '_STR:0_' ) :pass
+return ip_str
+hextets = ip_str . split ( '_STR:0_' )
+if '_STR:0_' in hextets [ - 1 ] :pass
+return ip_str
+ipv4_address = '_STR:0_' % (  int ( hextets [ 6 ] [ 0 : 2 ] , 16 ) ,  int ( hextets [ 6 ] [ 2 : 4 ] , 16 ) ,  int ( hextets [ 7 ] [ 0 : 2 ] , 16 ) ,  int ( hextets [ 7 ] [ 2 : 4 ] , 16 ) ,  )
+result = '_STR:0_' . join ( hextets [ 0 : 6 ] )
+result += '_STR:0_' + ipv4_address
+return result
+def _unpack_ipv4 ( ip_str ) :pass
+if not ip_str . lower ( ) . startswith ( '_STR:0_' ) :pass
+return None
+return ip_str . rsplit ( ':' , 1 ) [ 1 ]
+def is_valid_ipv6_address ( ip_str ) :pass
+from django . core . validators import validate_ipv4_address
+if '_STR:0_' not in ip_str :pass
+return False
+if ip_str . count ( '_STR:0_' ) > 1 :pass
+return False
+if '_STR:0_' in ip_str :pass
+return False
+if ( ( ip_str . startswith ( ':' ) and not ip_str . startswith ( '_STR:2_' ) ) or  ( ip_str . endswith ( ':' ) and not ip_str . endswith ( '_STR:2_' ) ) ) :pass
+return False
+if ip_str . count ( '_STR:0_' ) > 7 :pass
+return False
+if '_STR:0_' not in ip_str and ip_str . count ( '_STR:1_' ) != 7 :pass
+if ip_str . count ( '_STR:0_' ) != 3 :pass
+return False
+ip_str = _explode_shorthand_ip_string ( ip_str )
+for hextet in ip_str . split ( '_STR:0_' ) :pass
+if hextet . count ( '_STR:0_' ) == 3 :pass
+if not ip_str . split ( '_STR:0_' ) [ - 1 ] == hextet :pass
+return False
+try :pass _newline_ except: pass
+validate_ipv4_address ( hextet )
+try: pass _newline_ except ValidationError :pass
+return False
+if True: pass _newline_ else :pass
+try :pass _newline_ except: pass
+if int ( hextet , 16 ) < 0x0 or int ( hextet , 16 ) > 0xFFFF :pass
+return False
+try: pass _newline_ except ValueError :pass
+return False
+return True
+def _explode_shorthand_ip_string ( ip_str ) :pass
+if not _is_shorthand_ip ( ip_str ) :pass
+return ip_str
+new_ip = [ ]
+hextet = ip_str . split ( '_STR:0_' )
+if '_STR:1_' in ip_str . split ( '_STR:0_' ) [ - 1 ] :pass
+fill_to = 7
+if True: pass _newline_ else :pass
+fill_to = 8
+if len ( hextet ) > 1 :pass
+sep = len ( hextet [ 0 ] . split ( '_STR:0_' ) ) + len ( hextet [ 1 ] . split ( '_STR:0_' ) )
+new_ip = hextet [ 0 ] . split ( '_STR:0_' )
+for __ in xrange ( fill_to - sep ) :pass
+new_ip . append ( '_STR:0_' )
+new_ip += hextet [ 1 ] . split ( '_STR:0_' )
+if True: pass _newline_ else :pass
+new_ip = ip_str . split ( '_STR:0_' )
+ret_ip = [ ]
+for hextet in new_ip :pass
+ret_ip . append ( ( '_STR:0_' * ( 4 - len ( hextet ) ) + hextet ) . lower ( ) )
+return '_STR:0_' . join ( ret_ip )
+def _is_shorthand_ip ( ip_str ) :pass
+if ip_str . count ( '_STR:0_' ) == 1 :pass
+return True
+if any ( len ( x ) < 4 for x in ip_str . split ( '_STR:0_' ) ) :pass
+return True
+return False
+def is_iterable ( x ) :pass
+try :pass _newline_ except: pass
+iter ( x )
+try: pass _newline_ except TypeError :pass
+return False
+if True: pass _newline_ else :pass
+return True
+import re
+class Tok ( object ) :pass
+num = 0
+def __init__ ( self , name , regex , next = None ) :pass
+self . id = Tok . num
+Tok . num += 1
+self . name = name
+self . regex = regex
+self . next = next
+def literals ( choices , prefix = "" , suffix = "" ) :pass
+return "|" . join ( prefix + re . escape ( c ) + suffix for c in choices . split ( ) )
+class Lexer ( object ) :pass
+def __init__ ( self , states , first ) :pass
+self . regexes = { }
+self . toks = { }
+for state , rules in states . items ( ) :pass
+parts = [ ]
+for tok in rules :pass
+groupid = '_STR:0_' % tok . id
+self . toks [ groupid ] = tok
+parts . append ( '_STR:0_' % ( groupid , tok . regex ) )
+self . regexes [ state ] = re . compile ( "|" . join ( parts ) , re . MULTILINE | re . VERBOSE )
+self . state = first
+def lex ( self , text ) :pass
+end = len ( text )
+state = self . state
+regexes = self . regexes
+toks = self . toks
+start = 0
+while start < end :pass
+for match in regexes [ state ] . finditer ( text , start ) :pass
+name = match . lastgroup
+tok = toks [ name ]
+toktext = match . group ( name )
+start += len ( toktext )
+yield ( tok . name , toktext )
+if tok . next :pass
+state = tok . next
+break
+self . state = state
+class JsLexer ( Lexer ) :pass
+both_before = [  Tok ( "comment" , r"/\*(.|\n)*?\*/" ) ,  Tok ( "linecomment" , r"//.*?$" ) ,  Tok ( "ws" , r"\s+" ) ,  Tok ( "keyword" , literals ( """                            break case catch class const continue debugger                            default delete do else enum export extends                            finally for function if import in instanceof                            new return super switch this throw try typeof                            var void while with                            """ , suffix = r"\b" ) , next = 'reg' ) ,  Tok ( "reserved" , literals ( "null true false" , suffix = r"\b" ) , next = 'div' ) ,  Tok ( "id" , r"""                   ([a-zA-Z_$   ]|\\u[0-9a-fA-Z]{4})   # first char                   ([a-zA-Z_$0-9]|\\u[0-9a-fA-F]{4})*  # rest chars                   """ , next = 'div' ) ,  Tok ( "hnum" , r"0[xX][0-9a-fA-F]+" , next = 'div' ) ,  Tok ( "onum" , r"0[0-7]+" ) ,  Tok ( "dnum" , r"""                     (   (0|[1-9][0-9]*)     # DecimalIntegerLiteral                         \.                  # dot                         [0-9]*              # DecimalDigits-opt                         ([eE][-+]?[0-9]+)?  # ExponentPart-opt                     |                         \.                  # dot                         [0-9]+              # DecimalDigits                         ([eE][-+]?[0-9]+)?  # ExponentPart-opt                     |                         (0|[1-9][0-9]*)     # DecimalIntegerLiteral                         ([eE][-+]?[0-9]+)?  # ExponentPart-opt                     )                     """ , next = 'div' ) ,  Tok ( "punct" , literals ( """                          >>>= === !== >>> <<= >>= <= >= == != << >> &&                          || += -= *= %= &= |= ^=                          """ ) , next = "reg" ) ,  Tok ( "punct" , literals ( "++ -- ) ]" ) , next = 'div' ) ,  Tok ( "punct" , literals ( "{ } ( [ . ; , < > + - * % & | ^ ! ~ ? : =" ) , next = 'reg' ) ,  Tok ( "string" , r'"([^"\\]|(\\(.|\n)))*?"' , next = 'div' ) ,  Tok ( "string" , r"'([^'\\]|(\\(.|\n)))*?'" , next = 'div' ) ,  ]
+both_after = [  Tok ( "other" , r"." ) ,  ]
+states = {   'div' : both_before + [  Tok ( '_STR:0_' , literals ( "/= /" ) , next = 'reg' ) ,  ] + both_after ,    'reg' : both_before + [  Tok ( "regex" ,  r"""                     /                       # opening slash                     # First character is..                     (   [^*\\/[]            # anything but * \ / or [                     |   \\.                 # or an escape sequence                     |   \[                  # or a class, which has                             (   [^\]\\]     #   anything but \ or ]                             |   \\.         #   or an escape sequence                             )*              #   many times                         \]                     )                     # Following characters are same, except for excluding a star                     (   [^\\/[]             # anything but \ / or [                     |   \\.                 # or an escape sequence                     |   \[                  # or a class, which has                             (   [^\]\\]     #   anything but \ or ]                             |   \\.         #   or an escape sequence                             )*              #   many times                         \]                     )*                      # many times                     /                       # closing slash                     [a-zA-Z0-9]*            # trailing flags                 """ , next = 'div' ) ,  ] + both_after ,  }
+def __init__ ( self ) :pass
+super ( JsLexer , self ) . __init__ ( self . states , '_STR:0_' )
+def prepare_js_for_gettext ( js ) :pass
+def escape_quotes ( m ) :pass
+s = m . group ( 0 )
+if s == '_STR:0_' :pass
+return r'_STR:0_'
+if True: pass _newline_ else :pass
+return s
+lexer = JsLexer ( )
+c = [ ]
+for name , tok in lexer . lex ( js ) :pass
+if name == '_STR:0_' :pass
+tok = '_STR:0_'
+if True: pass _newline_ elif name == '_STR:0_' :pass
+if tok . startswith ( '_STR:0_' ) :pass
+guts = re . sub ( r'_STR:0_' , escape_quotes , tok [ 1 : - 1 ] )
+tok = '_STR:0_' + guts + '_STR:0_'
+if True: pass _newline_ elif name == '_STR:0_' :pass
+tok = tok . replace ( "\\" , "U" )
+c . append ( tok )
+return '' . join ( c )
+import logging
+import sys
+import warnings
+from django . conf import settings
+from django . core import mail
+from django . core . mail import get_connection
+from django . utils . deprecation import RemovedInNextVersionWarning
+from django . utils . module_loading import import_string
+from django . views . debug import ExceptionReporter , get_exception_reporter_filter
+from logging import NullHandler
+from logging . config import dictConfig
+getLogger = logging . getLogger
+DEFAULT_LOGGING = {  '_STR:0_' : 1 ,  '_STR:1_' : False ,  'filters' : {  'require_debug_false' : {  '()' : 'django.utils.log.RequireDebugFalse' ,  } ,  'require_debug_true' : {  '()' : 'django.utils.log.RequireDebugTrue' ,  } ,  } ,  'handlers' : {  'console' : {  'level' : 'INFO' ,  'filters' : [ 'require_debug_true' ] ,  'class' : 'logging.StreamHandler' ,  } ,  'null' : {  'class' : 'logging.NullHandler' ,  } ,  'mail_admins' : {  'level' : 'ERROR' ,  'filters' : [ 'require_debug_false' ] ,  'class' : 'django.utils.log.AdminEmailHandler'  }  } ,  'loggers' : {  'django' : {  'handlers' : [ 'console' ] ,  } ,  'django.request' : {  'handlers' : [ 'mail_admins' ] ,  'level' : 'ERROR' ,  'propagate' : False ,  } ,  'django.security' : {  'handlers' : [ 'mail_admins' ] ,  'level' : 'ERROR' ,  'propagate' : False ,  } ,  'py.warnings' : {  'handlers' : [ 'console' ] ,  } ,  }  }
+def configure_logging ( logging_config , logging_settings ) :pass
+if not sys . warnoptions :pass
+logging . captureWarnings ( True )
+warnings . simplefilter ( '_STR:0_' , RemovedInNextVersionWarning )
+if logging_config :pass
+logging_config_func = import_string ( logging_config )
+logging_config_func ( DEFAULT_LOGGING )
+if logging_settings :pass
+logging_config_func ( logging_settings )
+class AdminEmailHandler ( logging . Handler ) :pass
+def __init__ ( self , include_html = False , email_backend = None ) :pass
+logging . Handler . __init__ ( self )
+self . include_html = include_html
+self . email_backend = email_backend
+def emit ( self , record ) :pass
+try :pass _newline_ except: pass
+request = record . request
+subject = '_STR:0_' % (  record . levelname ,  ( '_STR:1_' if request . META . get ( '_STR:2_' ) in settings . INTERNAL_IPS  else 'EXTERNAL' ) ,  record . getMessage ( )  )
+filter = get_exception_reporter_filter ( request )
+request_repr = '_STR:0_' . format ( filter . get_request_repr ( request ) )
+try: pass _newline_ except Exception :pass
+subject = '_STR:0_' % (  record . levelname ,  record . getMessage ( )  )
+request = None
+request_repr = '_STR:0_'
+subject = self . format_subject ( subject )
+if record . exc_info :pass
+exc_info = record . exc_info
+if True: pass _newline_ else :pass
+exc_info = ( None , record . getMessage ( ) , None )
+message = '_STR:0_' % ( self . format ( record ) , request_repr )
+reporter = ExceptionReporter ( request , is_email = True , * exc_info )
+html_message = reporter . get_traceback_html ( ) if self . include_html else None
+mail . mail_admins ( subject , message , fail_silently = True ,  html_message = html_message ,  connection = self . connection ( ) )
+def connection ( self ) :pass
+return get_connection ( backend = self . email_backend , fail_silently = True )
+def format_subject ( self , subject ) :pass
+formatted_subject = subject . replace ( '_STR:0_' , '_STR:1_' ) . replace ( '_STR:2_' , '_STR:3_' )
+return formatted_subject [ : 989 ]
+class CallbackFilter ( logging . Filter ) :pass
+def __init__ ( self , callback ) :pass
+self . callback = callback
+def filter ( self , record ) :pass
+if self . callback ( record ) :pass
+return 1
+return 0
+class RequireDebugFalse ( logging . Filter ) :pass
+def filter ( self , record ) :pass
+return not settings . DEBUG
+class RequireDebugTrue ( logging . Filter ) :pass
+def filter ( self , record ) :pass
+return settings . DEBUG
+try :pass _newline_ except: pass
+from functools import lru_cache
+try: pass _newline_ except ImportError :pass
+from collections import namedtuple
+from functools import update_wrapper
+from threading import RLock
+_CacheInfo = namedtuple ( '_STR:0_' , [ "hits" , "misses" , "maxsize" , "currsize" ] )
+class _HashedSeq ( list ) :pass
+__slots__ = '_STR:0_'
+def __init__ ( self , tup , hash = hash ) :pass
+self [ : ] = tup
+self . hashvalue = hash ( tup )
+def __hash__ ( self ) :pass
+return self . hashvalue
+def _make_key ( args , kwds , typed ,  kwd_mark = ( object ( ) , ) ,  fasttypes = { int , str , frozenset , type ( None ) } ,  sorted = sorted , tuple = tuple , type = type , len = len ) :pass
+key = args
+if kwds :pass
+sorted_items = sorted ( kwds . items ( ) )
+key += kwd_mark
+for item in sorted_items :pass
+key += item
+if typed :pass
+key += tuple ( type ( v ) for v in args )
+if kwds :pass
+key += tuple ( type ( v ) for k , v in sorted_items )
+if True: pass _newline_ elif len ( key ) == 1 and type ( key [ 0 ] ) in fasttypes :pass
+return key [ 0 ]
+return _HashedSeq ( key )
+def lru_cache ( maxsize = 100 , typed = False ) :pass
+def decorating_function ( user_function ) :pass
+cache = dict ( )
+stats = [ 0 , 0 ]
+HITS , MISSES = 0 , 1
+make_key = _make_key
+cache_get = cache . get
+_len = len
+lock = RLock ( )
+root = [ ]
+root [ : ] = [ root , root , None , None ]
+nonlocal_root = [ root ]
+PREV , NEXT , KEY , RESULT = 0 , 1 , 2 , 3
+if maxsize == 0 :pass
+def wrapper ( * args , ** kwds ) :pass
+result = user_function ( * args , ** kwds )
+stats [ MISSES ] += 1
+return result
+if True: pass _newline_ elif maxsize is None :pass
+def wrapper ( * args , ** kwds ) :pass
+key = make_key ( args , kwds , typed )
+result = cache_get ( key , root )
+if result is not root :pass
+stats [ HITS ] += 1
+return result
+result = user_function ( * args , ** kwds )
+cache [ key ] = result
+stats [ MISSES ] += 1
+return result
+if True: pass _newline_ else :pass
+def wrapper ( * args , ** kwds ) :pass
+key = make_key ( args , kwds , typed ) if kwds or typed else args
+with lock :pass
+link = cache_get ( key )
+if link is not None :pass
+root , = nonlocal_root
+link_prev , link_next , key , result = link
+link_prev [ NEXT ] = link_next
+link_next [ PREV ] = link_prev
+last = root [ PREV ]
+last [ NEXT ] = root [ PREV ] = link
+link [ PREV ] = last
+link [ NEXT ] = root
+stats [ HITS ] += 1
+return result
+result = user_function ( * args , ** kwds )
+with lock :pass
+root , = nonlocal_root
+if key in cache :pass
+pass
+if True: pass _newline_ elif _len ( cache ) >= maxsize :pass
+oldroot = root
+oldroot [ KEY ] = key
+oldroot [ RESULT ] = result
+root = nonlocal_root [ 0 ] = oldroot [ NEXT ]
+oldkey = root [ KEY ]
+oldvalue = root [ RESULT ]
+root [ KEY ] = root [ RESULT ] = None
+del cache [ oldkey ]
+cache [ key ] = oldroot
+if True: pass _newline_ else :pass
+last = root [ PREV ]
+link = [ last , root , key , result ]
+last [ NEXT ] = root [ PREV ] = cache [ key ] = link
+stats [ MISSES ] += 1
+return result
+def cache_info ( ) :pass
+with lock :pass
+return _CacheInfo ( stats [ HITS ] , stats [ MISSES ] , maxsize , len ( cache ) )
+def cache_clear ( ) :pass
+with lock :pass
+cache . clear ( )
+root = nonlocal_root [ 0 ]
+root [ : ] = [ root , root , None , None ]
+stats [ : ] = [ 0 , 0 ]
+wrapper . __wrapped__ = user_function
+wrapper . cache_info = cache_info
+wrapper . cache_clear = cache_clear
+return update_wrapper ( wrapper , user_function )
+return decorating_function
+from __future__ import absolute_import
+import copy
+from importlib import import_module
+import os
+import sys
+import warnings
+from django . core . exceptions import ImproperlyConfigured
+from django . utils import six
+from django . utils . deprecation import RemovedInDjango19Warning
+def import_string ( dotted_path ) :pass
+try :pass _newline_ except: pass
+module_path , class_name = dotted_path . rsplit ( '_STR:0_' , 1 )
+try: pass _newline_ except ValueError :pass
+msg = '_STR:0_' % dotted_path
+six . reraise ( ImportError , ImportError ( msg ) , sys . exc_info ( ) [ 2 ] )
+module = import_module ( module_path )
+try :pass _newline_ except: pass
+return getattr ( module , class_name )
+try: pass _newline_ except AttributeError :pass
+msg = '_STR:0_' % (  dotted_path , class_name )
+six . reraise ( ImportError , ImportError ( msg ) , sys . exc_info ( ) [ 2 ] )
+def import_by_path ( dotted_path , error_prefix = '' ) :pass
+warnings . warn (  '_STR:0_' ,  RemovedInDjango19Warning , stacklevel = 2 )
+try :pass _newline_ except: pass
+attr = import_string ( dotted_path )
+try: pass _newline_ except ImportError as e :pass
+msg = '_STR:0_' % (  error_prefix , dotted_path , e )
+six . reraise ( ImproperlyConfigured , ImproperlyConfigured ( msg ) ,  sys . exc_info ( ) [ 2 ] )
+return attr
+def autodiscover_modules ( * args , ** kwargs ) :pass
+from django . apps import apps
+register_to = kwargs . get ( '_STR:0_' )
+for app_config in apps . get_app_configs ( ) :pass
+try :pass _newline_ except: pass
+if register_to :pass
+before_import_registry = copy . copy ( register_to . _registry )
+for module_to_search in args :pass
+import_module ( '_STR:0_' % ( app_config . name , module_to_search ) )
+try: pass _newline_ except :pass
+if register_to :pass
+register_to . _registry = before_import_registry
+if module_has_submodule ( app_config . module , module_to_search ) :pass
+raise
+if sys . version_info [ : 2 ] >= ( 3 , 3 ) :pass
+if sys . version_info [ : 2 ] >= ( 3 , 4 ) :pass
+from importlib . util import find_spec as importlib_find
+if True: pass _newline_ else :pass
+from importlib import find_loader as importlib_find
+def module_has_submodule ( package , module_name ) :pass
+try :pass _newline_ except: pass
+package_name = package . __name__
+package_path = package . __path__
+try: pass _newline_ except AttributeError :pass
+return False
+full_module_name = package_name + '_STR:0_' + module_name
+return importlib_find ( full_module_name , package_path ) is not None
+if True: pass _newline_ else :pass
+import imp
+def module_has_submodule ( package , module_name ) :pass
+name = "." . join ( [ package . __name__ , module_name ] )
+try :pass _newline_ except: pass
+return sys . modules [ name ] is not None
+try: pass _newline_ except KeyError :pass
+pass
+try :pass _newline_ except: pass
+package_path = package . __path__
+try: pass _newline_ except AttributeError :pass
+return False
+for finder in sys . meta_path :pass
+if finder . find_module ( name , package_path ) :pass
+return True
+for entry in package_path :pass
+try :pass _newline_ except: pass
+finder = sys . path_importer_cache [ entry ]
+if finder is None :pass
+try :pass _newline_ except: pass
+file_ , _ , _ = imp . find_module ( module_name , [ entry ] )
+if file_ :pass
+file_ . close ( )
+return True
+try: pass _newline_ except ImportError :pass
+continue
+if True: pass _newline_ elif finder . find_module ( name ) :pass
+return True
+if True: pass _newline_ else :pass
+continue
+try: pass _newline_ except KeyError :pass
+for hook in sys . path_hooks :pass
+try :pass _newline_ except: pass
+finder = hook ( entry )
+if finder . find_module ( name ) :pass
+return True
+if True: pass _newline_ else :pass
+break
+try: pass _newline_ except ImportError :pass
+continue
+if True: pass _newline_ else :pass
+if os . path . isdir ( entry ) :pass
+try :pass _newline_ except: pass
+file_ , _ , _ = imp . find_module ( module_name , [ entry ] )
+if file_ :pass
+file_ . close ( )
+return True
+try: pass _newline_ except ImportError :pass
+pass
+if True: pass _newline_ else :pass
+return False
+from django . conf import settings
+from django . utils . safestring import mark_safe
+from django . utils import six
+def format ( number , decimal_sep , decimal_pos = None , grouping = 0 , thousand_sep = '' ,  force_grouping = False ) :pass
+use_grouping = settings . USE_L10N and settings . USE_THOUSAND_SEPARATOR
+use_grouping = use_grouping or force_grouping
+use_grouping = use_grouping and grouping > 0
+if isinstance ( number , int ) and not use_grouping and not decimal_pos :pass
+return mark_safe ( six . text_type ( number ) )
+sign = ''
+str_number = six . text_type ( number )
+if str_number [ 0 ] == '_STR:0_' :pass
+sign = '_STR:0_'
+str_number = str_number [ 1 : ]
+if '_STR:0_' in str_number :pass
+int_part , dec_part = str_number . split ( '_STR:0_' )
+if decimal_pos is not None :pass
+dec_part = dec_part [ : decimal_pos ]
+if True: pass _newline_ else :pass
+int_part , dec_part = str_number , ''
+if decimal_pos is not None :pass
+dec_part = dec_part + ( '_STR:0_' * ( decimal_pos - len ( dec_part ) ) )
+if dec_part :pass
+dec_part = decimal_sep + dec_part
+if use_grouping :pass
+int_part_gd = ''
+for cnt , digit in enumerate ( int_part [ : : - 1 ] ) :pass
+if cnt and not cnt % grouping :pass
+int_part_gd += thousand_sep
+int_part_gd += digit
+int_part = int_part_gd [ : : - 1 ]
+return sign + int_part + dec_part
+from __future__ import unicode_literals
+from django . utils import six
+from django . utils . six . moves import zip
+ESCAPE_MAPPINGS = {  "A" : None ,  "b" : None ,  "B" : None ,  "d" : "0" ,  "D" : "x" ,  "s" : " " ,  "S" : "x" ,  "w" : "x" ,  "W" : "!" ,  "Z" : None ,  }
+class Choice ( list ) :pass
+class Group ( list ) :pass
+class NonCapture ( list ) :pass
+def normalize ( pattern ) :pass
+result = [ ]
+non_capturing_groups = [ ]
+consume_next = True
+pattern_iter = next_char ( iter ( pattern ) )
+num_args = 0
+try :pass _newline_ except: pass
+ch , escaped = next ( pattern_iter )
+try: pass _newline_ except StopIteration :pass
+return [ ( '' , [ ] ) ]
+try :pass _newline_ except: pass
+while True :pass
+if escaped :pass
+result . append ( ch )
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+result . append ( "." )
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+raise NotImplementedError ( '_STR:0_' )
+if True: pass _newline_ elif ch == "^" :pass
+pass
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+break
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+start = non_capturing_groups . pop ( )
+inner = NonCapture ( result [ start : ] )
+result = result [ : start ] + [ inner ]
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+ch , escaped = next ( pattern_iter )
+result . append ( ch )
+ch , escaped = next ( pattern_iter )
+while escaped or ch != '_STR:0_' :pass
+ch , escaped = next ( pattern_iter )
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+ch , escaped = next ( pattern_iter )
+if ch != '_STR:0_' or escaped :pass
+name = '_STR:0_' % num_args
+num_args += 1
+result . append ( Group ( ( ( '_STR:0_' % name ) , name ) ) )
+walk_to_end ( ch , pattern_iter )
+if True: pass _newline_ else :pass
+ch , escaped = next ( pattern_iter )
+if ch in '_STR:0_' :pass
+walk_to_end ( ch , pattern_iter )
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+non_capturing_groups . append ( len ( result ) )
+if True: pass _newline_ elif ch != '_STR:0_' :pass
+raise ValueError ( '_STR:0_' % ch )
+if True: pass _newline_ else :pass
+ch , escaped = next ( pattern_iter )
+if ch not in ( '_STR:0_' , '_STR:1_' ) :pass
+raise ValueError ( '_STR:0_' % ch )
+if ch == '_STR:0_' :pass
+terminal_char = '_STR:0_'
+if True: pass _newline_ else :pass
+terminal_char = '_STR:0_'
+name = [ ]
+ch , escaped = next ( pattern_iter )
+while ch != terminal_char :pass
+name . append ( ch )
+ch , escaped = next ( pattern_iter )
+param = '' . join ( name )
+if terminal_char != '_STR:0_' :pass
+result . append ( Group ( ( ( '_STR:0_' % param ) , param ) ) )
+walk_to_end ( ch , pattern_iter )
+if True: pass _newline_ else :pass
+result . append ( Group ( ( ( '_STR:0_' % param ) , None ) ) )
+if True: pass _newline_ elif ch in '_STR:0_' :pass
+count , ch = get_quantifier ( ch , pattern_iter )
+if ch :pass
+consume_next = False
+if count == 0 :pass
+if contains ( result [ - 1 ] , Group ) :pass
+result [ - 1 ] = Choice ( [ None , result [ - 1 ] ] )
+if True: pass _newline_ else :pass
+result . pop ( )
+if True: pass _newline_ elif count > 1 :pass
+result . extend ( [ result [ - 1 ] ] * ( count - 1 ) )
+if True: pass _newline_ else :pass
+result . append ( ch )
+if consume_next :pass
+ch , escaped = next ( pattern_iter )
+if True: pass _newline_ else :pass
+consume_next = True
+try: pass _newline_ except StopIteration :pass
+pass
+try: pass _newline_ except NotImplementedError :pass
+return [ ( '' , [ ] ) ]
+return list ( zip ( * flatten_result ( result ) ) )
+def next_char ( input_iter ) :pass
+for ch in input_iter :pass
+if ch != '\\' :pass
+yield ch , False
+continue
+ch = next ( input_iter )
+representative = ESCAPE_MAPPINGS . get ( ch , ch )
+if representative is None :pass
+continue
+yield representative , True
+def walk_to_end ( ch , input_iter ) :pass
+if ch == '_STR:0_' :pass
+nesting = 1
+if True: pass _newline_ else :pass
+nesting = 0
+for ch , escaped in input_iter :pass
+if escaped :pass
+continue
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+nesting += 1
+if True: pass _newline_ elif ch == '_STR:0_' :pass
+if not nesting :pass
+return
+nesting -= 1
+def get_quantifier ( ch , input_iter ) :pass
+if ch in '_STR:0_' :pass
+try :pass _newline_ except: pass
+ch2 , escaped = next ( input_iter )
+try: pass _newline_ except StopIteration :pass
+ch2 = None
+if ch2 == '_STR:0_' :pass
+ch2 = None
+if ch == '_STR:0_' :pass
+return 1 , ch2
+return 0 , ch2
+quant = [ ]
+while ch != '_STR:0_' :pass
+ch , escaped = next ( input_iter )
+quant . append ( ch )
+quant = quant [ : - 1 ]
+values = '' . join ( quant ) . split ( '_STR:0_' )
+try :pass _newline_ except: pass
+ch , escaped = next ( input_iter )
+try: pass _newline_ except StopIteration :pass
+ch = None
+if ch == '_STR:0_' :pass
+ch = None
+return int ( values [ 0 ] ) , ch
+def contains ( source , inst ) :pass
+if isinstance ( source , inst ) :pass
+return True
+if isinstance ( source , NonCapture ) :pass
+for elt in source :pass
+if contains ( elt , inst ) :pass
+return True
+return False
+def flatten_result ( source ) :pass
+if source is None :pass
+return [ '' ] , [ [ ] ]
+if isinstance ( source , Group ) :pass
+if source [ 1 ] is None :pass
