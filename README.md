@@ -2,13 +2,15 @@
 
 ## Description
 
-This package contains the source code implementation of the paper "Discovering Non-monotonic Autoregressive Orderings with Variational Inference".
+This package contains the source code implementation of the paper "Discovering Non-monotonic Autoregressive Orderings with Variational Inference" [arxiv]().
 
-Inferring good generation orders in natural sequences is challenging. In our main contribution, we propose Variational Order Inference (VOI), which can be efficiently trained to discover autoregressive orders in a data driven way without a domain-specific prior.
+Inferring good generation orders in natural sequences is challenging. In our main contribution, we propose Variational Order Inference (VOI), which can be efficiently trained to discover autoregressive sequence generation orders in a data driven way without a domain-specific prior.
 
-In VOI, the encoder generates nonsequential autoregressive orders as the latent variable, and the decoder maximizes the joint probability of generating the target sequence under these nonsequential orders. In conditional text generation tasks, the encoder is implemented as non-causal Transformer, and the decoder is implemented as Transformer-InDIGO (Gu et al., 2019) which generates target sequences through insertion.
+In VOI, the encoder permutation generator generates non-monotonic autoregressive orders as the latent variable, and the decoder autoregressive (language) model maximizes the joint probability of generating the target sequence under these non-monotonic orders. In conditional text generation tasks, the encoder is implemented as Transformer with non-causal attention, and the decoder is implemented as Transformer-InDIGO (Gu et al., 2019) which generates target sequences through insertion.
 
-Taking away the encoder Transformer (we also call it as the Permutation Transformer (PT), which outputs latent orderings) and the VOI algorithm, this repo is also a standalone implementation of Transformer-INDIGO. Training Transformer-INDIGO with left-to-right ordering is equivalent to training a Transformer with relative position representations ([Link](https://arxiv.org/abs/1803.02155)) (Shaw et al., 2018).
+![](readme_imgs/high_level.PNG)
+![](readme_imgs/computation_graph.PNG)
+![](readme_imgs/arch.PNG)
 
 ## Installation
 
