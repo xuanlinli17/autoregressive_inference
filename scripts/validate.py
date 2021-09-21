@@ -1,0 +1,27 @@
+from voi.core.validate import validate_dataset
+from voi.nn.transformer import Transformer
+from voi.process.captions import Vocabulary
+import tensorflow as tf
+import argparse
+from common_argparse import add_common_arguments
+from build_model_utils import build_model
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    add_common_arguments(parser)
+    args = parser.parse_args()
+    
+    model, vocab, strategy = build_model(args, return_pt=False, no_dropout=True)
+
+    validate_dataset(args.validate_folder,
+                     args.caption_ref_folder,
+                     args.batch_size,
+                     args.beam_size,
+                     model,
+                     args.model_ckpt,
+                     vocab,
+                     args.dataset,
+                     strategy,
+                     args.validation_output_save_path)
