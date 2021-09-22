@@ -231,14 +231,14 @@ CUDA_VISIBLE_DEVICES=0 python scripts/data/create_tfrecords_wmt.py --out_tfrecor
 
 ## Training
 
-Please see `training_scripts.md` for details about training a model.
+Please see [training_scripts.md](training_scripts.md) for details about training a model.
 
 ## Validation, Test, and Visualization
 
-Please see `evaluation_visualization_scripts.md` for details about validating / testing a model, along with visualizing the generalization orders of a model.
+Please see [evaluation_visualization_scripts.md](evaluation_visualization_scripts.md) for details about validating / testing a model, along with visualizing the generalization orders of a model.
 
 ## Pretrained Models
 
 We have provided pretrained models for each task [here](https://drive.google.com/drive/folders/1qGi3sVba-tkPQy-Jm8889UwH7dH3pe4G?usp=sharing). 
 
-To evaluate the pretrained models and visualize their generalization orders, please see `eval_visualize_pretrained_models.md` for details.
+To evaluate the pretrained models and visualize their generalization orders, please see [eval_visualize_pretrained_models.md](eval_visualize_pretrained_models.md) for details.
