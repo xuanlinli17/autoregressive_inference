@@ -16,6 +16,7 @@ REQUIRED_PACKAGES = ['tensorflow==2.3',
                      'mosestokenizer',
                      'subword-nmt',
                      'seaborn',
+                     'sacrebleu==1.4.14',
                      'vizseq']
 
 
