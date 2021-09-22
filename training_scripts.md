@@ -4,7 +4,7 @@ Please see `scripts/common_argparse.py` for specific descriptions of arguments.
 
 Here we refer to the "encoder permutation generator" as the "encoder Permutation Transformer" or "PT" for short. The decoder Transformer, on the other hand, is the autoregressive insertion Transformer language model.
 
-By default, we use the `--vocab_file` as provided in this repo. If you have generated a new vocab file, make sure to replace the argument with the correct path.
+By default, we use the `--vocab_file` as provided in this repo. If you have generated a new vocab file, make sure to replace this argument with the correct path.
 
 Remarks:
 
