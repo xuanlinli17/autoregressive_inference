@@ -2,6 +2,8 @@
 
 You may evaluate a trained model with the following commands. Interestingly, on COCO and Gigaword, we found that our model achieves better performance when the beam size is small but larger than 1.
 
+By default, we use the `--vocab_file` as provided in this repo. If you have generated a new vocab file, make sure to replace this argument with the correct path.
+
 #### COCO
 
 ```bash
