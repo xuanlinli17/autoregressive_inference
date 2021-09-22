@@ -1,3 +1,5 @@
+## Training a VOI model
+
 Please see `scripts/common_argparse.py` for specific descriptions of arguments.
 
 Here we refer to the "encoder permutation generator" as the "encoder Permutation Transformer" or "PT" for short. The decoder Transformer, on the other hand, is the autoregressive insertion Transformer language model.
@@ -282,4 +284,24 @@ nohup bash -c "CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python -u scripts/train.py \
 --pt_pg_type sinkhorn --pt_positional_attention \
 --hungarian_op_path {path_to hungarian.so} \
 --save_interval 50000" > nohup_nsds_wmt_voi4.txt
+```
+
+## Training a model with fixed ordering
+
+Training a model with fixed, predefind ordering is achieved through the `--order` argument. For example, to train a model with left-to-right ordering, you can run
+
+```
+nohup bash -c "CUDA_VISIBLE_DEVICES=0,1,2,3 python -u scripts/train.py \
+--dataset captioning \
+--train_folder ./train2017_tfrecords \
+--vocab_file ./train2017_vocab.txt \
+--model_ckpt ckpt_refinement/nsds_coco_l2r.h5 \
+--batch_size 64 \
+--num_epochs 20 \
+--embedding_size 512 --heads 8 --num_layers 6 \
+--first_layer region --final_layer indigo \
+--decoder_pretrain -1 \
+--decoder_init_lr 0.0001 --lr_schedule linear --warmup 8000 \
+--label_smoothing 0.1 \
+--order l2r" > nohup_coco_voi1.txt
 ```
