@@ -210,7 +210,9 @@ python {path_to_wmt16-scripts}/preprocess/remove-diacritics.py < src_test.BPE.tx
 ```
 
 **------------Note-------------**
+
 In practice, training with the sequence-level distillation dataset ([Link](https://arxiv.org/pdf/1606.07947.pdf)) generated using the L2R model with beam size 5 leads to about 2 BLEU improvement on WMT16 Ro-En, intuitively because the target sequences in this new dataset are more consistent. We release the this distilled dataset [here](https://drive.google.com/drive/folders/1HCzeB4ak7mJMrmrEQG0K-TEBU8B8K3To?usp=sharing). To use this dataset, put `src_distillation.BPE.txt` and `tgt_distillation.BPE.txt` in `{dataroot}/wmt16_translate/ro-en/`. Training on this distilled dataset obtains very similar ordering observations (i.e. the model generates all descriptive tokens before generating the auxillary tokens) compared to training on the original dataset.
+
 **-----------------------------**
 
 Generate the vocab file (joint vocab for the source and target languages), and use this vocab file to convert tokens into integers and store in a feature file. Since we forgot to remove the diacritics during our initial experiments and we appended all missing vocabs in the diacritics-removed corpus afterwards, the vocab file we used to train our model is slightly different from the one generated through the scripts below, so we have uploaded the vocab file we used to train our model as `ro_en_vocab.txt`. To use this vocab file, set the following `--vocab_file` argument to be `{this_repo}/ro_en_vocab.txt`
