@@ -303,5 +303,5 @@ nohup bash -c "CUDA_VISIBLE_DEVICES=0,1,2,3 python -u scripts/train.py \
 --decoder_pretrain -1 \
 --decoder_init_lr 0.0001 --lr_schedule linear --warmup 8000 \
 --label_smoothing 0.1 \
---order l2r" > nohup_coco_voi1.txt
+--order l2r" > nohup_coco_l2r.txt
 ```
