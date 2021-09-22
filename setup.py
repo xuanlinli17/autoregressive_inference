@@ -15,6 +15,7 @@ REQUIRED_PACKAGES = ['tensorflow==2.3',
                      'dataclasses',
                      'mosestokenizer',
                      'subword-nmt',
+                     'seaborn',
                      'vizseq']
 
 
