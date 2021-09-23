@@ -30,4 +30,5 @@ setup(name='voi',
       install_requires=REQUIRED_PACKAGES,
       include_package_data=True,
       packages=PACKAGES,
-      description='Variational Order Inference')
+      description='Discovering non-monotonic autoregressive orderings with variational inference.',
+      author='Xuanlin Li, Brandon Trabucco')
