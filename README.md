@@ -24,6 +24,7 @@ In VOI, the encoder permutation generator generates non-monotonic autoregressive
   - [Training](#training)
   - [Validation, Test, and Visualization](#validation-test-and-visualization)
   - [Pretrained Models](#pretrained-models)
+  - [Citations](#citations)
 
 ## Installation
 
@@ -242,3 +243,14 @@ Please see [evaluation_visualization_scripts.md](evaluation_visualization_script
 We have provided pretrained models for each task [here](https://drive.google.com/drive/folders/1qGi3sVba-tkPQy-Jm8889UwH7dH3pe4G?usp=sharing). You may make a directory `ckpt_pretrain` under this repo and download them under this directory.
 
 To evaluate the pretrained models and visualize their generalization orders, please see [eval_visualize_pretrained_models.md](eval_visualize_pretrained_models.md) for details.
+
+## Citations
+
+```
+@article{li2021autoregressiveinference,
+  title={Discovering Non-monotonic Autoregressive Orderings with Variational Inference},
+  author={Xuanlin Li and Brandon Trabucco and Dong Huk Park and Michael Luo and Sheng Shen and Trevor Darrell and Yang Gao},
+  booktitle={International Conference on Learning Representations},
+  year={2021}  
+}
+```
