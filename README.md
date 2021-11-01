@@ -247,10 +247,11 @@ To evaluate the pretrained models and visualize their generalization orders, ple
 ## Citations
 
 ```
-@article{li2021autoregressiveinference,
+@inproceedings{li2021autoregressiveinference,
   title={Discovering Non-monotonic Autoregressive Orderings with Variational Inference},
-  author={Xuanlin Li and Brandon Trabucco and Dong Huk Park and Michael Luo and Sheng Shen and Trevor Darrell and Yang Gao},
+  author={Li, Xuanlin and Trabucco, Brandon and Park, Dong Huk and Luo, Michael and Shen, Sheng and Darrell, Trevor and Gao, Yang},
   booktitle={International Conference on Learning Representations},
-  year={2021}  
+  year={2021},
+  url={https://openreview.net/forum?id=jP1vTH3inC}
 }
 ```
