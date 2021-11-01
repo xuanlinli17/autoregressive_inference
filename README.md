@@ -2,7 +2,7 @@
 
 ## Description
 
-This package contains the source code implementation of the paper "Discovering Non-monotonic Autoregressive Orderings with Variational Inference" [(Arxiv paper)]().
+This package contains the source code implementation of the paper "Discovering Non-monotonic Autoregressive Orderings with Variational Inference" [(paper)](https://arxiv.org/abs/2110.15797).
 
 Inferring good generation orders in natural sequences is challenging. In our main contribution, we propose Variational Order Inference (VOI), which can be efficiently trained to discover autoregressive sequence generation orders in a data driven way without a domain-specific prior.
 
