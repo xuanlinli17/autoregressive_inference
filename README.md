@@ -255,3 +255,26 @@ To evaluate the pretrained models and visualize their generalization orders, ple
   url={https://openreview.net/forum?id=jP1vTH3inC}
 }
 ```
+
+DBLP:
+
+```
+@inproceedings{DBLP:conf/iclr/LiTPLSD021,
+  author    = {Xuanlin Li and
+               Brandon Trabucco and
+               Dong Huk Park and
+               Michael Luo and
+               Sheng Shen and
+               Trevor Darrell and
+               Yang Gao},
+  title     = {Discovering Non-monotonic Autoregressive Orderings with Variational
+               Inference},
+  booktitle = {9th International Conference on Learning Representations, {ICLR} 2021,
+               Virtual Event, Austria, May 3-7, 2021},
+  publisher = {OpenReview.net},
+  year      = {2021},
+  url       = {https://openreview.net/forum?id=jP1vTH3inC},
+  biburl    = {https://dblp.org/rec/conf/iclr/LiTPLSD021.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+```
