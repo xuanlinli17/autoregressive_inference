@@ -240,7 +240,7 @@ Please see [evaluation_visualization_scripts.md](evaluation_visualization_script
 
 ## Pretrained Models
 
-We have provided pretrained models for each task [here](https://drive.google.com/drive/folders/1qGi3sVba-tkPQy-Jm8889UwH7dH3pe4G?usp=sharing). You may make a directory `ckpt_pretrain` under this repo and download them under this directory.
+We have provided pretrained models for each task [here](https://huggingface.co/datasets/xuanlinli17/nonmonotonic_sequence_generation_checkpoints/). You may make a directory `ckpt_pretrain` under this repo and download them under this directory.
 
 To evaluate the pretrained models and visualize their generalization orders, please see [eval_visualize_pretrained_models.md](eval_visualize_pretrained_models.md) for details.
 
